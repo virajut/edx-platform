@@ -50,6 +50,22 @@
             }),
             LanguagePreferenceFieldView: FieldViews.DropdownFieldView.extend({
                 fieldTemplate: field_dropdown_account_template,
+
+                initialize: function(options) {
+                    this._super(options);
+                    this.listenTo(this.model, 'revertValue', this.revertValue);
+                },
+
+                revertValue: function(event) {
+                    var attributes = {},
+                        oldPrefLang = $(event.target).data('old-lang-code');
+
+                    if (oldPrefLang) {
+                        attributes['pref-lang'] = oldPrefLang;
+                        this.saveAttributes(attributes);
+                    }
+                },
+
                 saveSucceeded: function() {
                     var data = {
                         language: this.modelValue(),
