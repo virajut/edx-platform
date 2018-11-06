@@ -345,7 +345,11 @@ disable =
 	unpacking-in-except,
 	using-cmp-argument,
 	xrange-builtin,
-	zip-builtin-not-iterating,,unicode-format-string,native-string
+<<<<<<< HEAD
+	zip-builtin-not-iterating,,unicode-format-string
+=======
+	zip-builtin-not-iterating,native-string,
+>>>>>>> 86c99474f8... fixup! Run caniusepython3.pylint_checker
 
 [REPORTS]
 output-format = text
@@ -445,4 +449,8 @@ int-import-graph =
 [EXCEPTIONS]
 overgeneral-exceptions = Exception
 
-# 346bf524b9c67df41565fcea7eeb31b8785c8eee
+<<<<<<< HEAD
+# fcc84f0ee89de5dbe5aab3e9218e83800e577d8b
+=======
+# 79304103ad1b005755474dba36dc44c3ae89e5b9
+>>>>>>> 86c99474f8... fixup! Run caniusepython3.pylint_checker
