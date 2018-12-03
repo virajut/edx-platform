@@ -1,0 +1,140 @@
+def runQualityTests() {
+    sshagent(credentials: ['jenkins-worker', 'jenkins-worker-pem'], ignoreMissing: true) {
+        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '${ghprbActualCommit}']],
+            doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', honorRefspec: true,
+            noTags: true, shallow: true]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-worker',
+            refspec: '+refs/heads/master:refs/remotes/origin/master +refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*',
+            url: 'git@github.com:edx/edx-platform.git']]]
+        console_output = sh(returnStdout: true, script: 'bash scripts/all-tests.sh').trim()
+        dir('stdout') {
+            writeFile file: "${TEST_SUITE}-stdout.log", text: console_output
+        }
+        stash includes: '**/reports/**/*.report, **/reports/**/*.log', name: "${TEST_SUITE}-${SHARD}-reports"
+    }
+}
+
+def qualityTestCleanup() {
+    archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/quality/*,test_root/log/**/*.log,stdout/*.log,*.log'
+    junit '**/reports/quality.xml, reports/quality_junitxml/*.xml'
+}
+
+pipeline {
+    agent { label "jenkins-worker" }
+    options {
+        timestamps()
+        timeout(60)
+    }
+    stages {
+        stage('Run Tests') {
+            parallel {
+                stage("commonlib pylint") {
+                    agent { label "jenkins-worker" }
+                    environment {
+                        TEST_SUITE = "quality"
+                        SHARD = 1
+                    }
+                    steps {
+                        script {
+                            runQualityTests()
+                        }
+                    }
+                    post {
+                        always {
+                            script {
+                                qualityTestCleanup()
+                            }
+                        }
+                    }
+                }
+                stage("lms pylint") {
+                    agent { label "jenkins-worker" }
+                    environment {
+                        TEST_SUITE = "quality"
+                        SHARD = 2
+                    }
+                    steps {
+                        script {
+                            runQualityTests()
+                        }
+                    }
+                    post {
+                        always {
+                            script {
+                                qualityTestCleanup()
+                            }
+                        }
+                    }
+                }
+                stage("cms/openedx/pavelib pylint") {
+                    agent { label "jenkins-worker" }
+                    environment {
+                        TEST_SUITE = "quality"
+                        SHARD = 3
+                    }
+                    steps {
+                        script {
+                            runQualityTests()
+                        }
+                    }
+                    post {
+                        always {
+                            script {
+                                qualityTestCleanup()
+                            }
+                        }
+                    }
+                }
+                stage("Other quality checks") {
+                    agent { label "jenkins-worker" }
+                    environment {
+                        TEST_SUITE = "quality"
+                        SHARD = 4
+                    }
+                    steps {
+                        script {
+                            runQualityTests()
+                        }
+                    }
+                    post {
+                        always {
+                            script {
+                                qualityTestCleanup()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        stage('Diff quality') {
+            environment {
+                TARGET_BRANCH = "origin/master"
+            }
+            steps {
+                sshagent(credentials: ['jenkins-worker'], ignoreMissing: true) {
+                    checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '${ghprbActualCommit}']],
+                        doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption',
+                        honorRefspec: true, noTags: true, shallow: true]], submoduleCfg: [],
+                        userRemoteConfigs: [[credentialsId: 'jenkins-worker',
+                        refspec: '+refs/heads/master:refs/remotes/origin/master +refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*',
+                        url: 'git@github.com:edx/edx-platform.git']]]
+                    unstash 'quality-1-reports'
+                    unstash 'quality-2-reports'
+                    unstash 'quality-3-reports'
+                    unstash 'quality-4-reports'
+                    sh "./scripts/jenkins-quality-diff.sh"
+                }
+            }
+            post {
+                always {
+                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true,
+                        reportDir: 'edx-platform/reports/metrics/',
+                        reportFiles: 'pylint/*view*/,pep8/*view*/,python_complexity/*view*/,xsscommitlint/*view*/,xsslint/*view*/,eslint/*view*/',
+                        reportName: 'Quality Report', reportTitles: ''])
+                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'edx-platform/reports/diff_quality',
+                        reportFiles: 'diff_quality_pylint.html, diff_quality_eslint.html', reportName: 'Diff Quality Report', reportTitles: ''])
+                }
+            }
+        }
+    }
+
+}
