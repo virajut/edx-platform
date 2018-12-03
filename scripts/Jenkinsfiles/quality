@@ -14,7 +14,7 @@ def runQualityTests() {
 }
 
 def qualityTestCleanup() {
-    archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/quality/*,test_root/log/**/*.log,stdout/*.log,*.log'
+    archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/**/*,test_root/log/**/*.log,stdout/*.log,*.log'
     junit '**/reports/quality.xml, reports/quality_junitxml/*.xml'
 }
 
