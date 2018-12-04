@@ -136,7 +136,7 @@ case "$TEST_SUITE" in
                 echo "Running xss linter report."
                 run_paver_quality run_xsslint -t $XSSLINT_THRESHOLDS || { EXIT=1; }
                 echo "Running safe commit linter report."
-                run_paver_quality run_xsscommitlint || { EXIT=1; }
+                run_paver_quality run_xsscommitlint -v || { EXIT=1; }
                 ;;
 
         esac
