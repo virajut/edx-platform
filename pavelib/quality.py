@@ -617,7 +617,7 @@ def run_xsscommitlint():
             'xsscommitlint',
             "FAILURE: XSSCommitLinter Failed.\n{error_message}\n"
             "See {xsscommitlint_report} or run the following command to hone in on the problem:\n"
-            "  ./scripts/xss-commit-linter.sh -h".format(
+            "  ./scripts/xss-commit-linter.sh -v -h".format(
                 error_message=violations_count_str, xsscommitlint_report=xsscommitlint_report
             )
         )
