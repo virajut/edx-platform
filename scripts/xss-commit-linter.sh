@@ -64,8 +64,11 @@ if [ -z "${MAIN_COMMIT+x}" ]; then
     MAIN_COMMIT="origin/master"
 fi
 
+echo "1"
 merge_base_command="git merge-base $current_branch_hash $MAIN_COMMIT"
+echo ${merge_base_command}
 merge_base=$(${merge_base_command})
+echo "2"
 diff_command="git diff --name-only --diff-filter=ACM $merge_base $current_branch_hash"
 diff_files=$(${diff_command})
 
