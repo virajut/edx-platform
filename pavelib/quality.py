@@ -582,7 +582,7 @@ def run_xsscommitlint():
     _prepare_report_dir(xsscommitlint_report_dir)
 
     sh(
-        "{repo_root}/scripts/{xsscommitlint_script} -v | tee {xsscommitlint_report}".format(
+        "{repo_root}/scripts/{xsscommitlint_script} | tee {xsscommitlint_report}".format(
             repo_root=Env.REPO_ROOT,
             xsscommitlint_script=xsscommitlint_script,
             xsscommitlint_report=xsscommitlint_report,
@@ -617,7 +617,7 @@ def run_xsscommitlint():
             'xsscommitlint',
             "FAILURE: XSSCommitLinter Failed.\n{error_message}\n"
             "See {xsscommitlint_report} or run the following command to hone in on the problem:\n"
-            "  ./scripts/xss-commit-linter.sh -v -h".format(
+            "  ./scripts/xss-commit-linter.sh -h".format(
                 error_message=violations_count_str, xsscommitlint_report=xsscommitlint_report
             )
         )
