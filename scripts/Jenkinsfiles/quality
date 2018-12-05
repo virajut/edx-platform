@@ -3,9 +3,8 @@ def runQualityTests() {
         checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '${ghprbActualCommit}']],
             doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', honorRefspec: true,
             noTags: true, shallow: true]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-worker',
-            refspec: '+refs/heads/master:refs/remotes/origin/master +refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*',
+            refspec: '+refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*',
             url: 'git@github.com:edx/edx-platform.git']]]
-        sh('git fetch')
         console_output = sh(returnStdout: true, script: 'bash scripts/all-tests.sh').trim()
         dir('stdout') {
             writeFile file: "${TEST_SUITE}-stdout.log", text: console_output
