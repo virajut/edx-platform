@@ -1,6 +1,6 @@
 def runQualityTests() {
     sshagent(credentials: ['jenkins-worker'], ignoreMissing: true) {
-        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '${ghprbActualCommit}'], [name: 'master']],
+        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '${ghprbActualCommit}']],
             doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', honorRefspec: true,
             noTags: true, shallow: true]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-worker',
             refspec: '+refs/heads/master:refs/remotes/origin/master +refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*',
@@ -127,10 +127,10 @@ pipeline {
             post {
                 always {
                     publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true,
-                        reportDir: 'edx-platform/reports/metrics/',
+                        reportDir: 'reports/metrics/',
                         reportFiles: 'pylint/*view*/,pep8/*view*/,python_complexity/*view*/,xsscommitlint/*view*/,xsslint/*view*/,eslint/*view*/',
                         reportName: 'Quality Report', reportTitles: ''])
-                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'edx-platform/reports/diff_quality',
+                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'reports/diff_quality',
                         reportFiles: 'diff_quality_pylint.html, diff_quality_eslint.html', reportName: 'Diff Quality Report', reportTitles: ''])
                 }
             }
