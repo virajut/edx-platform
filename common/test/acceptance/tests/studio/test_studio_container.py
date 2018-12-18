@@ -901,27 +901,6 @@ class UnitPublishingTest(ContainerBase):
         # Switch to student view and verify not visible
         self._verify_student_view_locked()
 
-    def test_initially_locked_not_visible_to_students(self):
-        """
-        Scenario: A locked unit with release date in the past is not visible to students
-            Given I have a published locked unit with release date in the past
-            When I go to the unit page in Studio
-            Then the unit does not have a warning that it is visible to students
-            And it is marked as "RELEASE" with release date in the past visible
-            And when I click on the View Live Button
-            And when I view the course as a student
-            Then I do not see any content in the unit
-        """
-        unit = self.go_to_unit_page("Section With Locked Unit", "Subsection With Locked Unit", "Locked Unit")
-        unit.verify_publish_title(self.LOCKED_STATUS)
-        self.assertFalse(unit.currently_visible_to_students)
-        self._verify_release_date_info(
-            unit, self.RELEASE_TITLE_RELEASE,
-            self.past_start_date_text + '\n' + 'with Subsection "Subsection With Locked Unit"'
-        )
-        self._view_published_version(unit)
-        self._verify_student_view_locked()
-
     def test_unlocked_visible_to_all(self):
         """
         Scenario: After unlocking a unit with release date in the past, it is visible to both students and staff
