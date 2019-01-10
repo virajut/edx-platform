@@ -30,6 +30,7 @@ class SettingsType(object):
     further information on each Settings Type.
     """
     AWS = u'aws'
+    PRODUCTION = u'production'
     COMMON = u'common'
     DEVSTACK = u'devstack'
     TEST = u'test'

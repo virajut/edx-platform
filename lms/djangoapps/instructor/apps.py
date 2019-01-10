@@ -27,6 +27,7 @@ class InstructorConfig(AppConfig):
             ProjectType.LMS: {
                 SettingsType.DEVSTACK: {PluginSettings.RELATIVE_PATH: u'settings.devstack'},
                 SettingsType.AWS: {PluginSettings.RELATIVE_PATH: u'settings.aws'},
+                SettingsType.PRODUCTION: {PluginSettings.RELATIVE_PATH: u'settings.production'},
                 SettingsType.COMMON: {PluginSettings.RELATIVE_PATH: u'settings.common'},
                 SettingsType.TEST: {PluginSettings.RELATIVE_PATH: u'settings.test'},
             }

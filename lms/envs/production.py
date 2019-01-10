@@ -1101,7 +1101,7 @@ WRITABLE_GRADEBOOK_URL = config.get('WRITABLE_GRADEBOOK_URL', WRITABLE_GRADEBOOK
 
 # This is at the bottom because it is going to load more settings after base settings are loaded
 from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants  # pylint: disable=wrong-import-order, wrong-import-position
-plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.LMS, plugin_constants.SettingsType.AWS)
+plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.LMS, plugin_constants.SettingsType.PRODUCTION)
 
 ########################## Derive Any Derived Settings  #######################
 

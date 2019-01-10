@@ -596,7 +596,7 @@ COURSE_ENROLLMENT_MODES = config.get('COURSE_ENROLLMENT_MODES', COURSE_ENROLLMEN
 
 # This is at the bottom because it is going to load more settings after base settings are loaded
 from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants  # pylint: disable=wrong-import-order, wrong-import-position
-plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.CMS, plugin_constants.SettingsType.AWS)
+plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.CMS, plugin_constants.SettingsType.PRODUCTION)
 
 ########################## Derive Any Derived Settings  #######################
 

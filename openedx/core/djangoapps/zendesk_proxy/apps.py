@@ -31,10 +31,12 @@ class ZendeskProxyConfig(AppConfig):
             ProjectType.CMS: {
                 SettingsType.COMMON: {PluginSettings.RELATIVE_PATH: u'settings.common'},
                 SettingsType.AWS: {PluginSettings.RELATIVE_PATH: u'settings.aws'},
+                SettingsType.PRODUCTION: {PluginSettings.RELATIVE_PATH: u'settings.production'},
             },
             ProjectType.LMS: {
                 SettingsType.COMMON: {PluginSettings.RELATIVE_PATH: u'settings.common'},
                 SettingsType.AWS: {PluginSettings.RELATIVE_PATH: u'settings.aws'},
+                SettingsType.PRODUCTION: {PluginSettings.RELATIVE_PATH: u'settings.production'},
             }
         }
     }
