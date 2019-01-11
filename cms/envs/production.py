@@ -31,12 +31,12 @@ def get_env_setting(setting):
 CONFIG_FILE = get_env_setting('STUDIO_CFG')
 
 with codecs.open(CONFIG_FILE, encoding='utf-8') as f:
-    config = yaml.load(f)
+    __config__ = yaml.load(f)
 
     # ENV_TOKENS and AUTH_TOKENS are included for reverse compatability.
     # These two lines can be removed once aws.py is removed.
-    ENV_TOKENS = config
-    AUTH_TOKENS = config
+    ENV_TOKENS = __config__
+    AUTH_TOKENS = __config__
 
 # SERVICE_VARIANT specifies name of the variant used
 SERVICE_VARIANT = os.environ.get('SERVICE_VARIANT', None)
@@ -99,10 +99,10 @@ CELERY_QUEUES = {
 CELERY_ROUTES = "{}celery.Router".format(QUEUE_VARIANT)
 
 # Do NOT calculate this dynamically at startup with git because it's *slow*.
-EDX_PLATFORM_REVISION = config.get('EDX_PLATFORM_REVISION', EDX_PLATFORM_REVISION)
+EDX_PLATFORM_REVISION = __config__.get('EDX_PLATFORM_REVISION', EDX_PLATFORM_REVISION)
 
 # STATIC_URL_BASE specifies the base url to use for static files
-STATIC_URL_BASE = config.get('STATIC_URL_BASE', None)
+STATIC_URL_BASE = __config__.get('STATIC_URL_BASE', None)
 if STATIC_URL_BASE:
     # collectstatic will fail if STATIC_URL is a unicode string
     STATIC_URL = STATIC_URL_BASE.encode('ascii')
@@ -111,62 +111,62 @@ if STATIC_URL_BASE:
     STATIC_URL += 'studio/'
 
 # DEFAULT_COURSE_ABOUT_IMAGE_URL specifies the default image to show for courses that don't provide one
-DEFAULT_COURSE_ABOUT_IMAGE_URL = config.get('DEFAULT_COURSE_ABOUT_IMAGE_URL', DEFAULT_COURSE_ABOUT_IMAGE_URL)
+DEFAULT_COURSE_ABOUT_IMAGE_URL = __config__.get('DEFAULT_COURSE_ABOUT_IMAGE_URL', DEFAULT_COURSE_ABOUT_IMAGE_URL)
 
-DEFAULT_COURSE_VISIBILITY_IN_CATALOG = config.get(
+DEFAULT_COURSE_VISIBILITY_IN_CATALOG = __config__.get(
     'DEFAULT_COURSE_VISIBILITY_IN_CATALOG',
     DEFAULT_COURSE_VISIBILITY_IN_CATALOG
 )
 
 # DEFAULT_MOBILE_AVAILABLE specifies if the course is available for mobile by default
-DEFAULT_MOBILE_AVAILABLE = config.get(
+DEFAULT_MOBILE_AVAILABLE = __config__.get(
     'DEFAULT_MOBILE_AVAILABLE',
     DEFAULT_MOBILE_AVAILABLE
 )
 
 # MEDIA_ROOT specifies the directory where user-uploaded files are stored.
-MEDIA_ROOT = config.get('MEDIA_ROOT', MEDIA_ROOT)
-MEDIA_URL = config.get('MEDIA_URL', MEDIA_URL)
+MEDIA_ROOT = __config__.get('MEDIA_ROOT', MEDIA_ROOT)
+MEDIA_URL = __config__.get('MEDIA_URL', MEDIA_URL)
 
 # GITHUB_REPO_ROOT is the base directory
 # for course data
-GITHUB_REPO_ROOT = config.get('GITHUB_REPO_ROOT', GITHUB_REPO_ROOT)
+GITHUB_REPO_ROOT = __config__.get('GITHUB_REPO_ROOT', GITHUB_REPO_ROOT)
 
 # STATIC_ROOT specifies the directory where static files are
 # collected
 
-STATIC_ROOT_BASE = config.get('STATIC_ROOT_BASE', None)
+STATIC_ROOT_BASE = __config__.get('STATIC_ROOT_BASE', None)
 if STATIC_ROOT_BASE:
     STATIC_ROOT = path(STATIC_ROOT_BASE) / 'studio'
     WEBPACK_LOADER['DEFAULT']['STATS_FILE'] = STATIC_ROOT / "webpack-stats.json"
     WEBPACK_LOADER['WORKERS']['STATS_FILE'] = STATIC_ROOT / "webpack-worker-stats.json"
 
-EMAIL_BACKEND = config.get('EMAIL_BACKEND', EMAIL_BACKEND)
-EMAIL_FILE_PATH = config.get('EMAIL_FILE_PATH', None)
+EMAIL_BACKEND = __config__.get('EMAIL_BACKEND', EMAIL_BACKEND)
+EMAIL_FILE_PATH = __config__.get('EMAIL_FILE_PATH', None)
 
-EMAIL_HOST = config.get('EMAIL_HOST', EMAIL_HOST)
-EMAIL_PORT = config.get('EMAIL_PORT', EMAIL_PORT)
-EMAIL_USE_TLS = config.get('EMAIL_USE_TLS', EMAIL_USE_TLS)
+EMAIL_HOST = __config__.get('EMAIL_HOST', EMAIL_HOST)
+EMAIL_PORT = __config__.get('EMAIL_PORT', EMAIL_PORT)
+EMAIL_USE_TLS = __config__.get('EMAIL_USE_TLS', EMAIL_USE_TLS)
 
-LMS_BASE = config.get('LMS_BASE')
-LMS_ROOT_URL = config.get('LMS_ROOT_URL')
-LMS_INTERNAL_ROOT_URL = config.get('LMS_INTERNAL_ROOT_URL', LMS_ROOT_URL)
-ENTERPRISE_API_URL = config.get('ENTERPRISE_API_URL', LMS_INTERNAL_ROOT_URL + '/enterprise/api/v1/')
-ENTERPRISE_CONSENT_API_URL = config.get('ENTERPRISE_CONSENT_API_URL', LMS_INTERNAL_ROOT_URL + '/consent/api/v1/')
+LMS_BASE = __config__.get('LMS_BASE')
+LMS_ROOT_URL = __config__.get('LMS_ROOT_URL')
+LMS_INTERNAL_ROOT_URL = __config__.get('LMS_INTERNAL_ROOT_URL', LMS_ROOT_URL)
+ENTERPRISE_API_URL = __config__.get('ENTERPRISE_API_URL', LMS_INTERNAL_ROOT_URL + '/enterprise/api/v1/')
+ENTERPRISE_CONSENT_API_URL = __config__.get('ENTERPRISE_CONSENT_API_URL', LMS_INTERNAL_ROOT_URL + '/consent/api/v1/')
 # Note that FEATURES['PREVIEW_LMS_BASE'] gets read in from the environment file.
 
-SITE_NAME = config['SITE_NAME']
+SITE_NAME = __config__['SITE_NAME']
 
 ALLOWED_HOSTS = [
     # TODO: bbeggs remove this before prod, temp fix to get load testing running
     "*",
-    config.get('CMS_BASE')
+    __config__.get('CMS_BASE')
 ]
 
-LOG_DIR = config['LOG_DIR']
-DATA_DIR = path(config.get('DATA_DIR', DATA_DIR))
+LOG_DIR = __config__['LOG_DIR']
+DATA_DIR = path(__config__.get('DATA_DIR', DATA_DIR))
 
-CACHES = config['CACHES']
+CACHES = __config__['CACHES']
 # Cache used for location mapping -- called many times with the same key/value
 # in a given request.
 if 'loc_cache' not in CACHES:
@@ -175,46 +175,46 @@ if 'loc_cache' not in CACHES:
         'LOCATION': 'edx_location_mem_cache',
     }
 
-SESSION_COOKIE_DOMAIN = config.get('SESSION_COOKIE_DOMAIN')
-SESSION_COOKIE_HTTPONLY = config.get('SESSION_COOKIE_HTTPONLY', True)
-SESSION_ENGINE = config.get('SESSION_ENGINE', SESSION_ENGINE)
-SESSION_COOKIE_SECURE = config.get('SESSION_COOKIE_SECURE', SESSION_COOKIE_SECURE)
-SESSION_SAVE_EVERY_REQUEST = config.get('SESSION_SAVE_EVERY_REQUEST', SESSION_SAVE_EVERY_REQUEST)
+SESSION_COOKIE_DOMAIN = __config__.get('SESSION_COOKIE_DOMAIN')
+SESSION_COOKIE_HTTPONLY = __config__.get('SESSION_COOKIE_HTTPONLY', True)
+SESSION_ENGINE = __config__.get('SESSION_ENGINE', SESSION_ENGINE)
+SESSION_COOKIE_SECURE = __config__.get('SESSION_COOKIE_SECURE', SESSION_COOKIE_SECURE)
+SESSION_SAVE_EVERY_REQUEST = __config__.get('SESSION_SAVE_EVERY_REQUEST', SESSION_SAVE_EVERY_REQUEST)
 
 # social sharing settings
-SOCIAL_SHARING_SETTINGS = config.get('SOCIAL_SHARING_SETTINGS', SOCIAL_SHARING_SETTINGS)
+SOCIAL_SHARING_SETTINGS = __config__.get('SOCIAL_SHARING_SETTINGS', SOCIAL_SHARING_SETTINGS)
 
-REGISTRATION_EMAIL_PATTERNS_ALLOWED = config.get('REGISTRATION_EMAIL_PATTERNS_ALLOWED')
+REGISTRATION_EMAIL_PATTERNS_ALLOWED = __config__.get('REGISTRATION_EMAIL_PATTERNS_ALLOWED')
 
 # allow for environments to specify what cookie name our login subsystem should use
 # this is to fix a bug regarding simultaneous logins between edx.org and edge.edx.org which can
 # happen with some browsers (e.g. Firefox)
-if config.get('SESSION_COOKIE_NAME', None):
+if __config__.get('SESSION_COOKIE_NAME', None):
     # NOTE, there's a bug in Django (http://bugs.python.org/issue18012) which necessitates this being a str()
-    SESSION_COOKIE_NAME = str(config.get('SESSION_COOKIE_NAME'))
+    SESSION_COOKIE_NAME = str(__config__.get('SESSION_COOKIE_NAME'))
 
 # Set the names of cookies shared with the marketing site
 # These have the same cookie domain as the session, which in production
 # usually includes subdomains.
-EDXMKTG_LOGGED_IN_COOKIE_NAME = config.get('EDXMKTG_LOGGED_IN_COOKIE_NAME', EDXMKTG_LOGGED_IN_COOKIE_NAME)
-EDXMKTG_USER_INFO_COOKIE_NAME = config.get('EDXMKTG_USER_INFO_COOKIE_NAME', EDXMKTG_USER_INFO_COOKIE_NAME)
+EDXMKTG_LOGGED_IN_COOKIE_NAME = __config__.get('EDXMKTG_LOGGED_IN_COOKIE_NAME', EDXMKTG_LOGGED_IN_COOKIE_NAME)
+EDXMKTG_USER_INFO_COOKIE_NAME = __config__.get('EDXMKTG_USER_INFO_COOKIE_NAME', EDXMKTG_USER_INFO_COOKIE_NAME)
 
 # Determines whether the CSRF token can be transported on
 # unencrypted channels. It is set to False here for backward compatibility,
 # but it is highly recommended that this is True for environments accessed
 # by end users.
-CSRF_COOKIE_SECURE = config.get('CSRF_COOKIE_SECURE', False)
+CSRF_COOKIE_SECURE = __config__.get('CSRF_COOKIE_SECURE', False)
 
 #Email overrides
-DEFAULT_FROM_EMAIL = config.get('DEFAULT_FROM_EMAIL', DEFAULT_FROM_EMAIL)
-DEFAULT_FEEDBACK_EMAIL = config.get('DEFAULT_FEEDBACK_EMAIL', DEFAULT_FEEDBACK_EMAIL)
-ADMINS = config.get('ADMINS', ADMINS)
-SERVER_EMAIL = config.get('SERVER_EMAIL', SERVER_EMAIL)
-MKTG_URLS = config.get('MKTG_URLS', MKTG_URLS)
-MKTG_URL_LINK_MAP.update(config.get('MKTG_URL_LINK_MAP', {}))
-TECH_SUPPORT_EMAIL = config.get('TECH_SUPPORT_EMAIL', TECH_SUPPORT_EMAIL)
+DEFAULT_FROM_EMAIL = __config__.get('DEFAULT_FROM_EMAIL', DEFAULT_FROM_EMAIL)
+DEFAULT_FEEDBACK_EMAIL = __config__.get('DEFAULT_FEEDBACK_EMAIL', DEFAULT_FEEDBACK_EMAIL)
+ADMINS = __config__.get('ADMINS', ADMINS)
+SERVER_EMAIL = __config__.get('SERVER_EMAIL', SERVER_EMAIL)
+MKTG_URLS = __config__.get('MKTG_URLS', MKTG_URLS)
+MKTG_URL_LINK_MAP.update(__config__.get('MKTG_URL_LINK_MAP', {}))
+TECH_SUPPORT_EMAIL = __config__.get('TECH_SUPPORT_EMAIL', TECH_SUPPORT_EMAIL)
 
-for name, value in config.get("CODE_JAIL", {}).items():
+for name, value in __config__.get("CODE_JAIL", {}).items():
     oldvalue = CODE_JAIL.get(name)
     if isinstance(oldvalue, dict):
         for subname, subvalue in value.items():
@@ -222,47 +222,47 @@ for name, value in config.get("CODE_JAIL", {}).items():
     else:
         CODE_JAIL[name] = value
 
-COURSES_WITH_UNSAFE_CODE = config.get("COURSES_WITH_UNSAFE_CODE", [])
+COURSES_WITH_UNSAFE_CODE = __config__.get("COURSES_WITH_UNSAFE_CODE", [])
 
-ASSET_IGNORE_REGEX = config.get('ASSET_IGNORE_REGEX', ASSET_IGNORE_REGEX)
+ASSET_IGNORE_REGEX = __config__.get('ASSET_IGNORE_REGEX', ASSET_IGNORE_REGEX)
 
-COMPREHENSIVE_THEME_DIRS = config.get('COMPREHENSIVE_THEME_DIRS', COMPREHENSIVE_THEME_DIRS) or []
+COMPREHENSIVE_THEME_DIRS = __config__.get('COMPREHENSIVE_THEME_DIRS', COMPREHENSIVE_THEME_DIRS) or []
 
 # COMPREHENSIVE_THEME_LOCALE_PATHS contain the paths to themes locale directories e.g.
 # "COMPREHENSIVE_THEME_LOCALE_PATHS" : [
 #        "/edx/src/edx-themes/conf/locale"
 #    ],
-COMPREHENSIVE_THEME_LOCALE_PATHS = config.get('COMPREHENSIVE_THEME_LOCALE_PATHS', [])
+COMPREHENSIVE_THEME_LOCALE_PATHS = __config__.get('COMPREHENSIVE_THEME_LOCALE_PATHS', [])
 
-DEFAULT_SITE_THEME = config.get('DEFAULT_SITE_THEME', DEFAULT_SITE_THEME)
-ENABLE_COMPREHENSIVE_THEMING = config.get('ENABLE_COMPREHENSIVE_THEMING', ENABLE_COMPREHENSIVE_THEMING)
+DEFAULT_SITE_THEME = __config__.get('DEFAULT_SITE_THEME', DEFAULT_SITE_THEME)
+ENABLE_COMPREHENSIVE_THEMING = __config__.get('ENABLE_COMPREHENSIVE_THEMING', ENABLE_COMPREHENSIVE_THEMING)
 
 #Timezone overrides
-TIME_ZONE = config.get('TIME_ZONE', TIME_ZONE)
+TIME_ZONE = __config__.get('TIME_ZONE', TIME_ZONE)
 
 # Push to LMS overrides
-GIT_REPO_EXPORT_DIR = config.get('GIT_REPO_EXPORT_DIR', '/edx/var/edxapp/export_course_repos')
+GIT_REPO_EXPORT_DIR = __config__.get('GIT_REPO_EXPORT_DIR', '/edx/var/edxapp/export_course_repos')
 
 # Translation overrides
-LANGUAGES = config.get('LANGUAGES', LANGUAGES)
-LANGUAGE_CODE = config.get('LANGUAGE_CODE', LANGUAGE_CODE)
-LANGUAGE_COOKIE = config.get('LANGUAGE_COOKIE', LANGUAGE_COOKIE)
+LANGUAGES = __config__.get('LANGUAGES', LANGUAGES)
+LANGUAGE_CODE = __config__.get('LANGUAGE_CODE', LANGUAGE_CODE)
+LANGUAGE_COOKIE = __config__.get('LANGUAGE_COOKIE', LANGUAGE_COOKIE)
 
-USE_I18N = config.get('USE_I18N', USE_I18N)
-ALL_LANGUAGES = config.get('ALL_LANGUAGES', ALL_LANGUAGES)
+USE_I18N = __config__.get('USE_I18N', USE_I18N)
+ALL_LANGUAGES = __config__.get('ALL_LANGUAGES', ALL_LANGUAGES)
 
-ENV_FEATURES = config.get('FEATURES', {})
+ENV_FEATURES = __config__.get('FEATURES', {})
 for feature, value in ENV_FEATURES.items():
     FEATURES[feature] = value
 
 # Additional installed apps
-for app in config.get('ADDL_INSTALLED_APPS', []):
+for app in __config__.get('ADDL_INSTALLED_APPS', []):
     INSTALLED_APPS.append(app)
 
-WIKI_ENABLED = config.get('WIKI_ENABLED', WIKI_ENABLED)
+WIKI_ENABLED = __config__.get('WIKI_ENABLED', WIKI_ENABLED)
 
 LOGGING = get_logger_config(LOG_DIR,
-                            logging_env=config['LOGGING_ENV'],
+                            logging_env=__config__['LOGGING_ENV'],
                             service_variant=SERVICE_VARIANT)
 
 #theming start:
@@ -270,24 +270,24 @@ LOGGING = get_logger_config(LOG_DIR,
 # The following variables use (or) instead of the default value inside (get). This is to enforce using the Lazy Text
 # values when the varibale is an empty string. Therefore, setting these variable as empty text in related
 # json files will make the system reads thier values from django translation files
-PLATFORM_NAME = config.get('PLATFORM_NAME') or PLATFORM_NAME
-PLATFORM_DESCRIPTION = config.get('PLATFORM_DESCRIPTION') or PLATFORM_DESCRIPTION
-STUDIO_NAME = config.get('STUDIO_NAME') or STUDIO_NAME
-STUDIO_SHORT_NAME = config.get('STUDIO_SHORT_NAME') or STUDIO_SHORT_NAME
+PLATFORM_NAME = __config__.get('PLATFORM_NAME') or PLATFORM_NAME
+PLATFORM_DESCRIPTION = __config__.get('PLATFORM_DESCRIPTION') or PLATFORM_DESCRIPTION
+STUDIO_NAME = __config__.get('STUDIO_NAME') or STUDIO_NAME
+STUDIO_SHORT_NAME = __config__.get('STUDIO_SHORT_NAME') or STUDIO_SHORT_NAME
 
 # Event Tracking
 if "TRACKING_IGNORE_URL_PATTERNS" in config:
-    TRACKING_IGNORE_URL_PATTERNS = config.get("TRACKING_IGNORE_URL_PATTERNS")
+    TRACKING_IGNORE_URL_PATTERNS = __config__.get("TRACKING_IGNORE_URL_PATTERNS")
 
 # Heartbeat
-HEARTBEAT_CHECKS = config.get('HEARTBEAT_CHECKS', HEARTBEAT_CHECKS)
-HEARTBEAT_EXTENDED_CHECKS = config.get('HEARTBEAT_EXTENDED_CHECKS', HEARTBEAT_EXTENDED_CHECKS)
-HEARTBEAT_CELERY_TIMEOUT = config.get('HEARTBEAT_CELERY_TIMEOUT', HEARTBEAT_CELERY_TIMEOUT)
+HEARTBEAT_CHECKS = __config__.get('HEARTBEAT_CHECKS', HEARTBEAT_CHECKS)
+HEARTBEAT_EXTENDED_CHECKS = __config__.get('HEARTBEAT_EXTENDED_CHECKS', HEARTBEAT_EXTENDED_CHECKS)
+HEARTBEAT_CELERY_TIMEOUT = __config__.get('HEARTBEAT_CELERY_TIMEOUT', HEARTBEAT_CELERY_TIMEOUT)
 
 # Django CAS external authentication settings
-CAS_EXTRA_LOGIN_PARAMS = config.get("CAS_EXTRA_LOGIN_PARAMS", None)
+CAS_EXTRA_LOGIN_PARAMS = __config__.get("CAS_EXTRA_LOGIN_PARAMS", None)
 if FEATURES.get('AUTH_USE_CAS'):
-    CAS_SERVER_URL = config.get("CAS_SERVER_URL", None)
+    CAS_SERVER_URL = __config__.get("CAS_SERVER_URL", None)
     AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',
         'django_cas.backends.CASBackend',
@@ -296,7 +296,7 @@ if FEATURES.get('AUTH_USE_CAS'):
     INSTALLED_APPS.append('django_cas')
 
     MIDDLEWARE_CLASSES.append('django_cas.middleware.CASMiddleware')
-    CAS_ATTRIBUTE_CALLBACK = config.get('CAS_ATTRIBUTE_CALLBACK', None)
+    CAS_ATTRIBUTE_CALLBACK = __config__.get('CAS_ATTRIBUTE_CALLBACK', None)
     if CAS_ATTRIBUTE_CALLBACK:
         import importlib
         CAS_USER_DETAILS_RESOLVER = getattr(
@@ -305,58 +305,58 @@ if FEATURES.get('AUTH_USE_CAS'):
         )
 
 # Specific setting for the File Upload Service to store media in a bucket.
-FILE_UPLOAD_STORAGE_BUCKET_NAME = config.get('FILE_UPLOAD_STORAGE_BUCKET_NAME', FILE_UPLOAD_STORAGE_BUCKET_NAME)
-FILE_UPLOAD_STORAGE_PREFIX = config.get('FILE_UPLOAD_STORAGE_PREFIX', FILE_UPLOAD_STORAGE_PREFIX)
+FILE_UPLOAD_STORAGE_BUCKET_NAME = __config__.get('FILE_UPLOAD_STORAGE_BUCKET_NAME', FILE_UPLOAD_STORAGE_BUCKET_NAME)
+FILE_UPLOAD_STORAGE_PREFIX = __config__.get('FILE_UPLOAD_STORAGE_PREFIX', FILE_UPLOAD_STORAGE_PREFIX)
 
 # Zendesk
-ZENDESK_URL = config.get('ZENDESK_URL', ZENDESK_URL)
-ZENDESK_CUSTOM_FIELDS = config.get('ZENDESK_CUSTOM_FIELDS', ZENDESK_CUSTOM_FIELDS)
+ZENDESK_URL = __config__.get('ZENDESK_URL', ZENDESK_URL)
+ZENDESK_CUSTOM_FIELDS = __config__.get('ZENDESK_CUSTOM_FIELDS', ZENDESK_CUSTOM_FIELDS)
 
 
 ############### XBlock filesystem field config ##########
-if 'DJFS' in config and config['DJFS'] is not None:
-    DJFS = config['DJFS']
+if 'DJFS' in config and __config__['DJFS'] is not None:
+    DJFS = __config__['DJFS']
     if 'url_root' in DJFS:
         DJFS['url_root'] = DJFS['url_root'].format(platform_revision=EDX_PLATFORM_REVISION)
 
-EMAIL_HOST_USER = config.get('EMAIL_HOST_USER', EMAIL_HOST_USER)
-EMAIL_HOST_PASSWORD = config.get('EMAIL_HOST_PASSWORD', EMAIL_HOST_PASSWORD)
+EMAIL_HOST_USER = __config__.get('EMAIL_HOST_USER', EMAIL_HOST_USER)
+EMAIL_HOST_PASSWORD = __config__.get('EMAIL_HOST_PASSWORD', EMAIL_HOST_PASSWORD)
 
-AWS_SES_REGION_NAME = config.get('AWS_SES_REGION_NAME', 'us-east-1')
-AWS_SES_REGION_ENDPOINT = config.get('AWS_SES_REGION_ENDPOINT', 'email.us-east-1.amazonaws.com')
+AWS_SES_REGION_NAME = __config__.get('AWS_SES_REGION_NAME', 'us-east-1')
+AWS_SES_REGION_ENDPOINT = __config__.get('AWS_SES_REGION_ENDPOINT', 'email.us-east-1.amazonaws.com')
 
 # Note that this is the Studio key for Segment. There is a separate key for the LMS.
-CMS_SEGMENT_KEY = config.get('SEGMENT_KEY')
+CMS_SEGMENT_KEY = __config__.get('SEGMENT_KEY')
 
-SECRET_KEY = config['SECRET_KEY']
+SECRET_KEY = __config__['SECRET_KEY']
 
-AWS_ACCESS_KEY_ID = config["AWS_ACCESS_KEY_ID"]
+AWS_ACCESS_KEY_ID = __config__["AWS_ACCESS_KEY_ID"]
 if AWS_ACCESS_KEY_ID == "":
     AWS_ACCESS_KEY_ID = None
 
-AWS_SECRET_ACCESS_KEY = config["AWS_SECRET_ACCESS_KEY"]
+AWS_SECRET_ACCESS_KEY = __config__["AWS_SECRET_ACCESS_KEY"]
 if AWS_SECRET_ACCESS_KEY == "":
     AWS_SECRET_ACCESS_KEY = None
 
-AWS_STORAGE_BUCKET_NAME = config.get('AWS_STORAGE_BUCKET_NAME', 'edxuploads')
+AWS_STORAGE_BUCKET_NAME = __config__.get('AWS_STORAGE_BUCKET_NAME', 'edxuploads')
 
 # Disabling querystring auth instructs Boto to exclude the querystring parameters (e.g. signature, access key) it
 # normally appends to every returned URL.
-AWS_QUERYSTRING_AUTH = config.get('AWS_QUERYSTRING_AUTH', True)
+AWS_QUERYSTRING_AUTH = __config__.get('AWS_QUERYSTRING_AUTH', True)
 
 AWS_DEFAULT_ACL = 'private'
 AWS_BUCKET_ACL = AWS_DEFAULT_ACL
 AWS_QUERYSTRING_EXPIRE = 7 * 24 * 60 * 60  # 7 days
-AWS_S3_CUSTOM_DOMAIN = config.get('AWS_S3_CUSTOM_DOMAIN', 'edxuploads.s3.amazonaws.com')
+AWS_S3_CUSTOM_DOMAIN = __config__.get('AWS_S3_CUSTOM_DOMAIN', 'edxuploads.s3.amazonaws.com')
 
-if config.get('DEFAULT_FILE_STORAGE'):
-    DEFAULT_FILE_STORAGE = config.get('DEFAULT_FILE_STORAGE')
+if __config__.get('DEFAULT_FILE_STORAGE'):
+    DEFAULT_FILE_STORAGE = __config__.get('DEFAULT_FILE_STORAGE')
 elif AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 else:
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-COURSE_IMPORT_EXPORT_BUCKET = config.get('COURSE_IMPORT_EXPORT_BUCKET', '')
+COURSE_IMPORT_EXPORT_BUCKET = __config__.get('COURSE_IMPORT_EXPORT_BUCKET', '')
 
 if COURSE_IMPORT_EXPORT_BUCKET:
     COURSE_IMPORT_EXPORT_STORAGE = 'contentstore.storage.ImportExportS3Storage'
@@ -365,7 +365,7 @@ else:
 
 USER_TASKS_ARTIFACT_STORAGE = COURSE_IMPORT_EXPORT_STORAGE
 
-DATABASES = config['DATABASES']
+DATABASES = __config__['DATABASES']
 
 # The normal database user does not have enough permissions to run migrations.
 # Migrations are run with separate credentials, given as DB_MIGRATION_*
@@ -381,53 +381,53 @@ for name, database in DATABASES.items():
             'PORT': os.environ.get('DB_MIGRATION_PORT', database['PORT']),
         })
 
-MODULESTORE = convert_module_store_setting_if_needed(config.get('MODULESTORE', MODULESTORE))
+MODULESTORE = convert_module_store_setting_if_needed(__config__.get('MODULESTORE', MODULESTORE))
 
-MODULESTORE_FIELD_OVERRIDE_PROVIDERS = config.get(
+MODULESTORE_FIELD_OVERRIDE_PROVIDERS = __config__.get(
     'MODULESTORE_FIELD_OVERRIDE_PROVIDERS',
     MODULESTORE_FIELD_OVERRIDE_PROVIDERS
 )
 
-XBLOCK_FIELD_DATA_WRAPPERS = config.get(
+XBLOCK_FIELD_DATA_WRAPPERS = __config__.get(
     'XBLOCK_FIELD_DATA_WRAPPERS',
     XBLOCK_FIELD_DATA_WRAPPERS
 )
 
-CONTENTSTORE = config['CONTENTSTORE']
-DOC_STORE_CONFIG = config['DOC_STORE_CONFIG']
+CONTENTSTORE = __config__['CONTENTSTORE']
+DOC_STORE_CONFIG = __config__['DOC_STORE_CONFIG']
 # Datadog for events!
-DATADOG = config.get("DATADOG", {})
-DATADOG.update(config.get("DATADOG", {}))
+DATADOG = __config__.get("DATADOG", {})
+DATADOG.update(__config__.get("DATADOG", {}))
 
 # TODO: deprecated (compatibility with previous settings)
 if 'DATADOG_API' in config:
-    DATADOG['api_key'] = config['DATADOG_API']
+    DATADOG['api_key'] = __config__['DATADOG_API']
 
 # Celery Broker
-CELERY_ALWAYS_EAGER = config.get("CELERY_ALWAYS_EAGER", False)
-CELERY_BROKER_TRANSPORT = config.get("CELERY_BROKER_TRANSPORT", "")
-CELERY_BROKER_HOSTNAME = config.get("CELERY_BROKER_HOSTNAME", "")
-CELERY_BROKER_VHOST = config.get("CELERY_BROKER_VHOST", "")
-CELERY_BROKER_USER = config.get("CELERY_BROKER_USER", "")
-CELERY_BROKER_PASSWORD = config.get("CELERY_BROKER_PASSWORD", "")
+CELERY_ALWAYS_EAGER = __config__.get("CELERY_ALWAYS_EAGER", False)
+CELERY_BROKER_TRANSPORT = __config__.get("CELERY_BROKER_TRANSPORT", "")
+CELERY_BROKER_HOSTNAME = __config__.get("CELERY_BROKER_HOSTNAME", "")
+CELERY_BROKER_VHOST = __config__.get("CELERY_BROKER_VHOST", "")
+CELERY_BROKER_USER = __config__.get("CELERY_BROKER_USER", "")
+CELERY_BROKER_PASSWORD = __config__.get("CELERY_BROKER_PASSWORD", "")
 
 BROKER_URL = "{0}://{1}:{2}@{3}/{4}".format(CELERY_BROKER_TRANSPORT,
                                             CELERY_BROKER_USER,
                                             CELERY_BROKER_PASSWORD,
                                             CELERY_BROKER_HOSTNAME,
                                             CELERY_BROKER_VHOST)
-BROKER_USE_SSL = config.get('CELERY_BROKER_USE_SSL', False)
+BROKER_USE_SSL = __config__.get('CELERY_BROKER_USE_SSL', False)
 
 # Message expiry time in seconds
-CELERY_EVENT_QUEUE_TTL = config.get('CELERY_EVENT_QUEUE_TTL', None)
+CELERY_EVENT_QUEUE_TTL = __config__.get('CELERY_EVENT_QUEUE_TTL', None)
 
 # Allow CELERY_QUEUES to be overwritten by config,
-ENV_CELERY_QUEUES = config.get('CELERY_QUEUES', None)
+ENV_CELERY_QUEUES = __config__.get('CELERY_QUEUES', None)
 if ENV_CELERY_QUEUES:
     CELERY_QUEUES = {queue: {} for queue in ENV_CELERY_QUEUES}
 
 # Then add alternate environment queues
-ALTERNATE_QUEUE_ENVS = config.get('ALTERNATE_WORKER_QUEUES', '').split()
+ALTERNATE_QUEUE_ENVS = __config__.get('ALTERNATE_WORKER_QUEUES', '').split()
 ALTERNATE_QUEUES = [
     DEFAULT_PRIORITY_QUEUE.replace(QUEUE_VARIANT, alternate + '.')
     for alternate in ALTERNATE_QUEUE_ENVS
@@ -442,115 +442,115 @@ CELERY_QUEUES.update(
 )
 
 # Queue to use for updating grades due to grading policy change
-POLICY_CHANGE_GRADES_ROUTING_KEY = config.get('POLICY_CHANGE_GRADES_ROUTING_KEY', DEFAULT_PRIORITY_QUEUE)
+POLICY_CHANGE_GRADES_ROUTING_KEY = __config__.get('POLICY_CHANGE_GRADES_ROUTING_KEY', DEFAULT_PRIORITY_QUEUE)
 
 # Rate limit for regrading tasks that a grading policy change can kick off
-POLICY_CHANGE_TASK_RATE_LIMIT = config.get('POLICY_CHANGE_TASK_RATE_LIMIT', POLICY_CHANGE_TASK_RATE_LIMIT)
+POLICY_CHANGE_TASK_RATE_LIMIT = __config__.get('POLICY_CHANGE_TASK_RATE_LIMIT', POLICY_CHANGE_TASK_RATE_LIMIT)
 
 # Event tracking
-TRACKING_BACKENDS.update(config.get("TRACKING_BACKENDS", {}))
-EVENT_TRACKING_BACKENDS['tracking_logs']['OPTIONS']['backends'].update(config.get("EVENT_TRACKING_BACKENDS", {}))
+TRACKING_BACKENDS.update(__config__.get("TRACKING_BACKENDS", {}))
+EVENT_TRACKING_BACKENDS['tracking_logs']['OPTIONS']['backends'].update(__config__.get("EVENT_TRACKING_BACKENDS", {}))
 EVENT_TRACKING_BACKENDS['segmentio']['OPTIONS']['processors'][0]['OPTIONS']['whitelist'].extend(
-    config.get("EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST", []))
+    __config__.get("EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST", []))
 
 ##### ACCOUNT LOCKOUT DEFAULT PARAMETERS #####
-MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config.get("MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED", 5)
-MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS = config.get("MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS", 15 * 60)
+MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = __config__.get("MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED", 5)
+MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS = __config__.get("MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS", 15 * 60)
 
 #### PASSWORD POLICY SETTINGS #####
-AUTH_PASSWORD_VALIDATORS = config.get("AUTH_PASSWORD_VALIDATORS", AUTH_PASSWORD_VALIDATORS)
+AUTH_PASSWORD_VALIDATORS = __config__.get("AUTH_PASSWORD_VALIDATORS", AUTH_PASSWORD_VALIDATORS)
 
 ### INACTIVITY SETTINGS ####
-SESSION_INACTIVITY_TIMEOUT_IN_SECONDS = config.get("SESSION_INACTIVITY_TIMEOUT_IN_SECONDS")
+SESSION_INACTIVITY_TIMEOUT_IN_SECONDS = __config__.get("SESSION_INACTIVITY_TIMEOUT_IN_SECONDS")
 
 ##### X-Frame-Options response header settings #####
-X_FRAME_OPTIONS = config.get('X_FRAME_OPTIONS', X_FRAME_OPTIONS)
+X_FRAME_OPTIONS = __config__.get('X_FRAME_OPTIONS', X_FRAME_OPTIONS)
 
 ################ ADVANCED COMPONENT/PROBLEM TYPES ###############
 
-ADVANCED_PROBLEM_TYPES = config.get('ADVANCED_PROBLEM_TYPES', ADVANCED_PROBLEM_TYPES)
+ADVANCED_PROBLEM_TYPES = __config__.get('ADVANCED_PROBLEM_TYPES', ADVANCED_PROBLEM_TYPES)
 
 ################ VIDEO UPLOAD PIPELINE ###############
 
-VIDEO_UPLOAD_PIPELINE = config.get('VIDEO_UPLOAD_PIPELINE', VIDEO_UPLOAD_PIPELINE)
+VIDEO_UPLOAD_PIPELINE = __config__.get('VIDEO_UPLOAD_PIPELINE', VIDEO_UPLOAD_PIPELINE)
 
 ################ VIDEO IMAGE STORAGE ###############
 
-VIDEO_IMAGE_SETTINGS = config.get('VIDEO_IMAGE_SETTINGS', VIDEO_IMAGE_SETTINGS)
+VIDEO_IMAGE_SETTINGS = __config__.get('VIDEO_IMAGE_SETTINGS', VIDEO_IMAGE_SETTINGS)
 
 ################ VIDEO TRANSCRIPTS STORAGE ###############
 
-VIDEO_TRANSCRIPTS_SETTINGS = config.get('VIDEO_TRANSCRIPTS_SETTINGS', VIDEO_TRANSCRIPTS_SETTINGS)
+VIDEO_TRANSCRIPTS_SETTINGS = __config__.get('VIDEO_TRANSCRIPTS_SETTINGS', VIDEO_TRANSCRIPTS_SETTINGS)
 
 ################ PUSH NOTIFICATIONS ###############
 
-PARSE_KEYS = config.get("PARSE_KEYS", {})
+PARSE_KEYS = __config__.get("PARSE_KEYS", {})
 
 
 # Video Caching. Pairing country codes with CDN URLs.
 # Example: {'CN': 'http://api.xuetangx.com/edx/video?s3_url='}
-VIDEO_CDN_URL = config.get('VIDEO_CDN_URL', {})
+VIDEO_CDN_URL = __config__.get('VIDEO_CDN_URL', {})
 
 if FEATURES['ENABLE_COURSEWARE_INDEX'] or FEATURES['ENABLE_LIBRARY_INDEX']:
     # Use ElasticSearch for the search engine
     SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
 
-ELASTIC_SEARCH_CONFIG = config.get('ELASTIC_SEARCH_CONFIG', [{}])
+ELASTIC_SEARCH_CONFIG = __config__.get('ELASTIC_SEARCH_CONFIG', [{}])
 
-XBLOCK_SETTINGS = config.get('XBLOCK_SETTINGS', {})
+XBLOCK_SETTINGS = __config__.get('XBLOCK_SETTINGS', {})
 XBLOCK_SETTINGS.setdefault("VideoDescriptor", {})["licensing_enabled"] = FEATURES.get("LICENSING", False)
-XBLOCK_SETTINGS.setdefault("VideoModule", {})['YOUTUBE_API_KEY'] = config.get('YOUTUBE_API_KEY', YOUTUBE_API_KEY)
+XBLOCK_SETTINGS.setdefault("VideoModule", {})['YOUTUBE_API_KEY'] = __config__.get('YOUTUBE_API_KEY', YOUTUBE_API_KEY)
 
 ################# MICROSITE ####################
 # microsite specific configurations.
-MICROSITE_CONFIGURATION = config.get('MICROSITE_CONFIGURATION', {})
-MICROSITE_ROOT_DIR = path(config.get('MICROSITE_ROOT_DIR', ''))
+MICROSITE_CONFIGURATION = __config__.get('MICROSITE_CONFIGURATION', {})
+MICROSITE_ROOT_DIR = path(__config__.get('MICROSITE_ROOT_DIR', ''))
 # this setting specify which backend to be used when pulling microsite specific configuration
-MICROSITE_BACKEND = config.get("MICROSITE_BACKEND", MICROSITE_BACKEND)
+MICROSITE_BACKEND = __config__.get("MICROSITE_BACKEND", MICROSITE_BACKEND)
 # this setting specify which backend to be used when loading microsite specific templates
-MICROSITE_TEMPLATE_BACKEND = config.get("MICROSITE_TEMPLATE_BACKEND", MICROSITE_TEMPLATE_BACKEND)
+MICROSITE_TEMPLATE_BACKEND = __config__.get("MICROSITE_TEMPLATE_BACKEND", MICROSITE_TEMPLATE_BACKEND)
 # TTL for microsite database template cache
-MICROSITE_DATABASE_TEMPLATE_CACHE_TTL = config.get(
+MICROSITE_DATABASE_TEMPLATE_CACHE_TTL = __config__.get(
     "MICROSITE_DATABASE_TEMPLATE_CACHE_TTL", MICROSITE_DATABASE_TEMPLATE_CACHE_TTL
 )
 
 ############################ OAUTH2 Provider ###################################
 
 # OpenID Connect issuer ID. Normally the URL of the authentication endpoint.
-OAUTH_OIDC_ISSUER = config['OAUTH_OIDC_ISSUER']
+OAUTH_OIDC_ISSUER = __config__['OAUTH_OIDC_ISSUER']
 
 #### JWT configuration ####
-JWT_AUTH.update(config.get('JWT_AUTH', {}))
-JWT_AUTH.update(config.get('JWT_AUTH', {}))
+JWT_AUTH.update(__config__.get('JWT_AUTH', {}))
+JWT_AUTH.update(__config__.get('JWT_AUTH', {}))
 
 ######################## CUSTOM COURSES for EDX CONNECTOR ######################
 if FEATURES.get('CUSTOM_COURSES_EDX'):
     INSTALLED_APPS.append('openedx.core.djangoapps.ccxcon.apps.CCXConnectorConfig')
 
 # Partner support link for CMS footer
-PARTNER_SUPPORT_EMAIL = config.get('PARTNER_SUPPORT_EMAIL', PARTNER_SUPPORT_EMAIL)
+PARTNER_SUPPORT_EMAIL = __config__.get('PARTNER_SUPPORT_EMAIL', PARTNER_SUPPORT_EMAIL)
 
 # Affiliate cookie tracking
-AFFILIATE_COOKIE_NAME = config.get('AFFILIATE_COOKIE_NAME', AFFILIATE_COOKIE_NAME)
+AFFILIATE_COOKIE_NAME = __config__.get('AFFILIATE_COOKIE_NAME', AFFILIATE_COOKIE_NAME)
 
 ############## Settings for Studio Context Sensitive Help ##############
 
-HELP_TOKENS_BOOKS = config.get('HELP_TOKENS_BOOKS', HELP_TOKENS_BOOKS)
+HELP_TOKENS_BOOKS = __config__.get('HELP_TOKENS_BOOKS', HELP_TOKENS_BOOKS)
 
 ############## Settings for CourseGraph ############################
-COURSEGRAPH_JOB_QUEUE = config.get('COURSEGRAPH_JOB_QUEUE', DEFAULT_PRIORITY_QUEUE)
+COURSEGRAPH_JOB_QUEUE = __config__.get('COURSEGRAPH_JOB_QUEUE', DEFAULT_PRIORITY_QUEUE)
 
 ########## Settings for video transcript migration tasks ############
-VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE = config.get('VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE', DEFAULT_PRIORITY_QUEUE)
+VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE = __config__.get('VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE', DEFAULT_PRIORITY_QUEUE)
 
 ########## Settings youtube thumbnails scraper tasks ############
-SCRAPE_YOUTUBE_THUMBNAILS_JOB_QUEUE = config.get('SCRAPE_YOUTUBE_THUMBNAILS_JOB_QUEUE', DEFAULT_PRIORITY_QUEUE)
+SCRAPE_YOUTUBE_THUMBNAILS_JOB_QUEUE = __config__.get('SCRAPE_YOUTUBE_THUMBNAILS_JOB_QUEUE', DEFAULT_PRIORITY_QUEUE)
 
 ########################## Parental controls config  #######################
 
 # The age at which a learner no longer requires parental consent, or None
 # if parental consent is never required.
-PARENTAL_CONSENT_AGE_LIMIT = config.get(
+PARENTAL_CONSENT_AGE_LIMIT = __config__.get(
     'PARENTAL_CONSENT_AGE_LIMIT',
     PARENTAL_CONSENT_AGE_LIMIT
 )
@@ -558,13 +558,13 @@ PARENTAL_CONSENT_AGE_LIMIT = config.get(
 ########################## Extra middleware classes  #######################
 
 # Allow extra middleware classes to be added to the app through configuration.
-MIDDLEWARE_CLASSES.extend(config.get('EXTRA_MIDDLEWARE_CLASSES', []))
+MIDDLEWARE_CLASSES.extend(__config__.get('EXTRA_MIDDLEWARE_CLASSES', []))
 
 ########################## Settings for Completion API #####################
 
 # Once a user has watched this percentage of a video, mark it as complete:
 # (0.0 = 0%, 1.0 = 100%)
-COMPLETION_VIDEO_COMPLETE_PERCENTAGE = config.get(
+COMPLETION_VIDEO_COMPLETE_PERCENTAGE = __config__.get(
     'COMPLETION_VIDEO_COMPLETE_PERCENTAGE',
     COMPLETION_VIDEO_COMPLETE_PERCENTAGE,
 )
@@ -572,30 +572,30 @@ COMPLETION_VIDEO_COMPLETE_PERCENTAGE = config.get(
 ####################### Enterprise Settings ######################
 # A shared secret to be used for encrypting passwords passed from the enterprise api
 # to the enteprise reporting script.
-ENTERPRISE_REPORTING_SECRET = config.get(
+ENTERPRISE_REPORTING_SECRET = __config__.get(
     'ENTERPRISE_REPORTING_SECRET',
     ENTERPRISE_REPORTING_SECRET
 )
 
 # A default dictionary to be used for filtering out enterprise customer catalog.
-ENTERPRISE_CUSTOMER_CATALOG_DEFAULT_CONTENT_FILTER = config.get(
+ENTERPRISE_CUSTOMER_CATALOG_DEFAULT_CONTENT_FILTER = __config__.get(
     'ENTERPRISE_CUSTOMER_CATALOG_DEFAULT_CONTENT_FILTER',
     ENTERPRISE_CUSTOMER_CATALOG_DEFAULT_CONTENT_FILTER
 )
 
 ############### Settings for Retirement #####################
-RETIRED_USERNAME_PREFIX = config.get('RETIRED_USERNAME_PREFIX', RETIRED_USERNAME_PREFIX)
-RETIRED_EMAIL_PREFIX = config.get('RETIRED_EMAIL_PREFIX', RETIRED_EMAIL_PREFIX)
-RETIRED_EMAIL_DOMAIN = config.get('RETIRED_EMAIL_DOMAIN', RETIRED_EMAIL_DOMAIN)
-RETIRED_USER_SALTS = config.get('RETIRED_USER_SALTS', RETIRED_USER_SALTS)
-RETIREMENT_SERVICE_WORKER_USERNAME = config.get(
+RETIRED_USERNAME_PREFIX = __config__.get('RETIRED_USERNAME_PREFIX', RETIRED_USERNAME_PREFIX)
+RETIRED_EMAIL_PREFIX = __config__.get('RETIRED_EMAIL_PREFIX', RETIRED_EMAIL_PREFIX)
+RETIRED_EMAIL_DOMAIN = __config__.get('RETIRED_EMAIL_DOMAIN', RETIRED_EMAIL_DOMAIN)
+RETIRED_USER_SALTS = __config__.get('RETIRED_USER_SALTS', RETIRED_USER_SALTS)
+RETIREMENT_SERVICE_WORKER_USERNAME = __config__.get(
     'RETIREMENT_SERVICE_WORKER_USERNAME',
     RETIREMENT_SERVICE_WORKER_USERNAME
 )
-RETIREMENT_STATES = config.get('RETIREMENT_STATES', RETIREMENT_STATES)
+RETIREMENT_STATES = __config__.get('RETIREMENT_STATES', RETIREMENT_STATES)
 
 ############## Settings for Course Enrollment Modes ######################
-COURSE_ENROLLMENT_MODES = config.get('COURSE_ENROLLMENT_MODES', COURSE_ENROLLMENT_MODES)
+COURSE_ENROLLMENT_MODES = __config__.get('COURSE_ENROLLMENT_MODES', COURSE_ENROLLMENT_MODES)
 
 ####################### Plugin Settings ##########################
 
