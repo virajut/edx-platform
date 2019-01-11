@@ -389,6 +389,7 @@ class PhotoVerification(IDVerificationAttempt):
         """
         # If someone approves an outdated version of this, the first one wins
         if self.status == "approved":
+            self.save()
             return
 
         log.info(u"Verification for user '{user_id}' approved by '{reviewer}'.".format(
@@ -542,6 +543,23 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
     # to notify for expired verification is already sent.
     expiry_date = models.DateTimeField(null=True, blank=True, db_index=True)
     expiry_email_date = models.DateTimeField(null=True, blank=True, db_index=True)
+
+    @status_before_must_be("must_retry", "submitted", "approved", "denied")
+    def approve(self, user_id=None, service=""):
+        """
+        Approve the verification attempt for user
+
+        Valid attempt statuses when calling this method:
+            `submitted`, `approved`, `denied`
+
+        After method completes:
+            status is set to `approved`
+            expiry_date is set to one year from now
+        """
+        self.expiry_date = datetime.now(pytz.UTC) + timedelta(
+            days=settings.VERIFY_STUDENT["DAYS_GOOD_FOR"]
+        )
+        super(SoftwareSecurePhotoVerification, self).approve(user_id, service)
 
     @classmethod
     def get_initial_verification(cls, user, earliest_allowed_date=None):
