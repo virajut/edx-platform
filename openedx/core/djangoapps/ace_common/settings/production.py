@@ -1,0 +1,23 @@
+def plugin_settings(settings):
+    settings.ACE_ENABLED_CHANNELS = settings.get('ACE_ENABLED_CHANNELS', settings.ACE_ENABLED_CHANNELS)
+    settings.ACE_ENABLED_POLICIES = settings.get('ACE_ENABLED_POLICIES', settings.ACE_ENABLED_POLICIES)
+    settings.ACE_CHANNEL_SAILTHRU_DEBUG = settings.get(
+        'ACE_CHANNEL_SAILTHRU_DEBUG', settings.ACE_CHANNEL_SAILTHRU_DEBUG,
+    )
+    settings.ACE_CHANNEL_SAILTHRU_TEMPLATE_NAME = settings.get(
+        'ACE_CHANNEL_SAILTHRU_TEMPLATE_NAME', settings.ACE_CHANNEL_SAILTHRU_TEMPLATE_NAME,
+    )
+    settings.ACE_CHANNEL_SAILTHRU_API_KEY = settings.AUTH_TOKENS.get(
+        'ACE_CHANNEL_SAILTHRU_API_KEY', settings.ACE_CHANNEL_SAILTHRU_API_KEY,
+    )
+    settings.ACE_CHANNEL_SAILTHRU_API_SECRET = settings.AUTH_TOKENS.get(
+        'ACE_CHANNEL_SAILTHRU_API_SECRET', settings.ACE_CHANNEL_SAILTHRU_API_SECRET,
+    )
+    settings.ACE_ROUTING_KEY = settings.get('ACE_ROUTING_KEY', settings.ACE_ROUTING_KEY)
+
+    settings.ACE_CHANNEL_DEFAULT_EMAIL = settings.get(
+        'ACE_CHANNEL_DEFAULT_EMAIL', settings.ACE_CHANNEL_DEFAULT_EMAIL
+    )
+    settings.ACE_CHANNEL_TRANSACTIONAL_EMAIL = settings.get(
+        'ACE_CHANNEL_TRANSACTIONAL_EMAIL', settings.ACE_CHANNEL_TRANSACTIONAL_EMAIL
+    )
