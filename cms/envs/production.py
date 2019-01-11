@@ -33,6 +33,11 @@ CONFIG_FILE = get_env_setting('STUDIO_CFG')
 with codecs.open(CONFIG_FILE, encoding='utf-8') as f:
     config = yaml.load(f)
 
+    # ENV_TOKENS and AUTH_TOKENS are included for reverse compatability.
+    # These two lines can be removed once aws.py is removed.
+    ENV_TOKENS = config
+    AUTH_TOKENS = config
+
 # SERVICE_VARIANT specifies name of the variant used
 SERVICE_VARIANT = os.environ.get('SERVICE_VARIANT', None)
 
@@ -595,6 +600,13 @@ COURSE_ENROLLMENT_MODES = config.get('COURSE_ENROLLMENT_MODES', COURSE_ENROLLMEN
 ####################### Plugin Settings ##########################
 
 # This is at the bottom because it is going to load more settings after base settings are loaded
+
+# We continue to load aws.py until we remove aws.py from all plugins for reverse compatibility
+# after aws.py is removed, we should remove these lines.
+from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants  # pylint: disable=wrong-import-order, wrong-import-position
+plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.CMS, plugin_constants.SettingsType.AWS)
+
+# We continue to load production.py over aws.py
 from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants  # pylint: disable=wrong-import-order, wrong-import-position
 plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.CMS, plugin_constants.SettingsType.PRODUCTION)
 
