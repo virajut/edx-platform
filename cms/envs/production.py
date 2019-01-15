@@ -276,7 +276,7 @@ STUDIO_NAME = __config__.get('STUDIO_NAME') or STUDIO_NAME
 STUDIO_SHORT_NAME = __config__.get('STUDIO_SHORT_NAME') or STUDIO_SHORT_NAME
 
 # Event Tracking
-if "TRACKING_IGNORE_URL_PATTERNS" in config:
+if "TRACKING_IGNORE_URL_PATTERNS" in __config__:
     TRACKING_IGNORE_URL_PATTERNS = __config__.get("TRACKING_IGNORE_URL_PATTERNS")
 
 # Heartbeat
@@ -314,7 +314,7 @@ ZENDESK_CUSTOM_FIELDS = __config__.get('ZENDESK_CUSTOM_FIELDS', ZENDESK_CUSTOM_F
 
 
 ############### XBlock filesystem field config ##########
-if 'DJFS' in config and __config__['DJFS'] is not None:
+if 'DJFS' in __config__ and __config__['DJFS'] is not None:
     DJFS = __config__['DJFS']
     if 'url_root' in DJFS:
         DJFS['url_root'] = DJFS['url_root'].format(platform_revision=EDX_PLATFORM_REVISION)
@@ -400,7 +400,7 @@ DATADOG = __config__.get("DATADOG", {})
 DATADOG.update(__config__.get("DATADOG", {}))
 
 # TODO: deprecated (compatibility with previous settings)
-if 'DATADOG_API' in config:
+if 'DATADOG_API' in __config__:
     DATADOG['api_key'] = __config__['DATADOG_API']
 
 # Celery Broker

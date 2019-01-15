@@ -382,7 +382,7 @@ COURSES_WITH_UNSAFE_CODE = __config__.get("COURSES_WITH_UNSAFE_CODE", [])
 ASSET_IGNORE_REGEX = __config__.get('ASSET_IGNORE_REGEX', ASSET_IGNORE_REGEX)
 
 # Event Tracking
-if "TRACKING_IGNORE_URL_PATTERNS" in config:
+if "TRACKING_IGNORE_URL_PATTERNS" in __config__:
     TRACKING_IGNORE_URL_PATTERNS = __config__.get("TRACKING_IGNORE_URL_PATTERNS")
 
 # SSL external authentication settings
@@ -485,7 +485,7 @@ if FEATURES.get('ENABLE_CORS_HEADERS') or FEATURES.get('ENABLE_CROSS_DOMAIN_CSRF
 FIELD_OVERRIDE_PROVIDERS = tuple(__config__.get('FIELD_OVERRIDE_PROVIDERS', []))
 
 ############### XBlock filesystem field config ##########
-if 'DJFS' in config and __config__['DJFS'] is not None:
+if 'DJFS' in __config__ and __config__['DJFS'] is not None:
     DJFS = __config__['DJFS']
 
 ############### Module Store Items ##########
@@ -577,7 +577,7 @@ DATADOG = __config__.get("DATADOG", {})
 DATADOG.update(__config__.get("DATADOG", {}))
 
 # TODO: deprecated (compatibility with previous settings)
-if 'DATADOG_API' in config:
+if 'DATADOG_API' in __config__:
     DATADOG['api_key'] = __config__['DATADOG_API']
 
 # Analytics API
