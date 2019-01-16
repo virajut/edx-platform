@@ -22,6 +22,9 @@ def _iter_plugins(project_type, settings_type):
     """
     for app_config in registry.get_app_configs(project_type):
         settings_config = _get_config(app_config, project_type, settings_type)
+        
+        print(type(settings_config))
+        print(settings_config)
         if settings_config is None:
             print(str.format(
                 "Plugin Apps [Settings]: Did NOT find {0} for {1} and {2}",
