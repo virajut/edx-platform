@@ -23,8 +23,8 @@ def _iter_plugins(project_type, settings_type):
     for app_config in registry.get_app_configs(project_type):
         settings_config = _get_config(app_config, project_type, settings_type)
         
-        print(type(settings_config))
-        print(settings_config)
+        print(str.format("type of settings config is: {0}", type(settings_config)))
+        print(str.format("settings config was: {0}", settings_config))
         if settings_config is None:
             print(str.format(
                 "Plugin Apps [Settings]: Did NOT find {0} for {1} and {2}",
@@ -37,7 +37,7 @@ def _iter_plugins(project_type, settings_type):
         plugin_settings_path = utils.get_module_path(app_config, settings_config, constants.PluginSettings)
 
         print(str.format("Found {0} for {1} and {2}", app_config.name, project_type, settings_type))
-        print(plugin_settings_path)
+        print(str.format("Derived plugin settings path: {0}", plugin_settings_path))
         yield utils.import_module(plugin_settings_path)
 
 
