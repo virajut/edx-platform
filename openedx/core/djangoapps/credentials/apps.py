@@ -16,8 +16,7 @@ class CredentialsConfig(AppConfig):
     plugin_app = {
         PluginSettings.CONFIG: {
             ProjectType.LMS: {
-                SettingsType.AWS: {PluginSettings.RELATIVE_PATH: u'settings.aws'},
-                SettingsType.PRODUCTION: {PluginSettings.RELATIVE_PATH: u'settings.production'},
+                SettingsType.DEPRECATED_AWS: {PluginSettings.RELATIVE_PATH: u'settings.aws'},
                 SettingsType.COMMON: {PluginSettings.RELATIVE_PATH: u'settings.common'},
                 SettingsType.DEVSTACK: {PluginSettings.RELATIVE_PATH: u'settings.devstack'},
                 SettingsType.TEST: {PluginSettings.RELATIVE_PATH: u'settings.test'},
