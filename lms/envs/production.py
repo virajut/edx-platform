@@ -1109,8 +1109,10 @@ WRITABLE_GRADEBOOK_URL = __config__.get('WRITABLE_GRADEBOOK_URL', WRITABLE_GRADE
 
 # We continue to load aws.py in plugins until we remove aws.py entirely
 # after aws.py is removed, we should remove these lines.
+
 from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants  # pylint: disable=wrong-import-order, wrong-import-position
-plugin_settings.add_plugins(plugin_constants.SettingsType.DEPRECATED_AWS, plugin_constants.ProjectType.LMS, plugin_constants.SettingsType.DEPRECATED_AWS)
+plugin_settings.add_plugins("lms.envs.aws", plugin_constants.ProjectType.LMS, plugin_constants.SettingsType.DEPRECATED_AWS)
+
 
 # Load production.py in plugins
 plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.LMS, plugin_constants.SettingsType.PRODUCTION)

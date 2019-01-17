@@ -603,8 +603,9 @@ COURSE_ENROLLMENT_MODES = __config__.get('COURSE_ENROLLMENT_MODES', COURSE_ENROL
 
 # We continue to load aws.py until we remove aws.py from all plugins for reverse compatibility
 # after aws.py is removed, we should remove these lines.
+
 from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants  # pylint: disable=wrong-import-order, wrong-import-position
-plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.CMS, plugin_constants.SettingsType.DEPRECATED_AWS)
+plugin_settings.add_plugins("lms.envs.aws", plugin_constants.ProjectType.CMS, plugin_constants.SettingsType.DEPRECATED_AWS)
 
 # We continue to load production.py over aws.py
 from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants  # pylint: disable=wrong-import-order, wrong-import-position
