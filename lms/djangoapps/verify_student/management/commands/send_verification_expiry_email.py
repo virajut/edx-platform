@@ -14,7 +14,7 @@ from django.core.management.base import BaseCommand
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from edxmako.shortcuts import render_to_string
-
+from pytz import UTC
 
 from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
@@ -76,7 +76,7 @@ class Command(BaseCommand):
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
         self.sspv = SoftwareSecurePhotoVerification.objects.filter(status='approved',
-                                                                   expiry_date__lt=datetime.utcnow()
+                                                                   expiry_date__lt=datetime.now(UTC)
                                                                    ).order_by('-user_id')
         subject = _("Your {platform_name} Verification has Expired").format(
             platform_name=settings.PLATFORM_NAME
