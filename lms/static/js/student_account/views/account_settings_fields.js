@@ -52,7 +52,7 @@
                 fieldTemplate: field_dropdown_account_template,
 
                 initialize: function(options) {
-                    this._super(options);
+                    this._super(options); // eslint-disable-line no-underscore-dangle
                     this.listenTo(this.model, 'revertValue', this.revertValue);
                 },
 
@@ -162,7 +162,7 @@
                 },
                 initialize: function(options) {
                     this.options = _.extend({}, options);
-                    this._super(options);
+                    this._super(options); // eslint-disable-line no-underscore-dangle
                     _.bindAll(this, 'resetPassword');
                 },
                 linkClicked: function(event) {
@@ -337,7 +337,7 @@
                 },
                 initialize: function(options) {
                     this.options = _.extend({}, options);
-                    this._super(options);
+                    this._super(options); // eslint-disable-line no-underscore-dangle
                     _.bindAll(this, 'redirect_to', 'disconnect', 'successMessage', 'inProgressMessage');
                 },
                 render: function() {
@@ -434,7 +434,7 @@
 
                 initialize: function(options) {
                     this.options = options;
-                    this._super(options);
+                    this._super(options); // eslint-disable-line no-underscore-dangle
                     this.template = HtmlUtils.template(this.fieldTemplate);
                 },
 
