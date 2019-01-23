@@ -39,7 +39,7 @@ class Command(BaseCommand):
         `resend_days` = 15 days
         `batch_size` = 1000 rows
         `sleep_time` = 10 seconds
-    template used for email: 'emails/verification_expiry_email.txt.txt'
+    template used for email: 'emails/verification_expiry_email.txt'
 
     Example usage:
         $ ./manage.py lms send_verification_expiry_email --resend_days=30 --batch_size=2000 --sleep_time=5
@@ -77,7 +77,7 @@ class Command(BaseCommand):
         super(Command, self).__init__(*args, **kwargs)
         self.sspv = SoftwareSecurePhotoVerification.objects.filter(status='approved',
                                                                    expiry_date__lt=datetime.now(UTC)
-                                                                   ).order_by('-user_id')
+                                                                   ).order_by('user_id')
         subject = _("Your {platform_name} Verification has Expired").format(
             platform_name=settings.PLATFORM_NAME
         )
@@ -99,19 +99,20 @@ class Command(BaseCommand):
         batch_size = options['batch_size']
         sleep_time = options['sleep_time']
 
-        date_resend_days_ago = datetime.utcnow() - timedelta(days=resend_days)
+        date_resend_days_ago = datetime.now(UTC) - timedelta(days=resend_days)
 
         try:
-            max_user_id = self.sspv[0].user_id
-            batch_start = self.sspv.reverse()[0].user_id
+            max_user_id = self.sspv.last().user_id
+            batch_start = self.sspv.first().user_id
             batch_stop = batch_start + batch_size
-        except IndexError:
+
+        except AttributeError:
             logger.info("IndexError: No approved expired entries found in SoftwareSecurePhotoVerification")
             return
 
         while batch_start <= max_user_id:
             batch_queryset = self.sspv.filter(user_id__gte=batch_start, user_id__lt=batch_stop)
-            users = batch_queryset.order_by().values('user_id').distinct()
+            users = batch_queryset.values('user_id').distinct()
 
             for user in users:
                 verification = self.find_recent_verification(user['user_id'])
@@ -161,7 +162,7 @@ def send_verification_expiry_email(context, verification, days):
             [dest_addr],
             fail_silently=False
         )
-        verification.expiry_email_date = datetime.utcnow() + timedelta(days=days)
+        verification.expiry_email_date = datetime.now(UTC) + timedelta(days=days)
         verification.save()
     except SMTPException:
         logger.warning("Failure in sending verification expiry e-mail to %s", dest_addr)

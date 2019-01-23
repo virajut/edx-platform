@@ -53,12 +53,12 @@ class TestPopulateExpiryDate(MockS3Mixin, TestCase):
         user = UserFactory.create()
         outdated_verification = self.create_and_submit(user)
         outdated_verification.status = 'approved'
-        outdated_verification.expiry_date = datetime.utcnow() - timedelta(days=1)
+        outdated_verification.expiry_date = datetime.now(UTC) - timedelta(days=1)
         outdated_verification.save()
 
         recent_verification = self.create_and_submit(user)
         recent_verification.status = 'approved'
-        recent_verification.expiry_date = datetime.utcnow() - timedelta(days=1)
+        recent_verification.expiry_date = datetime.now(UTC) - timedelta(days=1)
         recent_verification.save()
 
         call_command('send_verification_expiry_email')
@@ -73,7 +73,7 @@ class TestPopulateExpiryDate(MockS3Mixin, TestCase):
         user = UserFactory.create()
         verification = self.create_and_submit(user)
         verification.status = 'approved'
-        verification.expiry_date = datetime.utcnow() - timedelta(days=1)
+        verification.expiry_date = datetime.now(UTC) - timedelta(days=1)
         verification.save()
 
         call_command('send_verification_expiry_email')
