@@ -91,5 +91,5 @@ class TestPopulateExpiryDate(MockS3Mixin, TestCase):
             call_command('send_verification_expiry_email')
             logger.check(
                 (LOGGER_NAME,
-                 'INFO', "IndexError: No approved expired entries found in SoftwareSecurePhotoVerification")
+                 'INFO', "AttributeError: No approved expired entries found in SoftwareSecurePhotoVerification")
             )

@@ -107,7 +107,7 @@ class Command(BaseCommand):
             batch_stop = batch_start + batch_size
 
         except AttributeError:
-            logger.info("IndexError: No approved expired entries found in SoftwareSecurePhotoVerification")
+            logger.info("AttributeError: No approved expired entries found in SoftwareSecurePhotoVerification")
             return
 
         while batch_start <= max_user_id:
