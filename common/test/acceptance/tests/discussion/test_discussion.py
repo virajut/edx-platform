@@ -1013,6 +1013,7 @@ class DiscussionEditorPreviewTest(UniqueCourseTest):
             'Text line 2 \n'
             '$e[n]=d_2$'
         )
+        self.page.wait_for_mathjax_operations()
         self.assertEqual(self.page.get_new_post_preview_text('.wmd-preview > p'), 'Text line 1 Text line 2')
 
     def test_mathjax_not_rendered_after_post_cancel(self):

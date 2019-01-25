@@ -981,6 +981,7 @@ class FormulaProblemTest(ProblemsTest):
         """
         problem_page = ProblemPage(self.browser)
         problem_page.fill_answer_numerical('R_1*R_2')
+        self.courseware_page.wait_for_mathjax_operations()
         problem_page.verify_mathjax_rendered_in_preview()
         problem_page.click_submit()
         self.assertFalse(problem_page.simpleprob_is_correct())
@@ -1001,6 +1002,7 @@ class FormulaProblemTest(ProblemsTest):
         """
         problem_page = ProblemPage(self.browser)
         problem_page.fill_answer_numerical('R_1*R_2/R_3')
+        self.courseware_page.wait_for_mathjax_operations()
         problem_page.verify_mathjax_rendered_in_preview()
         problem_page.click_submit()
         self.assertTrue(problem_page.simpleprob_is_correct())
@@ -1019,11 +1021,13 @@ class FormulaProblemTest(ProblemsTest):
         """
         problem_page = ProblemPage(self.browser)
         problem_page.fill_answer_numerical('R_1*R_2/R_3')
+        self.courseware_page.wait_for_mathjax_operations()
         problem_page.verify_mathjax_rendered_in_preview()
         problem_page.click_submit()
         self.assertTrue(problem_page.simpleprob_is_correct())
         self.assertFalse(problem_page.is_reset_button_present())
         problem_page.fill_answer_numerical('R_1/R_3')
+        self.courseware_page.wait_for_mathjax_operations()
         problem_page.click_submit()
         self.assertFalse(problem_page.simpleprob_is_correct())
         self.assertTrue(problem_page.is_reset_button_present())
@@ -1089,6 +1093,7 @@ class FormulaProblemRandomizeTest(ProblemsTest):
         """
         problem_page = ProblemPage(self.browser)
         problem_page.fill_answer_numerical(input_value)
+        self.courseware_page.wait_for_mathjax_operations()
         problem_page.verify_mathjax_rendered_in_preview()
         problem_page.click_submit()
         self.assertEqual(problem_page.get_simpleprob_correctness(), correctness)
@@ -1117,6 +1122,7 @@ class FormulaProblemRandomizeTest(ProblemsTest):
         """
         problem_page = ProblemPage(self.browser)
         problem_page.fill_answer_numerical(input_value)
+        self.courseware_page.wait_for_mathjax_operations()
         problem_page.verify_mathjax_rendered_in_preview()
         problem_page.click_submit()
         self.assertEqual(problem_page.get_simpleprob_correctness(), correctness)
@@ -1146,10 +1152,12 @@ class FormulaProblemRandomizeTest(ProblemsTest):
         """
         problem_page = ProblemPage(self.browser)
         problem_page.fill_answer_numerical(input_value)
+        self.courseware_page.wait_for_mathjax_operations()
         problem_page.verify_mathjax_rendered_in_preview()
         problem_page.click_submit()
         self.assertEqual(problem_page.get_simpleprob_correctness(), correctness)
         problem_page.fill_answer_numerical(next_input)
+        self.courseware_page.wait_for_mathjax_operations()
         self.assertIsNone(problem_page.get_simpleprob_correctness())
         self.assertTrue(problem_page.is_reset_button_present())
         problem_page.click_reset()
