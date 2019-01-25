@@ -78,7 +78,7 @@ class TestPopulateExpiryDate(MockS3Mixin, TestCase):
 
         call_command('send_verification_expiry_email')
 
-        expected_date = datetime.now(UTC) + timedelta(days=15)
+        expected_date = datetime.now(UTC)
         attempt = SoftwareSecurePhotoVerification.objects.get(user_id=verification.user_id)
         self.assertEquals(attempt.expiry_email_date.date(), expected_date.date())
         self.assertEqual(len(mail.outbox), 1)

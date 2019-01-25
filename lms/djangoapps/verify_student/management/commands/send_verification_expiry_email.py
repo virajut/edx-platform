@@ -122,7 +122,8 @@ class Command(BaseCommand):
                     self.email_context['email_vars'] = self.verification_expiry_email_vars
                     self.email_context['email'] = user.email
 
-                    send_verification_expiry_email.delay(self.email_context, verification, resend_days)
+                    verification_qs = self.sspv.filter(pk=verification.pk)
+                    send_verification_expiry_email.delay(self.email_context, verification_qs)
 
             if batch_stop < max_user_id:
                 time.sleep(sleep_time)
@@ -134,13 +135,11 @@ class Command(BaseCommand):
         """
         Find the most recent expired verification for user.
         """
-        return self.sspv.filter(
-            user_id=user_id
-        ).latest('updated_at')
+        return self.sspv.filter(user_id=user_id).latest('updated_at')
 
 
 @task(routing_key=ACE_ROUTING_KEY)
-def send_verification_expiry_email(context, verification, days):
+def send_verification_expiry_email(context, verification):
     """
     Spins a task to send verification expiry email to the learner
     If the email is successfully sent change the expiry_email_date to reflect when the
@@ -162,7 +161,6 @@ def send_verification_expiry_email(context, verification, days):
             [dest_addr],
             fail_silently=False
         )
-        verification.expiry_email_date = datetime.now(UTC) + timedelta(days=days)
-        verification.save()
+        verification.update(expiry_email_date=datetime.now(UTC))
     except SMTPException:
         logger.warning("Failure in sending verification expiry e-mail to %s", dest_addr)
