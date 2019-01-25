@@ -68,6 +68,7 @@ class CoursePage(PageObject):
             """
             return self.browser.execute_script(
                 "return MathJax.Hub.queue.running==0 && MathJax.Hub.queue.queue.length==0"
+                " && MathJax.Hub.queue.pending==0"
             )
         self.wait_for(
             promise_check_func=have_mathjax_operations_completed,
