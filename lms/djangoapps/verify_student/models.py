@@ -389,7 +389,6 @@ class PhotoVerification(IDVerificationAttempt):
         """
         # If someone approves an outdated version of this, the first one wins
         if self.status == "approved":
-            self.save()
             return
 
         log.info(u"Verification for user '{user_id}' approved by '{reviewer}'.".format(

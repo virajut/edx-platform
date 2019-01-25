@@ -51,9 +51,9 @@ class TestPopulateExpiryDate(MockS3Mixin, TestCase):
         verification = self.create_and_submit(user)
         verification.status = 'approved'
         verification.expiry_date = verification.updated_at + timedelta(days=10)
-        expiry_date = verification.expiry_date
         verification.save()
 
+        expiry_date = verification.expiry_date
         call_command('populate_expiry_date')
 
         # Check that the expiry_date for approved verification is not changed when it is already present

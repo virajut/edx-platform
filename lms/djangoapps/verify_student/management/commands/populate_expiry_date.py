@@ -79,9 +79,9 @@ class Command(BaseCommand):
 
             for user in users:
                 recent_verification = self.find_recent_verification(user['user_id'])
-                recent_verification.expiry_date = recent_verification.updated_at + timedelta(
-                    days=settings.VERIFY_STUDENT["DAYS_GOOD_FOR"])
-                recent_verification.save()
+                recent_verification_qs = self.sspv.filter(pk=recent_verification.pk)
+                recent_verification_qs.update(expiry_date=recent_verification.updated_at + timedelta(
+                    days=settings.VERIFY_STUDENT["DAYS_GOOD_FOR"]))
 
             if batch_stop < max_user_id:
                 time.sleep(sleep_time)
