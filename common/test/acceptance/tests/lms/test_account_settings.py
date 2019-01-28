@@ -24,6 +24,8 @@ class AccountSettingsTestMixin(EventsTestMixin, AcceptanceTest):
     USER_SETTINGS_CHANGED_EVENT_NAME = 'edx.user.settings.changed'
     ACCOUNT_SETTINGS_REFERER = u"/account/settings"
 
+    shard = 23
+
     def visit_account_settings_page(self, gdpr=False):
         """
         Visit the account settings page for the current user, and store the page instance

@@ -359,6 +359,7 @@ class LmsDashboardCourseUnEnrollDialogMessageTest(BaseLmsDashboardTestMultiple):
     """
         Class to test lms student dashboard unenroll dialog messages.
     """
+    shard = 23
 
     def test_audit_course_run_unenroll_dialog_msg(self):
         """
