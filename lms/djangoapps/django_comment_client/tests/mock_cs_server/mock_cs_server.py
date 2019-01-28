@@ -34,7 +34,7 @@ class MockCommentServiceRequestHandler(BaseHTTPRequestHandler):
         if 'X-Edx-Api-Key' in self.headers:
             response = self.server._response_str
             # Log the response
-            logger.debug("Comment Service: sending response %s", json.dumps(response))
+            logger.debug(u"Comment Service: sending response %s", json.dumps(response))
 
             # Send a response back to the client
             self.send_response(200)
@@ -72,7 +72,7 @@ class MockCommentServiceRequestHandler(BaseHTTPRequestHandler):
         if 'X-Edx-Api-Key' in self.headers:
             response = self.server._response_str
             # Log the response
-            logger.debug("Comment Service: sending response %s", json.dumps(response))
+            logger.debug(u"Comment Service: sending response %s", json.dumps(response))
 
             # Send a response back to the client
             self.send_response(200)

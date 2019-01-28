@@ -177,7 +177,7 @@ class SAMLAuthBackend(SAMLAuth):  # pylint: disable=abstract-method
                 def wrapped_method(*args, **kwargs):
                     """ Wrapped login or process_response method """
                     result = method(*args, **kwargs)
-                    log.info("SAML login %s for IdP %s. XML is:\n%s", action_description, idp.name, xml_getter())
+                    log.info(u"SAML login %s for IdP %s. XML is:\n%s", action_description, idp.name, xml_getter())
                     return result
                 setattr(auth_inst, method_name, wrapped_method)
 

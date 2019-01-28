@@ -95,7 +95,7 @@ def enforce_compliance_on_login(user, password):
                 break_line_tag=HTML('<br/>'),
                 platform_name=settings.PLATFORM_NAME,
                 deadline=strftime_localized(deadline, DEFAULT_SHORT_DATE_FORMAT),
-                anchor_tag_open=HTML('<a href="{account_settings_url}">').format(
+                anchor_tag_open=HTML(u'<a href="{account_settings_url}">').format(
                     account_settings_url=settings.LMS_ROOT_URL + "/account/settings"
                 ),
                 anchor_tag_close=HTML('</a>')

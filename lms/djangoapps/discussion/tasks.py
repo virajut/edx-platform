@@ -70,7 +70,7 @@ def send_ace_message(context):
                 _get_course_language(context['course_id']),
                 message_context
             )
-            log.info('Sending forum comment email notification with context %s', message_context)
+            log.info(u'Sending forum comment email notification with context %s', message_context)
             ace.send(message)
             _track_notification_sent(message, context)
 

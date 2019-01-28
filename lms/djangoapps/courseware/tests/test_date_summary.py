@@ -436,8 +436,8 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
             self.assertEqual(block.link, '')
 
     @ddt.data(
-        (-1, '1 day ago - {date}'),
-        (1, 'in 1 day - {date}')
+        (-1, u'1 day ago - {date}'),
+        (1, u'in 1 day - {date}')
     )
     @ddt.unpack
     def test_render_date_string_past(self, delta, expected_date_string):
@@ -599,7 +599,7 @@ class TestScheduleOverrides(SharedModuleStoreTestCase):
             'Don\'t miss the opportunity to highlight your new knowledge and skills by earning a verified'
             ' certificate.'
         )
-        self.assertEqual(upgrade_date_summary.relative_datestring, 'by {date}')
+        self.assertEqual(upgrade_date_summary.relative_datestring, u'by {date}')
 
     @override_waffle_flag(CREATE_SCHEDULE_WAFFLE_FLAG, True)
     def test_date_with_self_paced_with_enrollment_after_course_start(self):

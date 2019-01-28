@@ -386,7 +386,7 @@ class CourseEntitlement(TimeStampedModel):
                 mode=entitlement.mode
             )
         except CourseEnrollmentException:
-            log.exception('Login for Course Entitlement {uuid} failed'.format(uuid=entitlement.uuid))
+            log.exception(u'Login for Course Entitlement {uuid} failed'.format(uuid=entitlement.uuid))
             return False
 
         entitlement.set_enrollment(enrollment)

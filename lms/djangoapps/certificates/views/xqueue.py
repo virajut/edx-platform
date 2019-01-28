@@ -222,7 +222,7 @@ def update_example_certificate(request):
             )
         else:
             cert.update_status(ExampleCertificate.STATUS_SUCCESS, download_url=download_url)
-            log.info("Successfully updated example certificate with uuid '%s'.", uuid)
+            log.info(u"Successfully updated example certificate with uuid '%s'.", uuid)
 
     # Let the XQueue know that we handled the response
     return JsonResponse({'return_code': 0})

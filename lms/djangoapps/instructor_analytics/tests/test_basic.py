@@ -125,8 +125,8 @@ class TestAnalyticsBasic(ModuleStoreTestCase):
     def test_enrolled_students_features_keys(self):
         query_features = ('username', 'name', 'email', 'city', 'country',)
         for user in self.users:
-            user.profile.city = "Mos Eisley {}".format(user.id)
-            user.profile.country = "Tatooine {}".format(user.id)
+            user.profile.city = u"Mos Eisley {}".format(user.id)
+            user.profile.country = u"Tatooine {}".format(user.id)
             user.profile.save()
         for feature in query_features:
             self.assertIn(feature, AVAILABLE_FEATURES)
@@ -163,8 +163,8 @@ class TestAnalyticsBasic(ModuleStoreTestCase):
         self.assertEqual(len(userreports), len(self.users))
         for userreport in userreports:
             self.assertEqual(set(userreport.keys()), set(query_features))
-            self.assertIn(userreport['meta.position'], ["edX expert {}".format(user.id) for user in self.users])
-            self.assertIn(userreport['meta.company'], ["Open edX Inc {}".format(user.id) for user in self.users])
+            self.assertIn(userreport[u'meta.position'], [u"edX expert {}".format(user.id) for user in self.users])
+            self.assertIn(userreport[u'meta.company'], [u"Open edX Inc {}".format(user.id) for user in self.users])
 
     def test_enrolled_students_enrollment_verification(self):
         """

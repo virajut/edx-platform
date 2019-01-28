@@ -581,7 +581,7 @@ class TestAccountsAPI(CacheIsolationTestCase, UserAPITestCase):
             """
             self.assertEqual(3, len(change_info))
             self.assertEqual(old_name, change_info[0])
-            self.assertEqual("Name change requested through account API by {}".format(requester), change_info[1])
+            self.assertEqual(u"Name change requested through account API by {}".format(requester), change_info[1])
             self.assertIsNotNone(change_info[2])
             # Verify the new name was also stored.
             get_response = self.send_get(self.client)

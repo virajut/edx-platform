@@ -132,7 +132,7 @@ class Target(models.Model):
                 )
             )
         else:
-            raise ValueError("Unrecognized target type {}".format(self.target_type))
+            raise ValueError(u"Unrecognized target type {}".format(self.target_type))
 
 
 class CohortTarget(Target):
@@ -199,10 +199,10 @@ class CourseModeTarget(Target):
 
     def long_display(self):
         course_mode = self.track
-        long_course_mode_display = 'Course mode: {}'.format(course_mode.mode_display_name)
+        long_course_mode_display = u'Course mode: {}'.format(course_mode.mode_display_name)
         if course_mode.mode_slug not in CourseMode.AUDIT_MODES:
-            mode_currency = 'Currency: {}'.format(course_mode.currency)
-            long_course_mode_display = '{}, {}'.format(long_course_mode_display, mode_currency)
+            mode_currency = u'Currency: {}'.format(course_mode.currency)
+            long_course_mode_display = u'{}, {}'.format(long_course_mode_display, mode_currency)
         return long_course_mode_display
 
     @classmethod

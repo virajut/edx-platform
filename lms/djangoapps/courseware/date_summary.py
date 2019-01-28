@@ -247,7 +247,7 @@ class CourseStartDate(DateSummary):
                     Text(_(
                         "Don't forget to add a calendar reminder!"
                     )),
-                    title=Text(_("Course starts in {time_remaining_string} on {course_start_date}.")).format(
+                    title=Text(_(u"Course starts in {time_remaining_string} on {course_start_date}.")).format(
                         time_remaining_string=self.time_remaining_string,
                         course_start_date=self.long_date_html,
                     )
@@ -255,7 +255,7 @@ class CourseStartDate(DateSummary):
             else:
                 CourseHomeMessages.register_info_message(
                     request,
-                    Text(_("Course starts in {time_remaining_string} at {course_start_time}.")).format(
+                    Text(_(u"Course starts in {time_remaining_string} at {course_start_time}.")).format(
                         time_remaining_string=self.time_remaining_string,
                         course_start_time=self.short_time_html,
                     )
@@ -300,7 +300,7 @@ class CourseEndDate(DateSummary):
                 CourseHomeMessages.register_info_message(
                     request,
                     Text(self.description),
-                    title=Text(_('This course is ending in {time_remaining_string} on {course_end_date}.')).format(
+                    title=Text(_(u'This course is ending in {time_remaining_string} on {course_end_date}.')).format(
                         time_remaining_string=self.time_remaining_string,
                         course_end_date=self.long_date_html,
                     )
@@ -309,7 +309,7 @@ class CourseEndDate(DateSummary):
                 CourseHomeMessages.register_info_message(
                     request,
                     Text(self.description),
-                    title=Text(_('This course is ending in {time_remaining_string} at {course_end_time}.')).format(
+                    title=Text(_(u'This course is ending in {time_remaining_string} at {course_end_time}.')).format(
                         time_remaining_string=self.time_remaining_string,
                         course_end_time=self.short_time_html,
                     )
@@ -537,7 +537,7 @@ class VerifiedUpgradeDeadlineDate(DateSummary):
                         '</div>'
                     ).format(
                         upgrade_url=self.link,
-                        upgrade_label=Text(_('Upgrade ({upgrade_price})')).format(upgrade_price=upgrade_price),
+                        upgrade_label=Text(_(u'Upgrade ({upgrade_price})')).format(upgrade_price=upgrade_price),
                     )
                 ),
                 title=Text(upgrade_message)

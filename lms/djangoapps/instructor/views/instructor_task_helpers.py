@@ -53,7 +53,7 @@ def extract_email_features(email_task):
     try:
         task_input_information = json.loads(email_task.task_input)
     except ValueError:
-        log.error("Could not parse task input as valid json; task input: %s", email_task.task_input)
+        log.error(u"Could not parse task input as valid json; task input: %s", email_task.task_input)
         return email_error_information()
 
     email = CourseEmail.objects.get(id=task_input_information['email_id'])
@@ -74,7 +74,7 @@ def extract_email_features(email_task):
         try:
             task_output = json.loads(email_task.task_output)
         except ValueError:
-            log.error("Could not parse task output as valid json; task output: %s", email_task.task_output)
+            log.error(u"Could not parse task output as valid json; task output: %s", email_task.task_output)
         else:
             if 'succeeded' in task_output and task_output['succeeded'] > 0:
                 num_emails = task_output['succeeded']
@@ -121,7 +121,7 @@ def extract_task_features(task):
         try:
             task_output = json.loads(task.task_output)
         except ValueError:
-            log.error("Could not parse task output as valid json; task output: %s", task.task_output)
+            log.error(u"Could not parse task output as valid json; task output: %s", task.task_output)
         else:
             if 'duration_ms' in task_output:
                 duration_sec = int(task_output['duration_ms'] / 1000.0)

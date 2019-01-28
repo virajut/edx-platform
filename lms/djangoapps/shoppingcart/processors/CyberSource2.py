@@ -293,7 +293,7 @@ def get_purchase_params(cart, callback_url=None, extra_data=None):
 
     params['amount'] = amount
     params['currency'] = cart.currency
-    params['orderNumber'] = "OrderId: {0:d}".format(cart.id)
+    params[u'orderNumber'] = "OrderId: {0:d}".format(cart.id)
 
     params['access_key'] = get_processor_config().get('ACCESS_KEY', '')
     params['profile_id'] = get_processor_config().get('PROFILE_ID', '')
@@ -475,7 +475,7 @@ def _get_processor_decline_html(params):
             "Contact us with payment-related questions at {email}."
         ).format(
             decision='<span class="decision">{decision}</span>'.format(decision=params['decision']),
-            reason='<span class="reason">{reason_code}:{reason_msg}</span>'.format(
+            reason=u'<span class="reason">{reason_code}:{reason_msg}</span>'.format(
                 reason_code=params['reason_code'],
                 reason_msg=REASONCODE_MAP.get(params['reason_code'])
             ),

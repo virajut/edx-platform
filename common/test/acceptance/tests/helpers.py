@@ -58,7 +58,7 @@ def skip_if_browser(browser):
         @functools.wraps(test_function)
         def wrapper(self, *args, **kwargs):
             if self.browser.name == browser:
-                raise SkipTest('Skipping as this test will not work with {}'.format(browser))
+                raise SkipTest(u'Skipping as this test will not work with {}'.format(browser))
             test_function(self, *args, **kwargs)
         return wrapper
     return decorator
@@ -236,7 +236,7 @@ def select_option_by_text(select_browser_query, option_text, focus_out=False):
         except StaleElementReferenceException:
             return False
 
-    msg = 'Selected option {}'.format(option_text)
+    msg = u'Selected option {}'.format(option_text)
     EmptyPromise(lambda: select_option(select_browser_query, option_text), msg).fulfill()
 
 
@@ -380,7 +380,7 @@ def create_multiple_choice_xml(correct_choice=2, num_choices=4):
     choices[correct_choice] = True
 
     choice_names = ['choice_{}'.format(index) for index in range(num_choices)]
-    question_text = 'The correct answer is Choice {}'.format(correct_choice)
+    question_text = u'The correct answer is Choice {}'.format(correct_choice)
 
     return MultipleChoiceResponseXMLFactory().build_xml(
         question_text=question_text,
@@ -434,7 +434,7 @@ def assert_opened_help_link_is_correct(test, url):
     # Check that the URL loads. Can't do this in the browser because it might
     # be loading a "Maze Found" missing content page.
     response = requests.get(url)
-    test.assertEqual(response.status_code, 200, "URL {!r} returned {}".format(url, response.status_code))
+    test.assertEqual(response.status_code, 200, u"URL {!r} returned {}".format(url, response.status_code))
 
 
 EDX_BOOKS = {

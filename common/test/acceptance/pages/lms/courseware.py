@@ -95,7 +95,7 @@ class CoursewarePage(CoursePage, CompletionOnViewMixin):
         # When Student Notes feature is enabled, it looks for the content inside
         # `.edx-notes-wrapper-content` element (Otherwise, you will get an
         # additional html related to Student Notes).
-        element = self.q(css='{} .edx-notes-wrapper-content'.format(self.xblock_component_selector))
+        element = self.q(css=u'{} .edx-notes-wrapper-content'.format(self.xblock_component_selector))
         if element.first:
             return element.attrs('innerHTML')[index].strip()
         else:
@@ -142,7 +142,7 @@ class CoursewarePage(CoursePage, CompletionOnViewMixin):
             except IndexError:
                 return False
 
-        sequential_position_css = '#sequence-list #tab_{0}'.format(sequential_position - 1)
+        sequential_position_css = u'#sequence-list #tab_{0}'.format(sequential_position - 1)
         self.q(css=sequential_position_css).first.click()
         EmptyPromise(is_at_new_position, "Position navigation fulfilled").fulfill()
 
@@ -196,7 +196,7 @@ class CoursewarePage(CoursePage, CompletionOnViewMixin):
                 return False
 
         self.q(
-            css='.{} > .sequence-nav-button.{}'.format(top_or_bottom_class, next_or_previous_class)
+            css=u'.{} > .sequence-nav-button.{}'.format(top_or_bottom_class, next_or_previous_class)
         ).first.click()
         EmptyPromise(is_at_new_tab_id, "Button navigation fulfilled").fulfill()
 
@@ -348,7 +348,7 @@ class CoursewarePage(CoursePage, CompletionOnViewMixin):
             answer_word(str): An answer words to be filled in the field
         """
         self.wait_for_element_visibility('.input-cloud', "Word cloud fields are visible")
-        css = '.input_cloud_section label:nth-child({}) .input-cloud'
+        css = u'.input_cloud_section label:nth-child({}) .input-cloud'
         for index in range(1, len(self.q(css='.input-cloud')) + 1):
             self.q(css=css.format(index)).fill(answer_word + str(index))
 
@@ -461,7 +461,7 @@ class CourseNavPage(PageObject):
         for sec_index, sec_title in enumerate(section_titles):
 
             if len(section_titles) < 1:
-                self.warning("Could not find subsections for '{0}'".format(sec_title))
+                self.warning(u"Could not find subsections for '{0}'".format(sec_title))
             else:
                 # Add one to convert list index (starts at 0) to CSS index (starts at 1)
                 nav_dict[sec_title] = self._subsection_titles(sec_index + 1)
@@ -498,12 +498,12 @@ class CourseNavPage(PageObject):
         try:
             sec_index = self._section_titles().index(section_title)
         except ValueError:
-            self.warning("Could not find section '{0}'".format(section_title))
+            self.warning(u"Could not find section '{0}'".format(section_title))
             return
 
         # Click the section to ensure it's open (no harm in clicking twice if it's already open)
         # Add one to convert from list index to CSS index
-        section_css = '.course-navigation .chapter:nth-of-type({0})'.format(sec_index + 1)
+        section_css = u'.course-navigation .chapter:nth-of-type({0})'.format(sec_index + 1)
         self.q(css=section_css).first.click()
 
         # Get the subsection by index
@@ -536,7 +536,7 @@ class CourseNavPage(PageObject):
             seq_index = all_items.index(vertical_title)
 
         except ValueError:
-            msg = "Could not find sequential '{0}'.  Available sequentials: [{1}]".format(
+            msg = u"Could not find sequential '{0}'.  Available sequentials: [{1}]".format(
                 vertical_title, ", ".join(all_items)
             )
             self.warning(msg)

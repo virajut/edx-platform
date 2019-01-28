@@ -309,7 +309,7 @@ class TestGradeIteration(SharedModuleStoreTestCase):
 
         student1, student2, student3, student4, student5 = self.students
         mock_course_grade.side_effect = [
-            Exception("Error for {}.".format(student.username))
+            Exception(u"Error for {}.".format(student.username))
             if student.username in ['student3', 'student4']
             else mock_course_grade.return_value
             for student in self.students

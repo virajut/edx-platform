@@ -37,7 +37,7 @@ class PaidCourseEnrollmentReportProvider(BaseAbstractEnrollmentReportProvider):
         # check the user enrollment role
         if user.is_staff:
             platform_name = configuration_helpers.get_value('platform_name', settings.PLATFORM_NAME)
-            enrollment_role = _('{platform_name} Staff').format(platform_name=platform_name)
+            enrollment_role = _(u'{platform_name} Staff').format(platform_name=platform_name)
         elif is_course_staff:
             enrollment_role = _('Course Staff')
         else:
@@ -74,7 +74,7 @@ class PaidCourseEnrollmentReportProvider(BaseAbstractEnrollmentReportProvider):
                 else:
                     enrollment_source = _('Manually Enrolled')
 
-        enrollment_date = course_enrollment.created.strftime("%B %d, %Y")
+        enrollment_date = course_enrollment.created.strftime(u"%B %d, %Y")
         currently_enrolled = course_enrollment.is_active
 
         course_enrollment_data = collections.OrderedDict()

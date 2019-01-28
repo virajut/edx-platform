@@ -199,7 +199,7 @@ def check_replace_result_response(response):
         xml = response.content
         root = etree.fromstring(xml)
     except etree.ParseError as ex:
-        log.error("Outcome service response: Failed to parse XML: %s\n %s", ex, xml)
+        log.error(u"Outcome service response: Failed to parse XML: %s\n %s", ex, xml)
         return False
 
     major_codes = root.xpath(

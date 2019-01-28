@@ -198,7 +198,7 @@ class TestECommerceDashboardViews(SiteMixin, SharedModuleStoreTestCase):
             'description': 'asdsasda', 'created_by': self.instructor, 'discount': 99
         }
         response = self.client.post(add_coupon_url, data)
-        self.assertIn("coupon with the coupon code ({code}) already exist".format(code='A2314'), response.content)
+        self.assertIn(u"coupon with the coupon code ({code}) already exist".format(code='A2314'), response.content)
 
         response = self.client.post(self.url)
         self.assertIn('<td>ADSADASDSAD</td>', response.content)
@@ -224,7 +224,7 @@ class TestECommerceDashboardViews(SiteMixin, SharedModuleStoreTestCase):
 
         data['code'] = 'Vs23Ws4j'
         response = self.client.post(add_coupon_url, data)
-        msg = "The code ({code}) that you have tried to define is already in use as a registration code"
+        msg = u"The code ({code}) that you have tried to define is already in use as a registration code"
         self.assertIn(msg.format(code=data['code']), response.content)
 
     def test_delete_coupon(self):
@@ -332,7 +332,7 @@ class TestECommerceDashboardViews(SiteMixin, SharedModuleStoreTestCase):
 
         data['coupon_id'] = 1000  # Coupon Not Exist with this ID
         response = self.client.post(update_coupon_url, data=data)
-        self.assertIn('coupon with the coupon id ({coupon_id}) DoesNotExist'.format(coupon_id=1000), response.content)
+        self.assertIn(u'coupon with the coupon id ({coupon_id}) DoesNotExist'.format(coupon_id=1000), response.content)
 
         data['coupon_id'] = ''  # Coupon id is not provided
         response = self.client.post(update_coupon_url, data=data)

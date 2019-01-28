@@ -141,7 +141,7 @@ def edit_tab_handler(course_item, request):
         tab.is_hidden = request.json['is_hidden']
         modulestore().update_item(course_item, request.user.id)
     else:
-        raise NotImplementedError('Unsupported request to edit tab: {0}'.format(request.json))
+        raise NotImplementedError(u'Unsupported request to edit tab: {0}'.format(request.json))
 
     return JsonResponse()
 

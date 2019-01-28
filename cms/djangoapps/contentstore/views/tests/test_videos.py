@@ -1419,7 +1419,7 @@ class VideoUrlsCsvTestCase(VideoUploadTestMixin, CourseTestCase):
             reader.fieldnames,
             (
                 ["Name", "Duration", "Date Added", "Video ID", "Status"] +
-                ["{} URL".format(profile) for profile in expected_profiles]
+                [u"{} URL".format(profile) for profile in expected_profiles]
             )
         )
         rows = list(reader)
@@ -1436,7 +1436,7 @@ class VideoUrlsCsvTestCase(VideoUploadTestMixin, CourseTestCase):
             self.assertEqual(response_video["Video ID"], original_video["edx_video_id"])
             self.assertEqual(response_video["Status"], convert_video_status(original_video))
             for profile in expected_profiles:
-                response_profile_url = response_video["{} URL".format(profile)]
+                response_profile_url = response_video[u"{} URL".format(profile)]
                 original_encoded_for_profile = next(
                     (
                         original_encoded

@@ -63,7 +63,7 @@ class HelperMixin(object):
         """
         self.assertEqual(200, response.status_code)
         # Check that the correct provider was selected.
-        self.assertIn('successfully signed in with <strong>%s</strong>' % self.provider.name, response.content)
+        self.assertIn(u'successfully signed in with <strong>%s</strong>' % self.provider.name, response.content)
         # Expect that each truthy value we've prepopulated the register form
         # with is actually present.
         form_field_data = self.provider.get_register_form_data(pipeline_kwargs)

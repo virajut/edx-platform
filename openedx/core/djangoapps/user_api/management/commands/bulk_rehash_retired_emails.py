@@ -74,7 +74,7 @@ class Command(BaseCommand):
                 )
             # Found an email to update:
             else:
-                print('Updating UserRetirementStatus ID {} / User ID {} to rehash their retired email: {} -> {}'.format(
+                print(u'Updating UserRetirementStatus ID {} / User ID {} to rehash their retired email: {} -> {}'.format(
                     retirement.id,
                     retirement.user.id,
                     old_retired_email,

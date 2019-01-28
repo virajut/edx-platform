@@ -39,7 +39,7 @@ def move_to_verified_cohort(sender, instance, **kwargs):  # pylint: disable=unus
 
     if verified_cohort_enabled and (instance.mode != instance._old_mode):  # pylint: disable=protected-access
         if not is_course_cohorted(course_key):
-            log.error("Automatic verified cohorting enabled for course '%s', but course is not cohorted.", course_key)
+            log.error(u"Automatic verified cohorting enabled for course '%s', but course is not cohorted.", course_key)
         else:
             course = get_course_by_id(course_key)
             existing_manual_cohorts = get_course_cohorts(course, CourseCohort.MANUAL)

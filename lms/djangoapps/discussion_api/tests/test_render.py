@@ -29,7 +29,7 @@ class RenderBodyTest(TestCase):
     @ddt.unpack
     def test_markdown_inline(self, delimiter, tag):
         self.assertEqual(
-            render_body("{delimiter}some text{delimiter}".format(delimiter=delimiter)),
+            render_body(u"{delimiter}some text{delimiter}".format(delimiter=delimiter)),
             "<p><{tag}>some text</{tag}></p>".format(tag=tag)
         )
 

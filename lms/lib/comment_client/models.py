@@ -29,7 +29,7 @@ class Model(object):
             return self.attributes[name]
         except KeyError:
             if self.retrieved or self.id is None:
-                raise AttributeError("Field {0} does not exist".format(name))
+                raise AttributeError(u"Field {0} does not exist".format(name))
             self.retrieve()
             return self.__getattr__(name)
 
@@ -41,12 +41,12 @@ class Model(object):
 
     def __getitem__(self, key):
         if key not in self.accessible_fields:
-            raise KeyError("Field {0} does not exist".format(key))
+            raise KeyError(u"Field {0} does not exist".format(key))
         return self.attributes.get(key)
 
     def __setitem__(self, key, value):
         if key not in self.accessible_fields + self.updatable_fields:
-            raise KeyError("Field {0} does not exist".format(key))
+            raise KeyError(u"Field {0} does not exist".format(key))
         self.attributes.__setitem__(key, value)
 
     def items(self, *args, **kwargs):
@@ -177,6 +177,6 @@ class Model(object):
             try:
                 return cls.url_with_id(params)
             except KeyError:
-                raise CommentClientRequestError("Cannot perform action {0} without id".format(action))
+                raise CommentClientRequestError(u"Cannot perform action {0} without id".format(action))
         else:   # action must be in DEFAULT_ACTIONS_WITHOUT_ID now
             return cls.url_without_id()

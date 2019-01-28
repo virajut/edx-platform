@@ -2320,7 +2320,7 @@ class ViewCheckerBlock(XBlock):
         A student_view that asserts that the ``state`` field for this block
         matches the block's usage_id.
         """
-        msg = "{} != {}".format(self.state, self.scope_ids.usage_id)
+        msg = u"{} != {}".format(self.state, self.scope_ids.usage_id)
         assert self.state == unicode(self.scope_ids.usage_id), msg
         fragments = self.runtime.render_children(self)
         result = Fragment(

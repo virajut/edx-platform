@@ -264,7 +264,7 @@ def _get_pep8_violations(clean=True):
     Env.METRICS_DIR.makedirs_p()
 
     if not report.exists():
-        sh('pycodestyle . | tee {} -a'.format(report))
+        sh(u'pycodestyle . | tee {} -a'.format(report))
 
     violations_list = _pep8_violations(report)
 
@@ -294,7 +294,7 @@ def run_pep8(options):  # pylint: disable=unused-argument
     violations_list = ''.join(violations_list)
 
     # Print number of violations to log
-    violations_count_str = "Number of PEP 8 violations: {count}".format(count=count)
+    violations_count_str = u"Number of PEP 8 violations: {count}".format(count=count)
     print(violations_count_str)
     print(violations_list)
 
@@ -342,7 +342,7 @@ def run_complexity():
             (Env.METRICS_DIR / "python_complexity")
         )
         print("--> Python cyclomatic complexity report complete.")
-        print("radon cyclomatic complexity score: {metric}".format(metric=str(complexity_metric)))
+        print(u"radon cyclomatic complexity score: {metric}".format(metric=str(complexity_metric)))
 
     except BuildFailure:
         print("FAILURE: Unable to calculate python-only code-complexity.")
@@ -505,14 +505,14 @@ def run_xsslint(options):
     xsslint_counts = _get_xsslint_counts(xsslint_report)
 
     try:
-        metrics_str = "Number of {xsslint_script} violations: {num_violations}\n".format(
+        metrics_str = u"Number of {xsslint_script} violations: {num_violations}\n".format(
             xsslint_script=xsslint_script, num_violations=int(xsslint_counts['total'])
         )
         if 'rules' in xsslint_counts and any(xsslint_counts['rules']):
             metrics_str += "\n"
             rule_keys = sorted(xsslint_counts['rules'].keys())
             for rule in rule_keys:
-                metrics_str += "{rule} violations: {count}\n".format(
+                metrics_str += u"{rule} violations: {count}\n".format(
                     rule=rule,
                     count=int(xsslint_counts['rules'][rule])
                 )
@@ -528,14 +528,14 @@ def run_xsslint(options):
     # Record the metric
     _write_metric(metrics_str, metrics_report)
     # Print number of violations to log.
-    sh("cat {metrics_report}".format(metrics_report=metrics_report), ignore_error=True)
+    sh(u"cat {metrics_report}".format(metrics_report=metrics_report), ignore_error=True)
 
     error_message = ""
 
     # Test total violations against threshold.
     if 'total' in violation_thresholds.keys():
         if violation_thresholds['total'] < xsslint_counts['total']:
-            error_message = "Too many violations total ({count}).\nThe limit is {violations_limit}.".format(
+            error_message = u"Too many violations total ({count}).\nThe limit is {violations_limit}.".format(
                 count=xsslint_counts['total'], violations_limit=violation_thresholds['total']
             )
 
@@ -604,7 +604,7 @@ def run_xsscommitlint():
         )
 
     # Print number of violations to log.
-    violations_count_str = "Number of {xsscommitlint_script} violations: {num_violations}\n".format(
+    violations_count_str = u"Number of {xsscommitlint_script} violations: {num_violations}\n".format(
         xsscommitlint_script=xsscommitlint_script, num_violations=num_violations
     )
 
@@ -612,7 +612,7 @@ def run_xsscommitlint():
     metrics_report = (Env.METRICS_DIR / "xsscommitlint")
     _write_metric(violations_count_str, metrics_report)
     # Output report to console.
-    sh("cat {metrics_report}".format(metrics_report=metrics_report), ignore_error=True)
+    sh(u"cat {metrics_report}".format(metrics_report=metrics_report), ignore_error=True)
     if num_violations:
         fail_quality(
             'xsscommitlint',
@@ -669,7 +669,7 @@ def _get_report_contents(filename, report_name, last_line_only=False):
             else:
                 return report_file.read()
     else:
-        file_not_found_message = "FAILURE: The following log file could not be found: {file}".format(file=filename)
+        file_not_found_message = u"FAILURE: The following log file could not be found: {file}".format(file=filename)
         fail_quality(report_name, file_not_found_message)
 
 
@@ -788,20 +788,20 @@ def run_quality(options):
         if is_html:
             lines = ['<body>\n']
             sep = '-------------<br/>\n'
-            title = HTML("<h1>Quality Report: {}</h1>\n").format(linter)
+            title = HTML(u"<h1>Quality Report: {}</h1>\n").format(linter)
             violations_bullets = ''.join(
                 [HTML('<li>{violation}</li><br/>\n').format(violation=violation) for violation in violations_list]
             )
             violations_str = HTML('<ul>\n{bullets}</ul>\n').format(bullets=HTML(violations_bullets))
-            violations_count_str = HTML("<b>Violations</b>: {count}<br/>\n")
-            fail_line = HTML("<b>FAILURE</b>: {} count should be 0<br/>\n").format(linter)
+            violations_count_str = HTML(u"<b>Violations</b>: {count}<br/>\n")
+            fail_line = HTML(u"<b>FAILURE</b>: {} count should be 0<br/>\n").format(linter)
         else:
             lines = []
             sep = '-------------\n'
-            title = "Quality Report: {}\n".format(linter)
+            title = u"Quality Report: {}\n".format(linter)
             violations_str = ''.join(violations_list)
-            violations_count_str = "Violations: {count}\n"
-            fail_line = "FAILURE: {} count should be {}\n".format(linter, limit)
+            violations_count_str = u"Violations: {count}\n"
+            fail_line = u"FAILURE: {} count should be {}\n".format(linter, limit)
 
         violations_count_str = violations_count_str.format(count=count)
 
@@ -829,7 +829,7 @@ def run_quality(options):
     # ----- Set up for diff-quality pylint call -----
     # Set the string to be used for the diff-quality --compare-branch switch.
     compare_branch = getattr(options, 'compare_branch', u'origin/master')
-    compare_commit = sh('git merge-base HEAD {}'.format(compare_branch), capture=True).strip()
+    compare_commit = sh(u'git merge-base HEAD {}'.format(compare_branch), capture=True).strip()
     if sh('git rev-parse HEAD', capture=True).strip() != compare_commit:
         compare_branch_string = u'--compare-branch={0}'.format(compare_commit)
 

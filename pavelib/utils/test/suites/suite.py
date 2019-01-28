@@ -39,7 +39,7 @@ class TestSuite(object):
 
         i.e. Checking for and defining required directories.
         """
-        print("\nSetting up for {suite_name}".format(suite_name=self.root))
+        print(u"\nSetting up for {suite_name}".format(suite_name=self.root))
         self.failed_suites = []
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -52,7 +52,7 @@ class TestSuite(object):
 
         i.e. Cleaning mongo after the lms tests run.
         """
-        print("\nCleaning up after {suite_name}".format(suite_name=self.root))
+        print(u"\nCleaning up after {suite_name}".format(suite_name=self.root))
 
     @property
     def cmd(self):

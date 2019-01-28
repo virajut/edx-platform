@@ -89,7 +89,7 @@ def search_certificates(request):
     try:
         user = User.objects.get(Q(email=user_filter) | Q(username=user_filter))
     except User.DoesNotExist:
-        return HttpResponseBadRequest(_("user '{user}' does not exist").format(user=user_filter))
+        return HttpResponseBadRequest(_(u"user '{user}' does not exist").format(user=user_filter))
 
     certificates = api.get_certificates_for_user(user.username)
     for cert in certificates:
@@ -103,7 +103,7 @@ def search_certificates(request):
         try:
             course_key = CourseKey.from_string(course_id)
         except InvalidKeyError:
-            return HttpResponseBadRequest(_("Course id '{course_id}' is not valid").format(course_id=course_id))
+            return HttpResponseBadRequest(_(u"Course id '{course_id}' is not valid").format(course_id=course_id))
         else:
             try:
                 if CourseOverview.get_from_id(course_key):
@@ -112,7 +112,7 @@ def search_certificates(request):
                     if not certificates:
                         return JsonResponse([{'username': user.username, 'course_key': course_id, 'regenerate': False}])
             except CourseOverview.DoesNotExist:
-                msg = _("The course does not exist against the given key '{course_key}'").format(course_key=course_key)
+                msg = _(u"The course does not exist against the given key '{course_key}'").format(course_key=course_key)
                 return HttpResponseBadRequest(msg)
 
     return JsonResponse(certificates)
@@ -133,7 +133,7 @@ def _validate_post_params(params):
         username = params.get("username")
         user = User.objects.get(username=username)
     except User.DoesNotExist:
-        msg = _("User {username} does not exist").format(username=username)
+        msg = _(u"User {username} does not exist").format(username=username)
         return None, HttpResponseBadRequest(msg)
 
     # Validate the course key
@@ -184,7 +184,7 @@ def regenerate_certificate_for_user(request):
 
     # Check that the user is enrolled in the course
     if not CourseEnrollment.is_enrolled(params["user"], params["course_key"]):
-        msg = _("User {username} is not enrolled in the course {course_key}").format(
+        msg = _(u"User {username} is not enrolled in the course {course_key}").format(
             username=params["user"].username,
             course_key=params["course_key"]
         )
@@ -252,7 +252,7 @@ def generate_certificate_for_user(request):
     else:
         # Check that the user is enrolled in the course
         if not CourseEnrollment.is_enrolled(params["user"], params["course_key"]):
-            msg = _("User {username} is not enrolled in the course {course_key}").format(
+            msg = _(u"User {username} is not enrolled in the course {course_key}").format(
                 username=params["user"].username,
                 course_key=params["course_key"]
             )

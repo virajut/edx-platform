@@ -80,7 +80,7 @@ class CourseDetails(object):
         Retrieve an attribute from a course's "about" info
         """
         if attribute not in ABOUT_ATTRIBUTES + ['video']:
-            raise ValueError("'{0}' is not a valid course about attribute.".format(attribute))
+            raise ValueError(u"'{0}' is not a valid course about attribute.".format(attribute))
 
         usage_key = course_key.make_usage_key('about', attribute)
         try:

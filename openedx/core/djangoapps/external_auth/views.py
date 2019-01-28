@@ -97,7 +97,7 @@ def openid_login_complete(request,
         oid_backend = openid_auth.OpenIDBackend()
         details = oid_backend._extract_user_details(openid_response)  # pylint: disable=protected-access
 
-        log.debug('openid success, details=%s', details)
+        log.debug(u'openid success, details=%s', details)
 
         url = getattr(settings, 'OPENID_SSO_SERVER_URL', None)
         external_domain = "{0}{1}".format(OPENID_DOMAIN_PREFIX, url)

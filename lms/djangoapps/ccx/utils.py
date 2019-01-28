@@ -86,10 +86,10 @@ def get_date(ccx, node, date_type=None, parent_node=None):
 
     if date is not None:
         # Setting override date [start or due]
-        date = date.strftime('%Y-%m-%d %H:%M')
+        date = date.strftime(u'%Y-%m-%d %H:%M')
     elif not parent_node and master_date is not None:
         # Setting date from master course
-        date = master_date.strftime('%Y-%m-%d %H:%M')
+        date = master_date.strftime(u'%Y-%m-%d %H:%M')
     elif parent_node is not None:
         # Set parent date (vertical has same dates as subsections)
         date = get_date(ccx, node=parent_node, date_type=date_type)
@@ -224,7 +224,7 @@ def get_valid_student_with_email(identifier):
     try:
         validate_email(email)
     except ValidationError:
-        raise CCXUserValidationException('Could not find a user with name or email "{0}" '.format(identifier))
+        raise CCXUserValidationException(u'Could not find a user with name or email "{0}" '.format(identifier))
     return email, user
 
 
@@ -263,7 +263,7 @@ def ccx_students_enrolling_center(action, identifiers, email_students, course_ke
                 continue
 
             if CourseEnrollment.objects.is_course_full(ccx_course_overview) and not must_enroll:
-                error = _('The course is full: the limit is {max_student_enrollments_allowed}').format(
+                error = _(u'The course is full: the limit is {max_student_enrollments_allowed}').format(
                     max_student_enrollments_allowed=ccx_course_overview.max_student_enrollments_allowed)
                 log.info("%s", error)
                 errors.append(error)

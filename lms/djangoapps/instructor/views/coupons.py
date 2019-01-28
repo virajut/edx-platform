@@ -100,12 +100,12 @@ def add_coupon(request, course_id):
         )
         coupon.save()
         return JsonResponse(
-            {'message': _("coupon with the coupon code ({code}) added successfully").format(code=code)}
+            {u'message': _("coupon with the coupon code ({code}) added successfully").format(code=code)}
         )
 
     if coupon:
         return JsonResponse(
-            {'message': _("coupon with the coupon code ({code}) already exists for this course").format(code=code)},
+            {u'message': _("coupon with the coupon code ({code}) already exists for this course").format(code=code)},
             status=400)  # status code 400: Bad Request
 
 
@@ -123,14 +123,14 @@ def update_coupon(request, course_id):  # pylint: disable=unused-argument
         coupon = Coupon.objects.get(pk=coupon_id)
     except ObjectDoesNotExist:
         return JsonResponse(
-            {'message': _("coupon with the coupon id ({coupon_id}) DoesNotExist").format(coupon_id=coupon_id)},
+            {u'message': _("coupon with the coupon id ({coupon_id}) DoesNotExist").format(coupon_id=coupon_id)},
             status=400)  # status code 400: Bad Request
 
     description = request.POST.get('description')
     coupon.description = description
     coupon.save()
     return JsonResponse(
-        {'message': _("coupon with the coupon id ({coupon_id}) updated Successfully").format(coupon_id=coupon_id)}
+        {u'message': _("coupon with the coupon id ({coupon_id}) updated Successfully").format(coupon_id=coupon_id)}
     )
 
 

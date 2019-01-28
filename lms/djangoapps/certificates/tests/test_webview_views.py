@@ -975,7 +975,7 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
             expected_date = self.course.certificate_available_date
         with waffle.waffle().override(waffle.AUTO_CERTIFICATE_GENERATION, active=True):
             response = self.client.get(test_url)
-        date = '{month} {day}, {year}'.format(
+        date = u'{month} {day}, {year}'.format(
             month=strftime_localized(expected_date, "%B"),
             day=expected_date.day,
             year=expected_date.year
@@ -1149,7 +1149,7 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
             mock_get_org_id.return_value = None
             response = self.client.get(test_url)
             self.assertEqual(response.status_code, 200)
-            self.assertContains(response, 'mode: {}'.format(mode))
+            self.assertContains(response, u'mode: {}'.format(mode))
             self.assertContains(response, 'course name: test_template_1_course')
 
     ## Templates With Language tests
@@ -1532,7 +1532,7 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
                         response = self.client.get(test_url)
                         self.assertEqual(response.status_code, 200)
                         if custom_certs_enabled:
-                            self.assertContains(response, 'mode: {}'.format(mode))
+                            self.assertContains(response, u'mode: {}'.format(mode))
                         else:
                             self.assertContains(response, "Tweet this Accomplishment")
                         self.assertContains(response, 'https://twitter.com/intent/tweet')

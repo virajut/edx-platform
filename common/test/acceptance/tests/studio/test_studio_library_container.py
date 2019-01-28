@@ -218,7 +218,7 @@ class StudioLibraryContainerTest(StudioLibraryTest, UniqueCourseTest, TestWithSe
         And I set Problem Type selector so "Any"
         Then I can see that "No matching content" warning is shown
         """
-        expected_tpl = "The specified library is configured to fetch {count} problems, " \
+        expected_tpl = u"The specified library is configured to fetch {count} problems, " \
                        "but there are only {actual} matching problems."
 
         library_container = self._get_library_xblock_wrapper(self.unit_page.xblocks[1])

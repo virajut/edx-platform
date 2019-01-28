@@ -2003,7 +2003,7 @@ class VideoDescriptorTest(TestCase, VideoDescriptorTestBase):
                 module_system.resources_fs,
                 EXPORT_IMPORT_STATIC_DIR
             )
-            xml_data += " sub='{sub_id}'".format(
+            xml_data += u" sub='{sub_id}'".format(
                 sub_id=sub_id
             )
 
@@ -2015,7 +2015,7 @@ class VideoDescriptorTest(TestCase, VideoDescriptorTestBase):
                 module_system.resources_fs,
                 EXPORT_IMPORT_STATIC_DIR
             )
-            xml_data += " transcripts='{transcripts}'".format(
+            xml_data += u" transcripts='{transcripts}'".format(
                 transcripts=json.dumps(external_transcripts),
             )
 

@@ -529,7 +529,7 @@ class TestCourseOutline(CourseTestCase):
                 ItemFactory.create(
                     parent_location=self.vertical.location,
                     category=block_type,
-                    display_name='{} Problem'.format(block_type)
+                    display_name=u'{} Problem'.format(block_type)
                 )
 
             if not publish:

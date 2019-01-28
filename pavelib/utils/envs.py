@@ -35,7 +35,7 @@ def repo_root():
             absolute_path = file_path.abspath()
             break
         except OSError:
-            print('Attempt {}/180 to get an absolute path failed'.format(attempt))
+            print(u'Attempt {}/180 to get an absolute path failed'.format(attempt))
             if attempt < 180:
                 attempt += 1
                 sleep(1)
@@ -260,7 +260,7 @@ class Env(object):
             )
             return unicode(value).strip()
         except BuildFailure:
-            print("Unable to print the value of the {} setting:".format(django_setting))
+            print(u"Unable to print the value of the {} setting:".format(django_setting))
             with io.open(cls.PRINT_SETTINGS_LOG_FILE, 'r') as f:
                 print(f.read())
             sys.exit(1)

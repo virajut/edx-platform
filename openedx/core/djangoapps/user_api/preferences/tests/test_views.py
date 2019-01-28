@@ -450,7 +450,7 @@ class TestPreferencesDetailAPI(UserAPITestCase):
         set_user_preference(self.user, "dict_pref", {"int_key": 10})
         self._set_url("dict_pref")
         response = self.send_get(client)
-        self.assertEqual("{'int_key': 10}", response.data)
+        self.assertEqual(u"{'int_key': 10}", response.data)
 
     def test_create_preference(self):
         """

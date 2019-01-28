@@ -70,7 +70,7 @@ class AccountSettingsPage(FieldsMixin, PageObject):
 
     def get_value_of_order_history_row_item(self, field_id, field_name):
         """ Return the text value of the provided order field name."""
-        query = self.q(css='.u-field-{} .u-field-order-{}'.format(field_id, field_name))
+        query = self.q(css=u'.u-field-{} .u-field-order-{}'.format(field_id, field_name))
         return query.text if query.present else None
 
     def order_button_is_visible(self, field_id):

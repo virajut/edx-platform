@@ -51,17 +51,17 @@ class Command(BaseCommand):
             raise CommandError('settings.RETIREMENT_STATES does not exist or is empty.')
 
         if not set(REQUIRED_STATES).issubset(set(new_states)):
-            raise CommandError('settings.RETIREMENT_STATES ({}) does not contain all required states '
+            raise CommandError(u'settings.RETIREMENT_STATES ({}) does not contain all required states '
                                '({})'.format(new_states, REQ_STR))
 
         # Confirm that the start and end states are in the right places
         if new_states.index(START_STATE) != 0:
-            raise CommandError('{} must be the first state'.format(START_STATE))
+            raise CommandError(u'{} must be the first state'.format(START_STATE))
 
         num_end_states = len(END_STATES)
 
         if new_states[-num_end_states:] != END_STATES:
-            raise CommandError('The last {} states must be these (in this order): '
+            raise CommandError(u'The last {} states must be these (in this order): '
                                '{}'.format(num_end_states, END_STATES))
 
     def _check_current_users(self):
@@ -152,9 +152,9 @@ class Command(BaseCommand):
 
         # Report
         print("States have been synchronized. Differences:")
-        print("   Added: {}".format(created))
-        print("   Removed: {}".format(deleted))
-        print("   Remaining: {}".format(existed))
+        print(u"   Added: {}".format(created))
+        print(u"   Removed: {}".format(deleted))
+        print(u"   Remaining: {}".format(existed))
         print("States updated successfully. Current states:")
 
         for state in RetirementState.objects.all():

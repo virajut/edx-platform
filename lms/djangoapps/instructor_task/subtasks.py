@@ -466,7 +466,7 @@ def update_subtask_status(entry_id, current_task_id, new_subtask_status, retry_c
         # If we fail, try again recursively.
         retry_count += 1
         if retry_count < MAX_DATABASE_LOCK_RETRIES:
-            TASK_LOG.info("Retrying to update status for subtask %s of instructor task %d with status %s:  retry %d",
+            TASK_LOG.info(u"Retrying to update status for subtask %s of instructor task %d with status %s:  retry %d",
                           current_task_id, entry_id, new_subtask_status, retry_count)
             update_subtask_status(entry_id, current_task_id, new_subtask_status, retry_count)
         else:
@@ -508,7 +508,7 @@ def _update_subtask_status(entry_id, current_task_id, new_subtask_status):
     is the value of the SubtaskStatus.to_dict(), but could be expanded in future to store information
     about failure messages, progress made, etc.
     """
-    TASK_LOG.info("Preparing to update status for subtask %s for instructor task %d with status %s",
+    TASK_LOG.info(u"Preparing to update status for subtask %s for instructor task %d with status %s",
                   current_task_id, entry_id, new_subtask_status)
 
     try:
@@ -564,7 +564,7 @@ def _update_subtask_status(entry_id, current_task_id, new_subtask_status):
 
         TASK_LOG.debug("about to save....")
         entry.save()
-        TASK_LOG.info("Task output updated to %s for subtask %s of instructor task %d",
+        TASK_LOG.info(u"Task output updated to %s for subtask %s of instructor task %d",
                       entry.task_output, current_task_id, entry_id)
     except Exception:
         TASK_LOG.exception("Unexpected error while updating InstructorTask.")

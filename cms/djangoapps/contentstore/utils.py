@@ -100,7 +100,7 @@ def _remove_instructors(course_key):
     try:
         remove_all_instructors(course_key)
     except Exception as err:
-        log.error("Error in deleting course groups for {0}: {1}".format(course_key, err))
+        log.error(u"Error in deleting course groups for {0}: {1}".format(course_key, err))
 
 
 def get_lms_link_for_item(location, preview=False):
@@ -491,7 +491,7 @@ def get_visibility_partition_info(xblock, course=None):
                 else:
                     # Translators: This is building up a list of groups. It is marked for translation because of the
                     # comma, which is used as a separator between each group.
-                    selected_groups_label = _('{previous_groups}, {current_group}').format(
+                    selected_groups_label = _(u'{previous_groups}, {current_group}').format(
                         previous_groups=selected_groups_label,
                         current_group=group['name']
                     )

@@ -42,13 +42,13 @@ def _get_prerequisite_milestone(prereq_content_key):
     ))
 
     if not milestones:
-        log.warning("Could not find gating milestone for prereq UsageKey %s", prereq_content_key)
+        log.warning(u"Could not find gating milestone for prereq UsageKey %s", prereq_content_key)
         return None
 
     if len(milestones) > 1:
         # We should only ever have one gating milestone per UsageKey
         # Log a warning here and pick the first one
-        log.warning("Multiple gating milestones found for prereq UsageKey %s", prereq_content_key)
+        log.warning(u"Multiple gating milestones found for prereq UsageKey %s", prereq_content_key)
 
     return milestones[0]
 
@@ -67,7 +67,7 @@ def _validate_min_score(min_score):
         GatingValidationError: If the minimum score is not valid
     """
     if min_score:
-        message = _("%(min_score)s is not a valid grade percentage") % {'min_score': min_score}
+        message = _(u"%(min_score)s is not a valid grade percentage") % {'min_score': min_score}
         try:
             min_score = int(min_score)
         except ValueError:
@@ -447,7 +447,7 @@ def get_subsection_grade_percentage(subsection_usage_key, user):
                 )
                 subsection_grade_percentage = subsection_grade.percent_graded * 100.0
     except ItemNotFoundError as err:
-        log.warning("Could not find course_block for subsection=%s error=%s", subsection_usage_key, err)
+        log.warning(u"Could not find course_block for subsection=%s error=%s", subsection_usage_key, err)
     return subsection_grade_percentage
 
 
@@ -488,7 +488,7 @@ def get_subsection_completion_percentage(subsection_usage_key, user):
             )
 
     except ItemNotFoundError as err:
-        log.warning("Could not find course_block for subsection=%s error=%s", subsection_usage_key, err)
+        log.warning(u"Could not find course_block for subsection=%s error=%s", subsection_usage_key, err)
 
     return subsection_completion_percentage
 

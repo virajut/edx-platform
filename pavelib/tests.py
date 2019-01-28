@@ -294,7 +294,7 @@ def coverage():
     if not (report_dir / '.coverage').isfile():
         # This may be that the coverage files were generated using -p,
         # try to combine them to the one file that we need.
-        sh("coverage combine --rcfile={}".format(rcfile))
+        sh(u"coverage combine --rcfile={}".format(rcfile))
 
     if not os.path.getsize(report_dir / '.coverage') > 50:
         # Check if the .coverage data file is larger than the base file,
@@ -309,9 +309,9 @@ def coverage():
         return
 
     # Generate the coverage.py XML report
-    sh("coverage xml --rcfile={}".format(rcfile))
+    sh(u"coverage xml --rcfile={}".format(rcfile))
     # Generate the coverage.py HTML report
-    sh("coverage html --rcfile={}".format(rcfile))
+    sh(u"coverage html --rcfile={}".format(rcfile))
     diff_coverage()  # pylint: disable=no-value-for-parameter
 
 

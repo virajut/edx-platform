@@ -52,8 +52,8 @@ class SurveyForm(TimeStampedModel):
         try:
             fields = cls.get_field_names_from_html(html)
         except Exception as ex:
-            log.exception("Cannot parse SurveyForm html: {}".format(ex))
-            raise ValidationError("Cannot parse SurveyForm as HTML: {}".format(ex))
+            log.exception(u"Cannot parse SurveyForm html: {}".format(ex))
+            raise ValidationError(u"Cannot parse SurveyForm as HTML: {}".format(ex))
 
         if not len(fields):
             raise ValidationError("SurveyForms must contain at least one form input field")

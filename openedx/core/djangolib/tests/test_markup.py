@@ -72,7 +72,7 @@ class FormatHtmlTest(unittest.TestCase):
     def test_ungettext(self):
         for i in [1, 2]:
             out = Text(ungettext("1 & {}", "2 & {}", i)).format(HTML("<>"))
-            self.assertEqual(out, "{} &amp; <>".format(i))
+            self.assertEqual(out, u"{} &amp; <>".format(i))
 
     def test_strip_all_tags_but_br_filter(self):
         """ Verify filter removes every tags except br """

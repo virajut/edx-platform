@@ -22,7 +22,7 @@ class NoteChild(PageObject):
         """
         Return `selector`, but limited to this particular `NoteChild` context
         """
-        return "{}#{} {}".format(
+        return u"{}#{} {}".format(
             self.BODY_SELECTOR,
             self.item_id,
             selector,
@@ -177,7 +177,7 @@ class EdxNotesPageView(PageObject):
         try:
             return self.wait_for_page()
         except BrokenPromise:
-            raise PageLoadError("Timed out waiting to load page '{!r}'".format(self))
+            raise PageLoadError(u"Timed out waiting to load page '{!r}'".format(self))
 
     def is_browser_on_page(self):
         return all([
@@ -191,13 +191,13 @@ class EdxNotesPageView(PageObject):
         """
         Indicates if tab is closable or not.
         """
-        return self.q(css="{} .action-close".format(self.TAB_SELECTOR)).present
+        return self.q(css=u"{} .action-close".format(self.TAB_SELECTOR)).present
 
     def close(self):
         """
         Closes the tab.
         """
-        self.q(css="{} .action-close".format(self.TAB_SELECTOR)).first.click()
+        self.q(css=u"{} .action-close".format(self.TAB_SELECTOR)).first.click()
 
     @property
     def children(self):

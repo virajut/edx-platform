@@ -25,7 +25,7 @@ def submission_value_repr(self):
     the "created_at" attribute that changes with each execution.  Needed for
     consistency of ddt-generated test methods across pytest-xdist workers.
     """
-    return '<SubmissionValue exists={}>'.format(self.exists)
+    return u'<SubmissionValue exists={}>'.format(self.exists)
 
 
 def csm_value_repr(self):
@@ -34,7 +34,7 @@ def csm_value_repr(self):
     the "created" attribute that changes with each execution.  Needed for
     consistency of ddt-generated test methods across pytest-xdist workers.
     """
-    return '<CSMValue exists={} raw_earned={}>'.format(self.exists, self.raw_earned)
+    return u'<CSMValue exists={} raw_earned={}>'.format(self.exists, self.raw_earned)
 
 
 def expected_result_repr(self):

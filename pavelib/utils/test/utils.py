@@ -55,7 +55,7 @@ def clean_dir(directory):
     """
     # We delete the files but preserve the directory structure
     # so that coverage.py has a place to put the reports.
-    sh('find {dir} -type f -delete'.format(dir=directory))
+    sh(u'find {dir} -type f -delete'.format(dir=directory))
 
 
 @task
@@ -84,7 +84,7 @@ def clean_mongo():
     """
     Clean mongo test databases
     """
-    sh("mongo {host}:{port} {repo_root}/scripts/delete-mongo-test-dbs.js".format(
+    sh(u"mongo {host}:{port} {repo_root}/scripts/delete-mongo-test-dbs.js".format(
         host=Env.MONGO_HOST,
         port=MONGO_PORT_NUM,
         repo_root=Env.REPO_ROOT,

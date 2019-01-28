@@ -187,7 +187,7 @@ class ScheduleSendEmailTestMixin(FilteredQueryCountMixin):
             target_day_str = serialize(target_day)
 
             for b in range(self.task.num_bins):
-                LOG.debug('Checking bin %d', b)
+                LOG.debug(u'Checking bin %d', b)
                 expected_queries = NUM_QUERIES_SITE_SCHEDULES
                 if b in bins_in_use:
                     if is_first_match:

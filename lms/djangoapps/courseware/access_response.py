@@ -127,9 +127,9 @@ class StartDateError(AccessError):
             developer_message = "Course has not started"
             user_message = _("Course has not started")
         else:
-            developer_message = "Course does not start until {}".format(start_date)
-            user_message = _("Course does not start until {}"
-                             .format("{:%B %d, %Y}".format(start_date)))
+            developer_message = u"Course does not start until {}".format(start_date)
+            user_message = _(u"Course does not start until {}"
+                             .format(u"{:%B %d, %Y}".format(start_date)))
         super(StartDateError, self).__init__(error_code, developer_message, user_message)
 
 
@@ -192,5 +192,5 @@ class NoAllowedPartitionGroupsError(AccessError):
     """
     def __init__(self, partition, user_message=None, user_fragment=None):
         error_code = "no_allowed_user_groups"
-        developer_message = "Group access for {} excludes all students".format(partition.name)
+        developer_message = u"Group access for {} excludes all students".format(partition.name)
         super(NoAllowedPartitionGroupsError, self).__init__(error_code, developer_message, user_message)

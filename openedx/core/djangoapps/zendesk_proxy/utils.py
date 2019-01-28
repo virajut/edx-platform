@@ -22,7 +22,7 @@ def create_zendesk_ticket(requester_name, requester_email, subject, body, custom
     """
     def _std_error_message(details, payload):
         """Internal helper to standardize error message. This allows for simpler splunk alerts."""
-        return 'zendesk_proxy action required\n{}\nNo ticket created for payload {}'.format(details, payload)
+        return u'zendesk_proxy action required\n{}\nNo ticket created for payload {}'.format(details, payload)
 
     if tags:
         # Remove duplicates from tags list
@@ -63,7 +63,7 @@ def create_zendesk_ticket(requester_name, requester_email, subject, body, custom
 
         # Check for HTTP codes other than 201 (Created)
         if response.status_code == status.HTTP_201_CREATED:
-            log.debug('Successfully created ticket for {}'.format(requester_email))
+            log.debug(u'Successfully created ticket for {}'.format(requester_email))
         else:
             log.error(
                 _std_error_message(

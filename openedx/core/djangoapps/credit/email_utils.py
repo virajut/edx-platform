@@ -36,7 +36,7 @@ def send_credit_notifications(username, course_key):
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
-        log.error('No user with %s exist', username)
+        log.error(u'No user with %s exist', username)
         return
 
     course = modulestore().get_course(course_key, depth=0)
@@ -223,11 +223,11 @@ def get_credit_provider_display_names(course_key):
         user = User.objects.get(username=settings.ECOMMERCE_SERVICE_WORKER_USERNAME)
         response = ecommerce_api_client(user).courses(course_id).get(include_products=1)
     except Exception:  # pylint: disable=broad-except
-        log.exception("Failed to receive data from the ecommerce course API for Course ID '%s'.", course_id)
+        log.exception(u"Failed to receive data from the ecommerce course API for Course ID '%s'.", course_id)
         return provider_names
 
     if not response:
-        log.info("No Course information found from ecommerce API for Course ID '%s'.", course_id)
+        log.info(u"No Course information found from ecommerce API for Course ID '%s'.", course_id)
         return provider_names
 
     provider_ids = []
@@ -265,14 +265,14 @@ def make_providers_strings(providers):
 
     elif len(providers) == 2:
         # Translators: The join of two university names (e.g., Harvard and MIT).
-        providers_string = _("{first_provider} and {second_provider}").format(
+        providers_string = _(u"{first_provider} and {second_provider}").format(
             first_provider=providers[0],
             second_provider=providers[1]
         )
     else:
         # Translators: The join of three or more university names. The first of these formatting strings
         # represents a comma-separated list of names (e.g., MIT, Harvard, Dartmouth).
-        providers_string = _("{first_providers}, and {last_provider}").format(
+        providers_string = _(u"{first_providers}, and {last_provider}").format(
             first_providers=u", ".join(providers[:-1]),
             last_provider=providers[-1]
         )

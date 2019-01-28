@@ -86,7 +86,7 @@ def see_a_problem_component(step, category):
 @step(u'I add a "([^"]*)" "([^"]*)" component$')
 def add_component_category(step, component, category):
     assert category in ('single step', 'HTML', 'Problem', 'Advanced Problem')
-    given_string = 'I add this type of {} component:'.format(category)
+    given_string = u'I add this type of {} component:'.format(category)
     step.given('{}\n{}\n{}'.format(given_string, '|Component|', '|{}|'.format(component)))
 
 
@@ -101,7 +101,7 @@ def delete_components(step, number):
     world.wait_for_xmodule()
     delete_btn_css = '.delete-button'
     prompt_css = '#prompt-warning'
-    btn_css = '{} .action-primary'.format(prompt_css)
+    btn_css = u'{} .action-primary'.format(prompt_css)
     saving_mini_css = '#page-notification .wrapper-notification-mini'
     for _ in range(int(number)):
         world.css_click(delete_btn_css)

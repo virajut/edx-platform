@@ -186,7 +186,7 @@ class CertificatesInstructorDashTest(SharedModuleStoreTestCase):
         response = self.client.get(self.url)
 
         if expected_status == 'started':
-            expected = 'Generating example {name} certificate'.format(name=cert_name)
+            expected = u'Generating example {name} certificate'.format(name=cert_name)
             self.assertContains(response, expected)
         elif expected_status == 'error':
             expected = self.ERROR_REASON
@@ -195,7 +195,7 @@ class CertificatesInstructorDashTest(SharedModuleStoreTestCase):
             expected = self.DOWNLOAD_URL
             self.assertContains(response, expected)
         else:
-            self.fail("Invalid certificate status: {status}".format(status=expected_status))
+            self.fail(u"Invalid certificate status: {status}".format(status=expected_status))
 
     def _assert_enable_certs_button_is_disabled(self):
         """Check that the "enable student-generated certificates" button is disabled. """

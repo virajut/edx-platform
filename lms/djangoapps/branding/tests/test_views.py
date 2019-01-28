@@ -274,7 +274,7 @@ class TestFooter(CacheIsolationTestCase):
         for language in released_languages():
             if language.code == selected_language:
                 continue
-            self.assertIn('<option value="{}">'.format(language.code), content)
+            self.assertIn(u'<option value="{}">'.format(language.code), content)
 
 
 class TestIndex(SiteMixin, TestCase):

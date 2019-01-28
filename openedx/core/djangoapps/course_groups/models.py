@@ -107,7 +107,7 @@ class CohortMembership(models.Model):
                 membership.course_user_group.users.add(user)
                 previous_cohort = None
             elif membership.course_user_group == cohort:
-                raise ValueError("User {user_name} already present in cohort {cohort_name}".format(
+                raise ValueError(u"User {user_name} already present in cohort {cohort_name}".format(
                     user_name=user.username,
                     cohort_name=cohort.name))
             else:

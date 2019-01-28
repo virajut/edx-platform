@@ -129,7 +129,7 @@ class CourseEmailTest(ModuleStoreTestCase):
         target = email.targets.all()[0]
         self.assertEqual(target.target_type, SEND_TO_TRACK)
         self.assertEqual(target.short_display(), 'track-{}'.format(free_mode))
-        self.assertEqual(target.long_display(), 'Course mode: {}'.format(mode_display_name))
+        self.assertEqual(target.long_display(), u'Course mode: {}'.format(mode_display_name))
 
     def test_cohort_target(self):
         course_id = CourseKey.from_string('abc/123/doremi')

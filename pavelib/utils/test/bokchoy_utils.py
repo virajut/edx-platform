@@ -42,9 +42,9 @@ def start_servers(options):
 
     for service, info in Env.BOK_CHOY_SERVERS.iteritems():
         address = "0.0.0.0:{}".format(info['port'])
-        cmd = ("DEFAULT_STORE={default_store} ").format(default_store=options.default_store)
+        cmd = (u"DEFAULT_STORE={default_store} ").format(default_store=options.default_store)
         if coveragerc:
-            cmd += ("coverage run --rcfile={coveragerc} -m ").format(coveragerc=coveragerc)
+            cmd += (u"coverage run --rcfile={coveragerc} -m ").format(coveragerc=coveragerc)
         else:
             cmd += "python -m "
         cmd += (

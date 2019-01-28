@@ -53,7 +53,7 @@ def update_course_schedules(self, **kwargs):
         )
         LOG.info("Number of schedule records updated: %d", number_of_updated_records)
     except Exception as exc:
-        LOG.exception("A broader exception to debug EDUCATOR-3965")
+        LOG.exception(u"A broader exception to debug EDUCATOR-3965")
         if not isinstance(exc, KNOWN_RETRY_ERRORS):
             LOG.exception("Unexpected failure: task id: %s, kwargs=%s".format(self.request.id, kwargs))
         raise self.retry(kwargs=kwargs, exc=exc)

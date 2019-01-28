@@ -131,7 +131,7 @@ class Users(SysadminDashboardView):
             except (TypeError, PermissionDenied, AttributeError) as err:
                 # Translators: This message means that the user could not be authenticated (that is, we could
                 # not log them in for some reason - maybe they don't have permission, or their password was wrong)
-                msg += _('Failed in authenticating {username}, error {error}\n').format(
+                msg += _(u'Failed in authenticating {username}, error {error}\n').format(
                     username=euser,
                     error=err
                 )
@@ -139,7 +139,7 @@ class Users(SysadminDashboardView):
             if testuser is None:
                 # Translators: This message means that the user could not be authenticated (that is, we could
                 # not log them in for some reason - maybe they don't have permission, or their password was wrong)
-                msg += _('Failed in authenticating {username}\n').format(username=euser)
+                msg += _(u'Failed in authenticating {username}\n').format(username=euser)
                 # Translators: this means that the password has been corrected (sometimes the database needs to be resynchronized)
                 # Translate this as meaning "the password was fixed" or "the password was corrected".
                 msg += _('fixed password')
@@ -169,12 +169,12 @@ class Users(SysadminDashboardView):
                 email = uname
             if not email.endswith('@{0}'.format(email_domain)):
                 # Translators: Domain is an email domain, such as "@gmail.com"
-                msg += _('Email address must end in {domain}').format(domain="@{0}".format(email_domain))
+                msg += _(u'Email address must end in {domain}').format(domain="@{0}".format(email_domain))
                 return msg
             mit_domain = 'ssl:MIT'
             if ExternalAuthMap.objects.filter(external_id=email,
                                               external_domain=mit_domain):
-                msg += _('Failed - email {email_addr} already exists as {external_id}').format(
+                msg += _(u'Failed - email {email_addr} already exists as {external_id}').format(
                     email_addr=email,
                     external_id="external_id"
                 )
@@ -196,7 +196,7 @@ class Users(SysadminDashboardView):
         try:
             user.save()
         except IntegrityError:
-            msg += _('Oops, failed to create user {user}, {error}').format(
+            msg += _(u'Oops, failed to create user {user}, {error}').format(
                 user=user,
                 error="IntegrityError"
             )
@@ -225,7 +225,7 @@ class Users(SysadminDashboardView):
             eamap.dtsignup = timezone.now()
             eamap.save()
 
-        msg += _('User {user} created successfully!').format(user=user)
+        msg += _(u'User {user} created successfully!').format(user=user)
         return msg
 
     def delete_user(self, uname):
@@ -237,19 +237,19 @@ class Users(SysadminDashboardView):
             try:
                 user = User.objects.get(email=uname)
             except User.DoesNotExist as err:
-                msg = _('Cannot find user with email address {email_addr}').format(email_addr=uname)
+                msg = _(u'Cannot find user with email address {email_addr}').format(email_addr=uname)
                 return msg
         else:
             try:
                 user = User.objects.get(username=uname)
             except User.DoesNotExist as err:
-                msg = _('Cannot find user with username {username} - {error}').format(
+                msg = _(u'Cannot find user with username {username} - {error}').format(
                     username=uname,
                     error=str(err)
                 )
                 return msg
         user.delete()
-        return _('Deleted user {username}').format(username=uname)
+        return _(u'Deleted user {username}').format(username=uname)
 
     def make_common_context(self):
         """Returns the datatable used for this view"""
@@ -380,7 +380,7 @@ class Courses(SysadminDashboardView):
 
         msg = u''
 
-        log.debug('Adding course using git repo %s', gitloc)
+        log.debug(u'Adding course using git repo %s', gitloc)
 
         # Grab logging output for debugging imports
         output = StringIO.StringIO()
@@ -632,7 +632,7 @@ class GitLogs(TemplateView):
             cilset = CourseImportLog.objects.filter(
                 course_id=course_id
             ).order_by('-created')
-            log.debug('cilset length=%s', len(cilset))
+            log.debug(u'cilset length=%s', len(cilset))
 
         # Paginate the query set
         paginator = Paginator(cilset, page_size)

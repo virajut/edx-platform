@@ -117,7 +117,7 @@ class ProgressPageCreditRequirementsTest(SharedModuleStoreTestCase):
             response,
             "{}, you have met the requirements for credit in this course.".format(self.USER_FULL_NAME)
         )
-        self.assertContains(response, "Completed by {date}")
+        self.assertContains(response, u"Completed by {date}")
 
         credit_requirements = credit_api.get_credit_requirement_status(self.course.id, self.user.username)
         for requirement in credit_requirements:

@@ -108,7 +108,7 @@ class Command(BaseCommand):
                     ), course_key, user.id
                 )
 
-        LOGGER.info("Finished resubmitting %s certificate tasks", resubmit_count)
+        LOGGER.info(u"Finished resubmitting %s certificate tasks", resubmit_count)
 
     def _load_course_with_cache(self, course_key, course_cache):
         """Retrieve the course, then cache it to avoid Mongo queries. """

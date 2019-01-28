@@ -73,7 +73,7 @@ def build_docs(options):
     """
     verbose = getattr(options, 'verbose', False)
 
-    cmd = "cd {dir}; make html quiet={quiet}".format(
+    cmd = u"cd {dir}; make html quiet={quiet}".format(
         dir=doc_path(options),
         quiet="false" if verbose else "true"
     )

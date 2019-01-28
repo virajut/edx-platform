@@ -24,7 +24,7 @@ class ProblemXBlockEditorView(XBlockEditorView):
         """
         If editing, set the value of a field.
         """
-        selector = '.xblock-studio_view li.field label:contains("{}") + input'.format(field_display_name)
+        selector = u'.xblock-studio_view li.field label:contains("{}") + input'.format(field_display_name)
         script = "$(arguments[0]).val(arguments[1]).change();"
         self.browser.execute_script(script, selector, field_value)
 
@@ -37,7 +37,7 @@ class ProblemXBlockEditorView(XBlockEditorView):
         Returns:
             (string): Value of the field
         """
-        script = "return $('.wrapper-comp-setting label:contains({}) + input').val();".format(field_display_name)
+        script = u"return $('.wrapper-comp-setting label:contains({}) + input').val();".format(field_display_name)
         return self.browser.execute_script(script)
 
     def get_default_dropdown_value(self, css):
@@ -86,7 +86,7 @@ class ProblemXBlockEditorView(XBlockEditorView):
         """
         settings_dict = {}
         number_of_settings = len(self.q(css='.wrapper-comp-setting'))
-        css = '.list-input.settings-list .field.comp-setting-entry:nth-of-type({}) {}'
+        css = u'.list-input.settings-list .field.comp-setting-entry:nth-of-type({}) {}'
 
         for index in range(1, number_of_settings + 1):
             key = self.q(css=css.format(index, "label")).text[0]

@@ -114,7 +114,7 @@ class DashboardPage(PageObject, HelpMixin):
         Fill out the form to create a new library.
         Must have called click_new_library() first.
         """
-        field = lambda fn: self.q(css='.wrapper-create-library #new-library-{}'.format(fn))
+        field = lambda fn: self.q(css=u'.wrapper-create-library #new-library-{}'.format(fn))
         field('name').fill(display_name)
         field('org').fill(org)
         field('number').fill(number)
@@ -158,7 +158,7 @@ class DashboardPage(PageObject, HelpMixin):
         """
         Fill out the form to create a new course.
         """
-        field = lambda fn: self.q(css='.wrapper-create-course #new-course-{}'.format(fn))
+        field = lambda fn: self.q(css=u'.wrapper-create-course #new-course-{}'.format(fn))
         field('name').fill(display_name)
         field('org').fill(org)
         field('number').fill(number)
@@ -364,7 +364,7 @@ class AccessibilityPage(IndexPage):
         """
         To simulate leaving a field blank, click on the field, then press TAB to move off focus off the field.
         """
-        field = self.q(css='#root {}#{}'.format(field_type, field_id))[0]
+        field = self.q(css=u'#root {}#{}'.format(field_type, field_id))[0]
         field.click()
         field.send_keys(Keys.TAB)
 
@@ -378,7 +378,7 @@ class AccessibilityPage(IndexPage):
         """
         Check that at least one error message is shown and at least one contains the specified text.
         """
-        selector = '#root div#error-{}'.format(field_id)
+        selector = u'#root div#error-{}'.format(field_id)
         self.wait_for_element_visibility(selector, 'An error message is visible')
         error_messages = self.q(css=selector)
         for message in error_messages:

@@ -933,7 +933,7 @@ class TeamFormActions(TeamsTabBase):
             title='Edit Team',
             description='If you make significant changes, make sure you notify '
                         'members of the team before making these changes.',
-            breadcrumbs='All Topics {topic_name} {team_name}'.format(
+            breadcrumbs=u'All Topics {topic_name} {team_name}'.format(
                 topic_name=self.topic['name'],
                 team_name=self.team['name']
             )

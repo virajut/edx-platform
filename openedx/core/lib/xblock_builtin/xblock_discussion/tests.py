@@ -21,7 +21,7 @@ def attribute_pair_repr(self):
     Custom string representation for the AttributePair namedtuple which is
     consistent between test runs.
     """
-    return '<AttributePair name={}>'.format(self.name)
+    return u'<AttributePair name={}>'.format(self.name)
 
 
 AttributePair = namedtuple("AttributePair", ["name", "value"])

@@ -537,7 +537,7 @@ def get_enterprise_consent_url(request, course_id, user=None, return_to=None, en
     }
     querystring = urlencode(url_params)
     full_url = reverse('grant_data_sharing_permissions') + '?' + querystring
-    LOGGER.info('Redirecting to %s to complete data sharing consent', full_url)
+    LOGGER.info(u'Redirecting to %s to complete data sharing consent', full_url)
     return full_url
 
 

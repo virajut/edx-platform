@@ -118,4 +118,4 @@ class Command(BaseCommand):
                 )
             )
         else:
-            print('Success! {} retirements examined.'.format(len(retirements)))
+            print(u'Success! {} retirements examined.'.format(len(retirements)))

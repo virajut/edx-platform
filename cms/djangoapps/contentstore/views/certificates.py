@@ -238,7 +238,7 @@ class CertificateManager(object):
         # Ensure the schema fieldset meets our expectations
         for key in ("name", "description", "version"):
             if key not in value:
-                raise CertificateValidationError(_("Certificate dict {0} missing value key '{1}'").format(value, key))
+                raise CertificateValidationError(_(u"Certificate dict {0} missing value key '{1}'").format(value, key))
 
         # Load up the Certificate data
         certificate_data = CertificateManager.parse(value)
@@ -343,7 +343,7 @@ def certificate_activation_handler(request, course_key_string):
     try:
         course = _get_course_and_check_access(course_key, request.user)
     except PermissionDenied:
-        msg = _('PermissionDenied: Failed in authenticating {user}').format(user=request.user)
+        msg = _(u'PermissionDenied: Failed in authenticating {user}').format(user=request.user)
         return JsonResponse({"error": msg}, status=403)
 
     data = json.loads(request.body)
@@ -381,7 +381,7 @@ def certificates_list_handler(request, course_key_string):
         try:
             course = _get_course_and_check_access(course_key, request.user)
         except PermissionDenied:
-            msg = _('PermissionDenied: Failed in authenticating {user}').format(user=request.user)
+            msg = _(u'PermissionDenied: Failed in authenticating {user}').format(user=request.user)
             return JsonResponse({"error": msg}, status=403)
 
         if 'text/html' in request.META.get('HTTP_ACCEPT', 'text/html'):

@@ -235,7 +235,7 @@ class DjangoOrmFieldCache(object):
                     field_object.save(force_update=True)
 
             except DatabaseError:
-                log.exception("Saving field %r failed", kvs_key.field_name)
+                log.exception(u"Saving field %r failed", kvs_key.field_name)
                 raise KeyValueMultiSaveError(saved_fields)
 
             finally:
@@ -419,7 +419,7 @@ class UserStateCache(object):
                 pending_updates
             )
         except DatabaseError:
-            log.exception("Saving user state failed for %s", self.user.username)
+            log.exception(u"Saving user state failed for %s", self.user.username)
             raise KeyValueMultiSaveError([])
         finally:
             self._cache.update(pending_updates)
@@ -859,7 +859,7 @@ class FieldDataCache(object):
                 # the list of successful saves
                 saved_fields.extend(key.field_name for key in set_many_data)
             except KeyValueMultiSaveError as exc:
-                log.exception('Error saving fields %r', [key.field_name for key in set_many_data])
+                log.exception(u'Error saving fields %r', [key.field_name for key in set_many_data])
                 raise KeyValueMultiSaveError(saved_fields + exc.saved_field_names)
 
     @contract(key=DjangoKeyValueStore.Key)

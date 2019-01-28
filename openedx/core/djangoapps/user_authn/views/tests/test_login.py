@@ -532,7 +532,7 @@ class LoginTest(CacheIsolationTestCase):
         try:
             response_dict = json.loads(response.content)
         except ValueError:
-            self.fail("Could not parse response content as JSON: %s"
+            self.fail(u"Could not parse response content as JSON: %s"
                       % str(response.content))
 
         if success is not None:

@@ -372,7 +372,7 @@ class TeamsListView(ExpandableFieldViewMixin, GenericAPIView):
                 result_filter.update({'course_id': course_key})
             except InvalidKeyError:
                 error = build_api_error(
-                    ugettext_noop("The supplied course id {course_id} is not valid."),
+                    ugettext_noop(u"The supplied course id {course_id} is not valid."),
                     course_id=course_id_string,
                 )
                 return Response(error, status=status.HTTP_400_BAD_REQUEST)
@@ -399,7 +399,7 @@ class TeamsListView(ExpandableFieldViewMixin, GenericAPIView):
         if topic_id is not None:
             if topic_id not in [topic['id'] for topic in course_module.teams_configuration['topics']]:
                 error = build_api_error(
-                    ugettext_noop('The supplied topic id {topic_id} is not valid'),
+                    ugettext_noop(u'The supplied topic id {topic_id} is not valid'),
                     topic_id=topic_id
                 )
                 return Response(error, status=status.HTTP_400_BAD_REQUEST)
@@ -477,7 +477,7 @@ class TeamsListView(ExpandableFieldViewMixin, GenericAPIView):
                 return Response(status=status.HTTP_404_NOT_FOUND)
         except InvalidKeyError:
             field_errors['course_id'] = build_api_error(
-                ugettext_noop('The supplied course_id {course_id} is not valid.'),
+                ugettext_noop(u'The supplied course_id {course_id} is not valid.'),
                 course_id=course_id
             )
             return Response({
@@ -673,7 +673,7 @@ class TeamsDetailView(ExpandableFieldViewMixin, RetrievePatchAPIView):
 
         # Note: also deletes all team memberships associated with this team
         team.delete()
-        log.info('user %d deleted team %s', request.user.id, team_id)
+        log.info(u'user %d deleted team %s', request.user.id, team_id)
         emit_team_event('edx.team.deleted', team.course_id, {
             'team_id': team_id,
         })
@@ -755,7 +755,7 @@ class TopicListView(GenericAPIView):
             return Response({
                 'field_errors': {
                     'course_id': build_api_error(
-                        ugettext_noop("The supplied course id {course_id} is not valid."),
+                        ugettext_noop(u"The supplied course id {course_id} is not valid."),
                         course_id=course_id_string
                     )
                 }
@@ -1125,7 +1125,7 @@ class MembershipListView(ExpandableFieldViewMixin, GenericAPIView):
         except AlreadyOnTeamInCourse:
             return Response(
                 build_api_error(
-                    ugettext_noop("The user {username} is already a member of a team in this course."),
+                    ugettext_noop(u"The user {username} is already a member of a team in this course."),
                     username=username
                 ),
                 status=status.HTTP_400_BAD_REQUEST
@@ -1133,7 +1133,7 @@ class MembershipListView(ExpandableFieldViewMixin, GenericAPIView):
         except NotEnrolledInCourseForTeam:
             return Response(
                 build_api_error(
-                    ugettext_noop("The user {username} is not enrolled in the course associated with this team."),
+                    ugettext_noop(u"The user {username} is not enrolled in the course associated with this team."),
                     username=username
                 ),
                 status=status.HTTP_400_BAD_REQUEST

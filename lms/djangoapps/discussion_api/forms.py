@@ -61,7 +61,7 @@ class ThreadListGetForm(_PaginationForm):
         try:
             return CourseLocator.from_string(value)
         except InvalidKeyError:
-            raise ValidationError("'{}' is not a valid course id".format(value))
+            raise ValidationError(u"'{}' is not a valid course id".format(value))
 
     def clean_following(self):
         """Validate following"""

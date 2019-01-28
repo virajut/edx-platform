@@ -53,8 +53,8 @@ class ImportExportMixin(object):
         """
         Return python datetime object from the parsed timestamp tuple (date, time)
         """
-        timestamp = "{0} {1}".format(*self.timestamp)
-        formatted_timestamp = time.strptime(timestamp, "%m/%d/%Y %H:%M")
+        timestamp = u"{0} {1}".format(*self.timestamp)
+        formatted_timestamp = time.strptime(timestamp, u"%m/%d/%Y %H:%M")
         return datetime.fromtimestamp(time.mktime(formatted_timestamp))
 
     @property
@@ -65,7 +65,7 @@ class ImportExportMixin(object):
         """
         string = self.q(css='.item-progresspoint-success-date').text[0]
 
-        return re.match(r'\(([^ ]+).+?(\d{2}:\d{2})', string).groups()
+        return re.match(ur'\(([^ ]+).+?(\d{2}:\d{2})', string).groups()
 
     def wait_for_tasks(self, completed=False, fail_on=None):
         """

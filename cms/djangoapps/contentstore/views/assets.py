@@ -424,7 +424,7 @@ def _get_error_if_course_does_not_exist(course_key):
     try:
         modulestore().get_course(course_key)
     except ItemNotFoundError:
-        logging.error('Could not find course: %s', course_key)
+        logging.error(u'Could not find course: %s', course_key)
         return HttpResponseBadRequest()
 
 
@@ -564,7 +564,7 @@ def _delete_thumbnail(thumbnail_location, course_key, asset_key):
             contentstore().delete(thumbnail_content.get_id())
             del_cached_content(thumbnail_location)
         except Exception:  # pylint: disable=broad-except
-            logging.warning('Could not delete thumbnail: %s', thumbnail_location)
+            logging.warning(u'Could not delete thumbnail: %s', thumbnail_location)
 
 
 def _get_asset_json(display_name, content_type, date, location, thumbnail_location, locked):

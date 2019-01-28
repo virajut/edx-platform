@@ -190,7 +190,7 @@ def create_account_with_params(request, params):
         try:
             enable_notifications(user)
         except Exception:  # pylint: disable=broad-except
-            log.exception("Enable discussion notifications failed for user {id}.".format(id=user.id))
+            log.exception(u"Enable discussion notifications failed for user {id}.".format(id=user.id))
 
     _track_user_registration(user, profile, params, third_party_provider)
 
@@ -282,7 +282,7 @@ def _link_user_to_third_party_provider(
         if not social_access_token:
             raise ValidationError({
                 'access_token': [
-                    _("An access_token is required when passing value ({}) for provider.").format(
+                    _(u"An access_token is required when passing value ({}) for provider.").format(
                         params['provider']
                     )
                 ]

@@ -210,7 +210,7 @@ class ApiPermissionsAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ApiPermissionsAdminForm, self).__init__(*args, **kwargs)
         self.fields['provider_id'].choices = (
-            (provider.provider_id, "{} ({})".format(provider.name, provider.provider_id))
+            (provider.provider_id, u"{} ({})".format(provider.name, provider.provider_id))
             for provider in Registry.enabled()
         )
 

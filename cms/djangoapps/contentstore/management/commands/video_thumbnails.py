@@ -52,7 +52,7 @@ class Command(BaseCommand):
                 CourseKey.from_string(course_id)
             return course_ids
         except InvalidKeyError as error:
-            raise CommandError('Invalid key specified: {}'.format(text_type(error)))
+            raise CommandError(u'Invalid key specified: {}'.format(text_type(error)))
 
     def _latest_settings(self):
         """
@@ -79,6 +79,6 @@ class Command(BaseCommand):
             if video_thumbnail_settings.all_course_videos:
                 video_thumbnail_settings.update_offset()
         else:
-            log.info('[video thumbnails] selected course videos: {course_videos} '.format(
+            log.info(u'[video thumbnails] selected course videos: {course_videos} '.format(
                 course_videos=text_type(course_videos)
             ))

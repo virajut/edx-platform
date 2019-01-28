@@ -135,7 +135,7 @@ class InstructorTask(models.Model):
         # will fit in the column.  In the meantime, just return an exception.
         json_output = json.dumps(returned_result)
         if len(json_output) > 1023:
-            raise ValueError("Length of task output is too long: {0}".format(json_output))
+            raise ValueError(u"Length of task output is too long: {0}".format(json_output))
         return json_output
 
     @staticmethod

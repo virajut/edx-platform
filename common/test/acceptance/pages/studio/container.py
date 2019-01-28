@@ -50,7 +50,7 @@ class ContainerPage(PageObject, HelpMixin):
             if len(data_request_elements) > 0:
                 request_token = data_request_elements.first.attrs('data-request-token')[0]
                 # Then find the number of Studio xblock wrappers on the page with that request token.
-                num_wrappers = len(self.q(css='{} [data-request-token="{}"]'.format(XBlockWrapper.BODY_SELECTOR, request_token)).results)
+                num_wrappers = len(self.q(css=u'{} [data-request-token="{}"]'.format(XBlockWrapper.BODY_SELECTOR, request_token)).results)
                 # Wait until all components have been loaded and marked as either initialized or failed.
                 # See:
                 #   - common/static/js/xblock/core.js which adds the class "xblock-initialized"

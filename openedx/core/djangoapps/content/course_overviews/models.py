@@ -147,10 +147,10 @@ class CourseOverview(TimeStampedModel):
 
         course_overview = cls.objects.filter(id=course.id)
         if course_overview.exists():
-            log.info('Updating course overview for %s.', unicode(course.id))
+            log.info(u'Updating course overview for %s.', unicode(course.id))
             course_overview = course_overview.first()
         else:
-            log.info('Creating course overview for %s.', unicode(course.id))
+            log.info(u'Creating course overview for %s.', unicode(course.id))
             course_overview = cls()
 
         course_overview.version = cls.VERSION
@@ -540,8 +540,8 @@ class CourseOverview(TimeStampedModel):
                 whether the requested CourseOverview objects should be
                 forcefully updated (i.e., re-synched with the modulestore).
         """
-        log.info('Generating course overview for %d courses.', len(course_keys))
-        log.debug('Generating course overview(s) for the following courses: %s', course_keys)
+        log.info(u'Generating course overview for %d courses.', len(course_keys))
+        log.debug(u'Generating course overview(s) for the following courses: %s', course_keys)
 
         action = CourseOverview.load_from_module_store if force_update else CourseOverview.get_from_id
 

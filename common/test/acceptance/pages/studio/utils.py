@@ -23,7 +23,7 @@ def press_the_notification_button(page, name):
     # the "Save" button at the UI level.
     # Instead, we use JavaScript to reliably click
     # the button.
-    btn_css = 'div#page-notification button.action-%s' % name.lower()
+    btn_css = u'div#page-notification button.action-%s' % name.lower()
     page.browser.execute_script("$('{}').focus().click()".format(btn_css))
     page.wait_for_ajax()
 
@@ -60,7 +60,7 @@ def add_advanced_component(page, menu_index, name):
 
     # Now click on the component to add it.
     component_css = 'button[data-category={}]'.format(name)
-    page.wait_for_element_visibility(component_css, 'Advanced component {} is visible'.format(name))
+    page.wait_for_element_visibility(component_css, u'Advanced component {} is visible'.format(name))
 
     # Adding some components, e.g. the Discussion component, will make an ajax call
     # but we should be OK because the click_css method is written to handle that.
@@ -76,7 +76,7 @@ def add_component(page, item_type, specific_type, is_advanced_problem=False):
     specific_type is required for some types and should be something like
     "Blank Common Problem".
     """
-    btn = page.q(css='.add-xblock-component .add-xblock-component-button[data-type={}]'.format(item_type))
+    btn = page.q(css=u'.add-xblock-component .add-xblock-component-button[data-type={}]'.format(item_type))
     multiple_templates = btn.filter(lambda el: 'multiple-templates' in el.get_attribute('class')).present
     btn.click()
     if multiple_templates:
@@ -100,7 +100,7 @@ def add_component(page, item_type, specific_type, is_advanced_problem=False):
                 'Waiting for the Advanced problem tab to be active'
             )
 
-        all_options = page.q(css='.new-component-{} ul.new-component-template li button span'.format(item_type))
+        all_options = page.q(css=u'.new-component-{} ul.new-component-template li button span'.format(item_type))
         chosen_option = all_options.filter(text=specific_type).first
         chosen_option.click()
     sync_on_notification(page)
@@ -140,7 +140,7 @@ def add_html_component(page, menu_index, boilerplate=None):
     else:
         component_css += ':not([data-boilerplate])'
 
-    page.wait_for_element_visibility(component_css, 'HTML component {} is visible'.format(boilerplate))
+    page.wait_for_element_visibility(component_css, u'HTML component {} is visible'.format(boilerplate))
 
     # Adding some components will make an ajax call but we should be OK because
     # the click_css method is written to handle that.

@@ -124,5 +124,5 @@ def delete_redemption_entry(request, code_redemption, course_key):
     send_mail_to_student(email_address, email_params)
 
     # remove the redemption entry from the database.
-    log.info('deleting redemption entry (%s) from the database.', code_redemption.id)
+    log.info(u'deleting redemption entry (%s) from the database.', code_redemption.id)
     code_redemption.delete()

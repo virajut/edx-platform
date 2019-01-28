@@ -131,7 +131,7 @@ class UserApiTestCase(UserAPITestCase):
         self.users = [
             UserFactory.create(
                 email="test{0}@test.org".format(i),
-                profile__name="Test {0}".format(i)
+                profile__name=u"Test {0}".format(i)
             )
             for i in range(5)
         ]

@@ -695,9 +695,9 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
                 if parsed_error:
                     parsed_errors.append(parsed_error)
                 else:
-                    log.debug('Ignoring photo verification error message: %s', message)
+                    log.debug(u'Ignoring photo verification error message: %s', message)
         except Exception:   # pylint: disable=broad-except
-            log.exception('Failed to parse error message for SoftwareSecurePhotoVerification %d', self.pk)
+            log.exception(u'Failed to parse error message for SoftwareSecurePhotoVerification %d', self.pk)
 
         return parsed_errors
 
@@ -873,7 +873,7 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
             verify=False
         )
 
-        log.info("Sent request to Software Secure for receipt ID %s.", self.receipt_id)
+        log.info(u"Sent request to Software Secure for receipt ID %s.", self.receipt_id)
         if copy_id_photo_from is not None:
             log.info(
                 (
@@ -885,8 +885,8 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
 
         log.debug("Headers:\n{}\n\n".format(headers))
         log.debug("Body:\n{}\n\n".format(body))
-        log.debug("Return code: {}".format(response.status_code))
-        log.debug("Return message:\n\n{}\n\n".format(response.text))
+        log.debug(u"Return code: {}".format(response.status_code))
+        log.debug(u"Return message:\n\n{}\n\n".format(response.text))
 
         return response
 

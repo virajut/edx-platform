@@ -377,7 +377,7 @@ def add_cohort(course_key, name, assignment_type):
     Add a cohort to a course.  Raises ValueError if a cohort of the same name already
     exists.
     """
-    log.debug("Adding cohort %s to %s", name, course_key)
+    log.debug(u"Adding cohort %s to %s", name, course_key)
     if is_cohort_exists(course_key, name):
         raise ValueError(_("You cannot create two cohorts with the same name"))
 
@@ -426,7 +426,7 @@ def remove_user_from_cohort(cohort, username_or_email):
         membership.delete()
         COHORT_MEMBERSHIP_UPDATED.send(sender=None, user=user, course_key=course_key)
     except CohortMembership.DoesNotExist:
-        raise ValueError("User {} was not present in cohort {}".format(username_or_email, cohort))
+        raise ValueError(u"User {} was not present in cohort {}".format(username_or_email, cohort))
 
 
 def add_user_to_cohort(cohort, username_or_email_or_user):

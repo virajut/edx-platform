@@ -64,7 +64,7 @@ class NumberedCanvas(Canvas):
         self.drawRightString(
             200 * mm,
             12 * mm,
-            _("Page {page_number} of {page_count}").format(page_number=self._pageNumber, page_count=page_count)
+            _(u"Page {page_number} of {page_count}").format(page_number=self._pageNumber, page_count=page_count)
         )
 
 
@@ -181,7 +181,7 @@ class PDFInvoice(object):
         try:
             img = Image.open(img_path)
         except IOError, ex:
-            log.exception('Pdf unable to open the image file: %s', str(ex))
+            log.exception(u'Pdf unable to open the image file: %s', str(ex))
             img = None
 
         return img

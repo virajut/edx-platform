@@ -53,7 +53,7 @@ class CourseKeyField(serializers.Field):
         try:
             return CourseKey.from_string(data)
         except InvalidKeyError as ex:
-            raise serializers.ValidationError("Invalid course key: {msg}".format(msg=ex.msg))
+            raise serializers.ValidationError(u"Invalid course key: {msg}".format(msg=ex.msg))
 
 
 class UsageKeyField(serializers.Field):

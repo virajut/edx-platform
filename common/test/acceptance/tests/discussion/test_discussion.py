@@ -651,7 +651,7 @@ class DiscussionResponseEditTest(BaseDiscussionTestCase):
             '<p><a href="{}">{}</a></p>'.format(url, description)
         )
         actual_response_html = page.q(
-            css=".response_{} .response-body".format(response_id)
+            css=u".response_{} .response-body".format(response_id)
         ).html[0]
         self.assertEqual(expected_response_html, actual_response_html)
 
@@ -685,7 +685,7 @@ class DiscussionResponseEditTest(BaseDiscussionTestCase):
             '<p><img src="{}" alt="{}" title=""></p>'.format(url, description)
         )
         actual_response_html = page.q(
-            css=".response_{} .response-body".format(response_id)
+            css=u".response_{} .response-body".format(response_id)
         ).html[0]
         self.assertEqual(expected_response_html, actual_response_html)
 
@@ -741,7 +741,7 @@ class DiscussionResponseEditTest(BaseDiscussionTestCase):
                 url, description)
         )
         actual_response_html = page.q(
-            css=".response_{} .response-body".format(response_id)
+            css=u".response_{} .response-body".format(response_id)
         ).html[0]
         self.assertEqual(expected_response_html, actual_response_html)
 
@@ -1028,7 +1028,7 @@ class DiscussionEditorPreviewTest(UniqueCourseTest):
         """
         self.page.set_new_post_editor_value(
             r'\begin{equation}'
-            r'\tau_g(\omega) = - \frac{d}{d\omega}\phi(\omega) \hspace{2em} (1) '
+            ur'\tau_g(\omega) = - \frac{d}{d\omega}\phi(\omega) \hspace{2em} (1) '
             r'\end{equation}'
         )
         self.assertIsNotNone(self.page.get_new_post_preview_text())

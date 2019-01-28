@@ -64,7 +64,7 @@ def get_certificate_description(mode, certificate_type, platform_name):
     certificate_type_description = None
     if mode == 'honor':
         # Translators:  This text describes the 'Honor' course certificate type.
-        certificate_type_description = _("An {cert_type} certificate signifies that a "
+        certificate_type_description = _(u"An {cert_type} certificate signifies that a "
                                          "learner has agreed to abide by the honor code established by {platform_name} "
                                          "and has completed all of the required tasks for this course under its "
                                          "guidelines.").format(cert_type=certificate_type,
@@ -72,7 +72,7 @@ def get_certificate_description(mode, certificate_type, platform_name):
     elif mode == 'verified':
         # Translators:  This text describes the 'ID Verified' course certificate type, which is a higher level of
         # verification offered by edX.  This type of verification is useful for professional education/certifications
-        certificate_type_description = _("A {cert_type} certificate signifies that a "
+        certificate_type_description = _(u"A {cert_type} certificate signifies that a "
                                          "learner has agreed to abide by the honor code established by {platform_name} "
                                          "and has completed all of the required tasks for this course under its "
                                          "guidelines. A {cert_type} certificate also indicates that the "
@@ -82,7 +82,7 @@ def get_certificate_description(mode, certificate_type, platform_name):
     elif mode == 'xseries':
         # Translators:  This text describes the 'XSeries' course certificate type.  An XSeries is a collection of
         # courses related to each other in a meaningful way, such as a specific topic or theme, or even an organization
-        certificate_type_description = _("An {cert_type} certificate demonstrates a high level of "
+        certificate_type_description = _(u"An {cert_type} certificate demonstrates a high level of "
                                          "achievement in a program of study, and includes verification of "
                                          "the student's identity.").format(cert_type=certificate_type)
     return certificate_type_description
@@ -122,7 +122,7 @@ def _update_certificate_context(context, course, user_certificate, platform_name
     )
 
     # Translators:  This text is bound to the HTML 'title' element of the page and appears in the browser title bar
-    context['document_title'] = _("{partner_short_name} {course_number} Certificate | {platform_name}").format(
+    context[u'document_title'] = _("{partner_short_name} {course_number} Certificate | {platform_name}").format(
         partner_short_name=context['organization_short_name'],
         course_number=context['course_number'],
         platform_name=platform_name
@@ -141,9 +141,9 @@ def _update_certificate_context(context, course, user_certificate, platform_name
         context['certificate_type_description'] = certificate_type_description
 
     # Translators: This text describes the purpose (and therefore, value) of a course certificate
-    context['certificate_info_description'] = _("{platform_name} acknowledges achievements through "
-                                                "certificates, which are awarded for course activities "
-                                                "that {platform_name} students complete.").format(
+    context['certificate_info_description'] = _(u"{platform_name} acknowledges achievements through "
+                                                 "certificates, which are awarded for course activities "
+                                                 "that {platform_name} students complete.").format(
         platform_name=platform_name,
         tos_url=context.get('company_tos_url'),
         verified_cert_url=context.get('company_verified_certificate_url'))
@@ -195,7 +195,7 @@ def _update_context_with_basic_info(context, course_id, platform_name, configura
         platform_name=platform_name
     )
 
-    context['certificate_verify_title'] = _("How {platform_name} Validates Student Certificates").format(
+    context[u'certificate_verify_title'] = _("How {platform_name} Validates Student Certificates").format(
         platform_name=platform_name
     )
 
@@ -209,21 +209,21 @@ def _update_context_with_basic_info(context, course_id, platform_name, configura
     context['certificate_verify_urltext'] = _("Validate this certificate for yourself")
 
     # Translators:  This text describes (at a high level) the mission and charter the edX platform and organization
-    context['company_about_description'] = _("{platform_name} offers interactive online classes and MOOCs.").format(
+    context[u'company_about_description'] = _("{platform_name} offers interactive online classes and MOOCs.").format(
         platform_name=platform_name)
 
-    context['company_about_title'] = _("About {platform_name}").format(platform_name=platform_name)
+    context[u'company_about_title'] = _("About {platform_name}").format(platform_name=platform_name)
 
-    context['company_about_urltext'] = _("Learn more about {platform_name}").format(platform_name=platform_name)
+    context[u'company_about_urltext'] = _("Learn more about {platform_name}").format(platform_name=platform_name)
 
-    context['company_courselist_urltext'] = _("Learn with {platform_name}").format(platform_name=platform_name)
+    context[u'company_courselist_urltext'] = _("Learn with {platform_name}").format(platform_name=platform_name)
 
-    context['company_careers_urltext'] = _("Work at {platform_name}").format(platform_name=platform_name)
+    context[u'company_careers_urltext'] = _("Work at {platform_name}").format(platform_name=platform_name)
 
-    context['company_contact_urltext'] = _("Contact {platform_name}").format(platform_name=platform_name)
+    context[u'company_contact_urltext'] = _("Contact {platform_name}").format(platform_name=platform_name)
 
     # Translators:  This text appears near the top of the certficate and describes the guarantee provided by edX
-    context['document_banner'] = _("{platform_name} acknowledges the following student accomplishment").format(
+    context[u'document_banner'] = _("{platform_name} acknowledges the following student accomplishment").format(
         platform_name=platform_name
     )
 
@@ -263,7 +263,7 @@ def _update_social_context(request, context, course, user, user_certificate, pla
     context['facebook_app_id'] = configuration_helpers.get_value("FACEBOOK_APP_ID", settings.FACEBOOK_APP_ID)
     context['facebook_share_text'] = share_settings.get(
         'CERTIFICATE_FACEBOOK_TEXT',
-        _("I completed the {course_title} course on {platform_name}.").format(
+        _(u"I completed the {course_title} course on {platform_name}.").format(
             course_title=context['accomplishment_copy_course_name'],
             platform_name=platform_name
         )
@@ -271,7 +271,7 @@ def _update_social_context(request, context, course, user, user_certificate, pla
     context['twitter_share_enabled'] = share_settings.get('CERTIFICATE_TWITTER', False)
     context['twitter_share_text'] = share_settings.get(
         'CERTIFICATE_TWITTER_TEXT',
-        _("I completed a course at {platform_name}. Take a look at my certificate.").format(
+        _(u"I completed a course at {platform_name}. Take a look at my certificate.").format(
             platform_name=platform_name
         )
     )
@@ -315,7 +315,7 @@ def _update_context_with_user_info(context, user, user_certificate):
         user_name=user_fullname
     )
     # Translators: This line is displayed to a user who has completed a course and achieved a certification
-    context['accomplishment_banner_opening'] = _("{fullname}, you earned a certificate!").format(
+    context[u'accomplishment_banner_opening'] = _("{fullname}, you earned a certificate!").format(
         fullname=user_fullname
     )
 
@@ -373,7 +373,7 @@ def _track_certificate_events(request, context, course, user, user_certificate):
     if 'evidence_visit' in request.GET:
         badge_class = get_completion_badge(course_key, user)
         if not badge_class:
-            log.warning('Visit to evidence URL for badge, but badges not configured for course "%s"', course_key)
+            log.warning(u'Visit to evidence URL for badge, but badges not configured for course "%s"', course_key)
             badges = []
         else:
             badges = badge_class.get_for_user(user)

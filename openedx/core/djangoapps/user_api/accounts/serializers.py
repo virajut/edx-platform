@@ -90,7 +90,7 @@ class UserReadOnlySerializer(serializers.Serializer):
             user_profile = user.profile
         except ObjectDoesNotExist:
             user_profile = None
-            LOGGER.warning("user profile for the user [%s] does not exist", user.username)
+            LOGGER.warning(u"user profile for the user [%s] does not exist", user.username)
 
         try:
             account_recovery = user.account_recovery

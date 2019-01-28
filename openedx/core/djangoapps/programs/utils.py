@@ -500,7 +500,7 @@ class ProgramDataExtender(object):
                 try:
                     self.course_overview = CourseOverview.get_from_id(self.course_run_key)
                 except CourseOverview.DoesNotExist:
-                    log.warning('Failed to get course overview for course run key: %s',
+                    log.warning(u'Failed to get course overview for course run key: %s',
                                 self.course_run.get('key'),
                                 exec_info=True)
                 else:

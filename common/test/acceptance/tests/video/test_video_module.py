@@ -1206,4 +1206,4 @@ class HLSVideoTest(VideoBaseTest):
 
         for line_no in range(5):
             self.video.seek('0:0{}'.format(line_no))
-            self.assertEqual(self.video.active_caption_text, 'Hi, edX welcomes you{}.'.format(line_no))
+            self.assertEqual(self.video.active_caption_text, u'Hi, edX welcomes you{}.'.format(line_no))

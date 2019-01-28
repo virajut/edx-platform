@@ -59,7 +59,7 @@ class FieldsMixin(object):
         """
         self.wait_for_field(field_id)
 
-        query = self.q(css='.u-field-{} .u-field-icon'.format(field_id))
+        query = self.q(css=u'.u-field-{} .u-field-icon'.format(field_id))
         return query.present and icon_id in query.attrs('class')[0].split()
 
     def title_for_field(self, field_id):
@@ -68,7 +68,7 @@ class FieldsMixin(object):
         """
         self.wait_for_field(field_id)
 
-        query = self.q(css='.u-field-{} .u-field-title'.format(field_id))
+        query = self.q(css=u'.u-field-{} .u-field-title'.format(field_id))
         return query.text[0] if query.present else None
 
     def message_for_field(self, field_id):
@@ -77,7 +77,7 @@ class FieldsMixin(object):
         """
         self.wait_for_field(field_id)
 
-        query = self.q(css='.u-field-{} .u-field-message'.format(field_id))
+        query = self.q(css=u'.u-field-{} .u-field-message'.format(field_id))
         return query.text[0] if query.present else None
 
     def message_for_textarea_field(self, field_id):
@@ -86,7 +86,7 @@ class FieldsMixin(object):
         """
         self.wait_for_field(field_id)
 
-        query = self.q(css='.u-field-{} .u-field-message-help'.format(field_id))
+        query = self.q(css=u'.u-field-{} .u-field-message-help'.format(field_id))
         return query.text[0] if query.present else None
 
     def wait_for_message(self, field_id, message):
@@ -104,7 +104,7 @@ class FieldsMixin(object):
         """
         self.wait_for_field(field_id)
 
-        query = self.q(css='.u-field-{} .u-field-message .fa'.format(field_id))
+        query = self.q(css=u'.u-field-{} .u-field-message .fa'.format(field_id))
         return [
             class_name for class_name
             in query.attrs('class')[0].split(' ')
@@ -145,7 +145,7 @@ class FieldsMixin(object):
         """
         self.wait_for_field(field_id)
 
-        query = self.q(css='.u-field-{} .u-field-value'.format(field_id))
+        query = self.q(css=u'.u-field-{} .u-field-value'.format(field_id))
         if not query.present:
             return None
 
@@ -157,7 +157,7 @@ class FieldsMixin(object):
         """
         self.wait_for_field(field_id)
 
-        query = self.q(css='.u-field-{} input'.format(field_id))
+        query = self.q(css=u'.u-field-{} input'.format(field_id))
         if not query.present:
             return None
 
@@ -176,7 +176,7 @@ class FieldsMixin(object):
         self.wait_for_field(field_id)
         self.make_field_editable(field_id)
 
-        field_selector = '.u-field-{} textarea'.format(field_id)
+        field_selector = u'.u-field-{} textarea'.format(field_id)
         self.wait_for_element_presence(field_selector, 'Editable textarea is present.')
 
         query = self.q(css=field_selector)
@@ -190,7 +190,7 @@ class FieldsMixin(object):
         self.wait_for_field(field_id)
         self.wait_for_ajax()
 
-        return self.q(css='.u-field-{} .u-field-value .u-field-value-readonly'.format(field_id)).text[0]
+        return self.q(css=u'.u-field-{} .u-field-value .u-field-value-readonly'.format(field_id)).text[0]
 
     def value_for_dropdown_field(self, field_id, value=None, focus_out=False):
         """
@@ -200,7 +200,7 @@ class FieldsMixin(object):
 
         self.make_field_editable(field_id)
 
-        query = self.q(css='.u-field-{} select'.format(field_id))
+        query = self.q(css=u'.u-field-{} select'.format(field_id))
         if not query.present:
             return None
 
@@ -236,7 +236,7 @@ class FieldsMixin(object):
         """
         self.wait_for_field(field_id)
 
-        query = self.q(css='.u-field-{} {}'.format(field_id, field_type))
+        query = self.q(css=u'.u-field-{} {}'.format(field_id, field_type))
         if query.present:
             query.first.click()
 

@@ -39,7 +39,7 @@ class Command(BaseCommand):
         router = options.get('router')
         dbinfo = settings.DATABASES.get(router)
         if dbinfo is None:
-            raise CommandError("Unknown database router %s" % router)
+            raise CommandError(u"Unknown database router %s" % router)
 
         engine = dbinfo.get('ENGINE').split('.')[-1]
 
@@ -63,7 +63,7 @@ class Command(BaseCommand):
         if engine in ('sqlite3', 'spatialite'):
             import os
             try:
-                logging.info("Unlinking %s database" % engine)
+                logging.info(u"Unlinking %s database" % engine)
                 os.unlink(database_name)
             except OSError:
                 pass
@@ -83,9 +83,9 @@ class Command(BaseCommand):
                 kwargs['port'] = int(database_port)
 
             connection = Database.connect(**kwargs)
-            drop_query = 'DROP DATABASE IF EXISTS `%s`' % database_name
+            drop_query = u'DROP DATABASE IF EXISTS `%s`' % database_name
             utf8_support = 'CHARACTER SET utf8'
-            create_query = 'CREATE DATABASE `%s` %s' % (database_name, utf8_support)
+            create_query = u'CREATE DATABASE `%s` %s' % (database_name, utf8_support)
             logging.info('Executing... "' + drop_query + '"')
             connection.query(drop_query)
             logging.info('Executing... "' + create_query + '"')
@@ -116,7 +116,7 @@ class Command(BaseCommand):
             try:
                 cursor.execute(drop_query)
             except Database.ProgrammingError as e:
-                logging.exception("Error: %s" % str(e))
+                logging.exception(u"Error: %s" % str(e))
 
             create_query = "CREATE DATABASE \"%s\"" % database_name
             if owner:
@@ -128,10 +128,10 @@ class Command(BaseCommand):
                 from django.contrib.gis.db.backends.postgis.base import DatabaseWrapper
                 postgis_template = DatabaseWrapper(dbinfo).template_postgis
                 if postgis_template is not None:
-                    create_query += ' TEMPLATE = %s' % postgis_template
+                    create_query += u' TEMPLATE = %s' % postgis_template
 
             if settings.DEFAULT_TABLESPACE:
-                create_query += ' TABLESPACE = %s;' % settings.DEFAULT_TABLESPACE
+                create_query += u' TABLESPACE = %s;' % settings.DEFAULT_TABLESPACE
             else:
                 create_query += ';'
 
@@ -139,7 +139,7 @@ class Command(BaseCommand):
             cursor.execute(create_query)
 
         else:
-            raise CommandError("Unknown database engine %s" % engine)
+            raise CommandError(u"Unknown database engine %s" % engine)
 
         if verbosity >= 2:
             print("Reset successful.")

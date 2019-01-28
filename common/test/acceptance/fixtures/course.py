@@ -294,7 +294,7 @@ class CourseFixture(XBlockContainerFixture):
 
         # This will occur if the course identifier is not unique
         if err is not None:
-            raise FixtureError("Could not create course {0}.  Error message: '{1}'".format(self, err))
+            raise FixtureError(u"Could not create course {0}.  Error message: '{1}'".format(self, err))
 
         if response.ok:
             self._course_key = response.json()['course_key']
@@ -406,7 +406,7 @@ class CourseFixture(XBlockContainerFixture):
             upload_response = self.session.post(url, files=files, headers=headers)
 
             if not upload_response.ok:
-                raise FixtureError('Could not upload {asset_name} with {url}. Status code: {code}'.format(
+                raise FixtureError(u'Could not upload {asset_name} with {url}. Status code: {code}'.format(
                     asset_name=asset_name, url=url, code=upload_response.status_code))
 
     def _install_course_textbooks(self):

@@ -206,7 +206,7 @@ def _footer_navigation_links():
         for link_name, link_url, link_title in [
             ("about", marketing_link("ABOUT"), _("About")),
             ("enterprise", marketing_link("ENTERPRISE"),
-             _("{platform_name} for Business").format(platform_name=platform_name)),
+             _(u"{platform_name} for Business").format(platform_name=platform_name)),
             ("blog", marketing_link("BLOG"), _("Blog")),
             ("news", marketing_link("NEWS"), _("News")),
             ("help-center", settings.SUPPORT_SITE_LINK, _("Help Center")),
@@ -262,7 +262,7 @@ def _footer_business_links():
         for link_name, link_url, link_title in [
             ("about", marketing_link("ABOUT"), _("About")),
             ("enterprise", marketing_link("ENTERPRISE"),
-             _("{platform_name} for Business").format(platform_name=platform_name)),
+             _(u"{platform_name} for Business").format(platform_name=platform_name)),
             ("affiliates", marketing_link("AFFILIATES"), _("Affiliates")),
             ("openedx", _footer_openedx_link()["url"], _("Open edX")),
             ("careers", marketing_link("CAREERS"), _("Careers")),

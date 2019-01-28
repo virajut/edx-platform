@@ -73,7 +73,7 @@ def load_courses(options):
     `test_root/courses/`.
     """
     if 'imports_dir' in options:
-        msg = colorize('green', "Importing courses from {}...".format(options.imports_dir))
+        msg = colorize(u'green', "Importing courses from {}...".format(options.imports_dir))
         print(msg)
 
         sh(
@@ -287,7 +287,7 @@ class BokChoyTestSuite(TestSuite):
             # Clean up data we created in the databases
             msg = colorize('green', "Cleaning up databases...")
             print(msg)
-            sh("./manage.py lms --settings {settings} flush --traceback --noinput".format(settings=Env.SETTINGS))
+            sh(u"./manage.py lms --settings {settings} flush --traceback --noinput".format(settings=Env.SETTINGS))
             clear_mongo()
 
     @property
@@ -308,7 +308,7 @@ class BokChoyTestSuite(TestSuite):
         elif self.verbosity > 1:
             command.append("--verbose")
         if self.eval_attr:
-            command.append("-a '{}'".format(self.eval_attr))
+            command.append(u"-a '{}'".format(self.eval_attr))
 
         return command
 

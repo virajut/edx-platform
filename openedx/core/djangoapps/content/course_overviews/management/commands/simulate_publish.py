@@ -226,7 +226,7 @@ class Command(BaseCommand):
                 continue
             fn_name = name_from_fn(receiver_fn)
             if fn_name not in receiver_names_set:
-                log.info("Disconnecting %s", fn_name)
+                log.info(u"Disconnecting %s", fn_name)
                 self.course_published_signal.disconnect(receiver_fn)
 
     def get_course_keys(self, courses):
@@ -247,7 +247,7 @@ class Command(BaseCommand):
                 try:
                     course_keys.append(CourseKey.from_string(course_id))
                 except InvalidKeyError:
-                    log.fatal("%s is not a parseable CourseKey", course_id)
+                    log.fatal(u"%s is not a parseable CourseKey", course_id)
                     sys.exit(1)
         else:
             log.info("No courses specified, reading all courses from modulestore...")
@@ -255,7 +255,7 @@ class Command(BaseCommand):
                 (course.id for course in modulestore().get_course_summaries()),
                 key=unicode  # Different types of CourseKeys can't be compared without this.
             )
-            log.info("%d courses read from modulestore.", len(course_keys))
+            log.info(u"%d courses read from modulestore.", len(course_keys))
 
         return course_keys
 
@@ -284,7 +284,7 @@ class Command(BaseCommand):
         for course_key in course_keys[:COURSES_TO_SHOW]:
             print("   ", course_key)
         if len(course_keys) > COURSES_TO_SHOW:
-            print("    (+ {} more)".format(len(course_keys) - COURSES_TO_SHOW))
+            print(u"    (+ {} more)".format(len(course_keys) - COURSES_TO_SHOW))
 
 
 def get_receiver_names():

@@ -529,12 +529,12 @@ class CourseTabView(EdxFragmentView):
         if request.user.is_anonymous:
             PageLevelMessages.register_warning_message(
                 request,
-                Text(_("To see course content, {sign_in_link} or {register_link}.")).format(
-                    sign_in_link=HTML('<a href="/login?next={current_url}">{sign_in_label}</a>').format(
+                Text(_(u"To see course content, {sign_in_link} or {register_link}.")).format(
+                    sign_in_link=HTML(u'<a href="/login?next={current_url}">{sign_in_label}</a>').format(
                         sign_in_label=_("sign in"),
                         current_url=urlquote_plus(request.path),
                     ),
-                    register_link=HTML('<a href="/register?next={current_url}">{register_label}</a>').format(
+                    register_link=HTML(u'<a href="/register?next={current_url}">{register_label}</a>').format(
                         register_label=_("register"),
                         current_url=urlquote_plus(request.path),
                     ),
@@ -544,7 +544,7 @@ class CourseTabView(EdxFragmentView):
             if not CourseEnrollment.is_enrolled(request.user, course_key):
                 # Only show enroll button if course is open for enrollment.
                 if course_open_for_self_enrollment(course_key):
-                    enroll_message = _('You must be enrolled in the course to see course content. \
+                    enroll_message = _(u'You must be enrolled in the course to see course content. \
                             {enroll_link_start}Enroll now{enroll_link_end}.')
                     PageLevelMessages.register_warning_message(
                         request,
@@ -1242,7 +1242,7 @@ def get_static_tab_fragment(request, course, tab):
         request.user, request, loc, field_data_cache, static_asset_path=course.static_asset_path, course=course
     )
 
-    logging.debug('course_module = %s', tab_module)
+    logging.debug(u'course_module = %s', tab_module)
 
     fragment = Fragment()
     if tab_module is not None:
@@ -1390,7 +1390,7 @@ def generate_user_cert(request, course_id):
     if not request.user.is_authenticated:
         log.info(u"Anon user trying to generate certificate for %s", course_id)
         return HttpResponseBadRequest(
-            _('You must be signed in to {platform_name} to create a certificate.').format(
+            _(u'You must be signed in to {platform_name} to create a certificate.').format(
                 platform_name=configuration_helpers.get_value('PLATFORM_NAME', settings.PLATFORM_NAME)
             )
         )

@@ -38,7 +38,7 @@ class CourseOutlineItem(object):
         # Check for the existence of a locator so that errors when navigating to the course outline page don't show up
         # as errors in the repr method instead.
         try:
-            return "{}(<browser>, {!r})".format(self.__class__.__name__, self.locator)
+            return u"{}(<browser>, {!r})".format(self.__class__.__name__, self.locator)
         except AttributeError:
             return "{}(<browser>)".format(self.__class__.__name__)
 
@@ -50,7 +50,7 @@ class CourseOutlineItem(object):
         # This happens in the context of the CourseOutlinePage
         # pylint: disable=no-member
         if self.BODY_SELECTOR and hasattr(self, 'locator'):
-            return '{}[data-locator="{}"] {}'.format(
+            return u'{}[data-locator="{}"] {}'.format(
                 self.BODY_SELECTOR,
                 self.locator,
                 selector
@@ -528,7 +528,7 @@ class CourseOutlinePage(CoursePage, CourseOutlineContainer):
         """
         Find and click on first section name in course outline
         """
-        self.q(css='{} .section-name'.format(parent_css)).first.click()
+        self.q(css=u'{} .section-name'.format(parent_css)).first.click()
 
     def get_section_name(self, parent_css='', page_refresh=False):
         """
@@ -536,21 +536,21 @@ class CourseOutlinePage(CoursePage, CourseOutlineContainer):
         """
         if page_refresh:
             self.browser.refresh()
-        return self.q(css='{} .section-name'.format(parent_css)).text
+        return self.q(css=u'{} .section-name'.format(parent_css)).text
 
     def section_name_edit_form_present(self, parent_css=''):
         """
         Check that section name edit form present
         """
-        return self.q(css='{} .section-name input'.format(parent_css)).present
+        return self.q(css=u'{} .section-name input'.format(parent_css)).present
 
     def change_section_name(self, new_name, parent_css=''):
         """
         Change section name of first section present in course outline
         """
         self.click_section_name(parent_css)
-        self.q(css='{} .section-name input'.format(parent_css)).first.fill(new_name)
-        self.q(css='{} .section-name .save-button'.format(parent_css)).first.click()
+        self.q(css=u'{} .section-name input'.format(parent_css)).first.fill(new_name)
+        self.q(css=u'{} .section-name .save-button'.format(parent_css)).first.click()
         self.wait_for_ajax()
 
     def sections(self):

@@ -167,7 +167,7 @@ class UserAccountUpdateTest(CacheIsolationTestCase, UrlResetMixin):
         html_body = sent_message.alternatives[0][0]
 
         for email_body in [text_body, html_body]:
-            msg = 'However, there is currently no user account associated with your email address: {email}'.format(
+            msg = u'However, there is currently no user account associated with your email address: {email}'.format(
                 email=bad_email
             )
 
@@ -769,7 +769,7 @@ class LoginAndRegistrationTest(ThirdPartyAuthTestMixin, UrlResetMixin, ModuleSto
             auth_info['providers'] = []
         auth_info = dump_js_escaped_json(auth_info)
 
-        expected_data = '"third_party_auth": {auth_info}'.format(
+        expected_data = u'"third_party_auth": {auth_info}'.format(
             auth_info=auth_info
         )
         self.assertContains(response, expected_data)
@@ -796,7 +796,7 @@ class LoginAndRegistrationTest(ThirdPartyAuthTestMixin, UrlResetMixin, ModuleSto
         }
         auth_info = dump_js_escaped_json(auth_info)
 
-        expected_data = '"third_party_auth": {auth_info}'.format(
+        expected_data = u'"third_party_auth": {auth_info}'.format(
             auth_info=auth_info
         )
         self.assertContains(response, expected_data)

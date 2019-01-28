@@ -255,7 +255,7 @@ class LearnerAnalyticsView(View):
         activities = cache.get(cache_key)
 
         if not activities:
-            log.info('Weekly course activities for course {course_key} was not cached - fetching from Analytics API'
+            log.info(u'Weekly course activities for course {course_key} was not cached - fetching from Analytics API'
                      .format(course_key=course_key))
             weekly_course_activities = self.analytics_client.courses(course_key).activity()
 
@@ -281,7 +281,7 @@ class LearnerAnalyticsView(View):
         timeline = cache.get(cache_key)
 
         if not timeline:
-            log.info('Engagement timeline for course {course_key} was not cached - fetching from Analytics API'
+            log.info(u'Engagement timeline for course {course_key} was not cached - fetching from Analytics API'
                      .format(course_key=course_key))
 
             # TODO (LEARNER-3470): @jaebradley replace this once the Analytics client has an engagement timeline method

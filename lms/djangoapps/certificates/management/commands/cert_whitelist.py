@@ -109,4 +109,4 @@ class Command(BaseCommand):
             "{u.user.username} {u.user.email} {u.whitelist}".format(u=u)
             for u in whitelist
         )
-        print("User whitelist for course {0}:\n{1}".format(course_id, wl_users))
+        print(u"User whitelist for course {0}:\n{1}".format(course_id, wl_users))

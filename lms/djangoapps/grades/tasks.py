@@ -61,7 +61,7 @@ def compute_all_grades_for_course(**kwargs):
     else:
         course_key = CourseKey.from_string(kwargs.pop('course_key'))
         if are_grades_frozen(course_key):
-            log.info("Attempted compute_all_grades_for_course for course '%s', but grades are frozen.", course_key)
+            log.info(u"Attempted compute_all_grades_for_course for course '%s', but grades are frozen.", course_key)
             return
         for course_key_string, offset, batch_size in _course_task_args(course_key=course_key, **kwargs):
             kwargs.update({
@@ -116,7 +116,7 @@ def compute_grades_for_course(course_key, offset, batch_size, **kwargs):  # pyli
     """
     course_key = CourseKey.from_string(course_key)
     if are_grades_frozen(course_key):
-        log.info("Attempted compute_grades_for_course for course '%s', but grades are frozen.", course_key)
+        log.info(u"Attempted compute_grades_for_course for course '%s', but grades are frozen.", course_key)
         return
 
     enrollments = CourseEnrollment.objects.filter(course_id=course_key).order_by('created')
@@ -206,7 +206,7 @@ def _recalculate_subsection_grade(self, **kwargs):
     try:
         course_key = CourseLocator.from_string(kwargs['course_id'])
         if are_grades_frozen(course_key):
-            log.info("Attempted _recalculate_subsection_grade for course '%s', but grades are frozen.", course_key)
+            log.info(u"Attempted _recalculate_subsection_grade for course '%s', but grades are frozen.", course_key)
             return
 
         scored_block_usage_key = UsageKey.from_string(kwargs['usage_id']).replace(course_key=course_key)
@@ -241,7 +241,7 @@ def _recalculate_subsection_grade(self, **kwargs):
         )
     except Exception as exc:
         if not isinstance(exc, KNOWN_RETRY_ERRORS):
-            log.info("tnl-6244 grades unexpected failure: {}. task id: {}. kwargs={}".format(
+            log.info(u"tnl-6244 grades unexpected failure: {}. task id: {}. kwargs={}".format(
                 repr(exc),
                 self.request.id,
                 kwargs,
@@ -343,7 +343,7 @@ def _course_task_args(course_key, **kwargs):
     from_settings = kwargs.pop('from_settings', True)
     enrollment_count = CourseEnrollment.objects.filter(course_id=course_key).count()
     if enrollment_count == 0:
-        log.warning("No enrollments found for {}".format(course_key))
+        log.warning(u"No enrollments found for {}".format(course_key))
 
     if from_settings is False:
         batch_size = kwargs.pop('batch_size', 100)

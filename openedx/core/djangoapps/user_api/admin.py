@@ -190,7 +190,7 @@ class UserRetirementPartnerReportingStatusAdmin(admin.ModelAdmin):
         if rows_updated == 1:
             message_bit = "one user was"
         else:
-            message_bit = "%s users were" % rows_updated
-        self.message_user(request, "%s successfully reset." % message_bit)
+            message_bit = u"%s users were" % rows_updated
+        self.message_user(request, u"%s successfully reset." % message_bit)
 
     reset_state.short_description = 'Reset is_being_processed to False'

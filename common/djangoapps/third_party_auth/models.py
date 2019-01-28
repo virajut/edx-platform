@@ -61,9 +61,9 @@ def clean_json(value, of_type):
     try:
         value_python = json.loads(value)
     except ValueError as err:
-        raise ValidationError("Invalid JSON: {}".format(text_type(err)))
+        raise ValidationError(u"Invalid JSON: {}".format(text_type(err)))
     if not isinstance(value_python, of_type):
-        raise ValidationError("Expected a JSON {}".format(of_type))
+        raise ValidationError(u"Expected a JSON {}".format(of_type))
     return json.dumps(value_python, indent=4)
 
 
@@ -444,7 +444,7 @@ class SAMLConfiguration(ConfigurationModel):
         """
         Return human-readable string representation.
         """
-        return "SAMLConfiguration {site}: {slug} on {date:%Y-%m-%d %H:%M:%S}".format(
+        return u"SAMLConfiguration {site}: {slug} on {date:%Y-%m-%d %H:%M:%S}".format(
             site=self.site.name,
             slug=self.slug,
             date=self.change_date,

@@ -407,7 +407,7 @@ class TeamAPITestCase(APITestCase, SharedModuleStoreTestCase):
         self.assertEqual(
             expected_status,
             response.status_code,
-            msg="Expected status {expected} but got {actual}: {content}".format(
+            msg=u"Expected status {expected} but got {actual}: {content}".format(
                 expected=expected_status,
                 actual=response.status_code,
                 content=response.content,

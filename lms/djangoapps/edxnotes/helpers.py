@@ -110,7 +110,7 @@ def send_request(user, course_id, page, page_size, path="", text=None):
             timeout=(settings.EDXNOTES_CONNECT_TIMEOUT, settings.EDXNOTES_READ_TIMEOUT)
         )
     except RequestException:
-        log.error("Failed to connect to edx-notes-api: url=%s, params=%s", url, str(params))
+        log.error(u"Failed to connect to edx-notes-api: url=%s, params=%s", url, str(params))
         raise EdxNotesServiceUnavailable(_("EdxNotes Service is unavailable. Please try again in a few minutes."))
 
     return response
@@ -141,7 +141,7 @@ def delete_all_notes_for_user(user):
             timeout=(settings.EDXNOTES_CONNECT_TIMEOUT, settings.EDXNOTES_READ_TIMEOUT)
         )
     except RequestException:
-        log.error("Failed to connect to edx-notes-api: url=%s, params=%s", url, str(headers))
+        log.error(u"Failed to connect to edx-notes-api: url=%s, params=%s", url, str(headers))
         raise EdxNotesServiceUnavailable(_("EdxNotes Service is unavailable. Please try again in a few minutes."))
 
     return response
@@ -183,22 +183,22 @@ def preprocess_collection(user, course, collection):
             try:
                 item = store.get_item(usage_key)
             except ItemNotFoundError:
-                log.debug("Module not found: %s", usage_key)
+                log.debug(u"Module not found: %s", usage_key)
                 continue
 
             if not has_access(user, "load", item, course_key=course.id):
-                log.debug("User %s does not have an access to %s", user, item)
+                log.debug(u"User %s does not have an access to %s", user, item)
                 continue
 
             unit = get_parent_unit(item)
             if unit is None:
-                log.debug("Unit not found: %s", usage_key)
+                log.debug(u"Unit not found: %s", usage_key)
                 continue
 
             if include_path_info:
                 section = unit.get_parent()
                 if not section:
-                    log.debug("Section not found: %s", usage_key)
+                    log.debug(u"Section not found: %s", usage_key)
                     continue
                 if section in cache:
                     usage_context = cache[section]
@@ -212,7 +212,7 @@ def preprocess_collection(user, course, collection):
 
                 chapter = section.get_parent()
                 if not chapter:
-                    log.debug("Chapter not found: %s", usage_key)
+                    log.debug(u"Chapter not found: %s", usage_key)
                     continue
                 if chapter in cache:
                     usage_context = cache[chapter]
@@ -342,14 +342,14 @@ def get_notes(request, course, page=DEFAULT_PAGE, page_size=DEFAULT_PAGE_SIZE, t
     try:
         collection = json.loads(response.content)
     except ValueError:
-        log.error("Invalid JSON response received from notes api: response_content=%s", response.content)
+        log.error(u"Invalid JSON response received from notes api: response_content=%s", response.content)
         raise EdxNotesParseError(_("Invalid JSON response received from notes api."))
 
     # Verify response dict structure
     expected_keys = ['total', 'rows', 'num_pages', 'start', 'next', 'previous', 'current_page']
     keys = collection.keys()
     if not keys or not all(key in expected_keys for key in keys):
-        log.error("Incorrect data received from notes api: collection_data=%s", str(collection))
+        log.error(u"Incorrect data received from notes api: collection_data=%s", str(collection))
         raise EdxNotesParseError(_("Incorrect data received from notes api."))
 
     filtered_results = preprocess_collection(request.user, course, collection['rows'])

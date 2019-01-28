@@ -132,7 +132,7 @@ class EdxNotesDefaultInteractionsTest(EdxNotesTestMixin):
         index = offset
         for component in components:
             for note in component.create_note(".{}".format(self.selector)):
-                note.text = "TEST TEXT {}".format(index)
+                note.text = u"TEST TEXT {}".format(index)
                 index += 1
 
     def edit_notes(self, components, offset=0):
@@ -141,7 +141,7 @@ class EdxNotesDefaultInteractionsTest(EdxNotesTestMixin):
         for component in components:
             self.assertGreater(len(component.notes), 0)
             for note in component.edit_note():
-                note.text = "TEST TEXT {}".format(index)
+                note.text = u"TEST TEXT {}".format(index)
                 index += 1
 
     def edit_tags_in_notes(self, components, tags):
@@ -166,7 +166,7 @@ class EdxNotesDefaultInteractionsTest(EdxNotesTestMixin):
 
     def assert_text_in_notes(self, notes):
         actual = [note.text for note in notes]
-        expected = ["TEST TEXT {}".format(i) for i in xrange(len(notes))]
+        expected = [u"TEST TEXT {}".format(i) for i in xrange(len(notes))]
         self.assertEqual(expected, actual)
 
     def assert_tags_in_notes(self, notes, expected_tags):

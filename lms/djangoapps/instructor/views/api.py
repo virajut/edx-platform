@@ -232,7 +232,7 @@ def require_level(level):
         if they are not in the staff group.
     """
     if level not in ['instructor', 'staff']:
-        raise ValueError("unrecognized level '{}'".format(level))
+        raise ValueError(u"unrecognized level '{}'".format(level))
 
     def decorator(func):  # pylint: disable=missing-docstring
         def wrapped(*args, **kwargs):
@@ -598,7 +598,7 @@ def create_and_enroll_user(email, username, name, country, password, course_id, 
                 'username': username,
                 'email': email,
                 'response':
-                    _("Error '{error}' while sending email to new user (user email={email}). "
+                    _(u"Error '{error}' while sending email to new user (user email={email}). "
                       "Without the email student would not be able to login. "
                       "Please contact support for further information.").format(error=type(ex).__name__, email=email),
             })
@@ -909,7 +909,7 @@ def modify_access(request, course_id):
     action = request.POST.get('action')
 
     if rolename not in ROLES:
-        error = strip_tags("unknown rolename '{}'".format(rolename))
+        error = strip_tags(u"unknown rolename '{}'".format(rolename))
         log.error(error)
         return HttpResponseBadRequest(error)
 
@@ -1160,7 +1160,7 @@ def sale_validation(request, course_id):
         )
         obj_invoice = obj_invoice.invoice
     except CourseRegistrationCodeInvoiceItem.DoesNotExist:  # Check for old type invoices
-        return HttpResponseNotFound(_("Invoice number '{num}' does not exist.").format(num=invoice_number))
+        return HttpResponseNotFound(_(u"Invoice number '{num}' does not exist.").format(num=invoice_number))
 
     if event_type == "invalidate":
         return invalidate_invoice(obj_invoice)
@@ -1176,7 +1176,7 @@ def invalidate_invoice(obj_invoice):
         return HttpResponseBadRequest(_("The sale associated with this invoice has already been invalidated."))
     obj_invoice.is_valid = False
     obj_invoice.save()
-    message = _('Invoice number {0} has been invalidated.').format(obj_invoice.id)
+    message = _(u'Invoice number {0} has been invalidated.').format(obj_invoice.id)
     return JsonResponse({'message': message})
 
 
@@ -1189,7 +1189,7 @@ def re_validate_invoice(obj_invoice):
 
     obj_invoice.is_valid = True
     obj_invoice.save()
-    message = _('The registration codes for invoice {0} have been re-activated.').format(obj_invoice.id)
+    message = _(u'The registration codes for invoice {0} have been re-activated.').format(obj_invoice.id)
     return JsonResponse({'message': message})
 
 
@@ -1952,20 +1952,20 @@ def get_student_enrollment_status(request, course_id):
         # records, so let the lack of a User slide.
         pass
 
-    enrollment_status = _('Enrollment status for {student}: unknown').format(student=unique_student_identifier)
+    enrollment_status = _(u'Enrollment status for {student}: unknown').format(student=unique_student_identifier)
 
     if user and mode:
         if is_active:
-            enrollment_status = _('Enrollment status for {student}: active').format(student=user)
+            enrollment_status = _(u'Enrollment status for {student}: active').format(student=user)
         else:
-            enrollment_status = _('Enrollment status for {student}: inactive').format(student=user)
+            enrollment_status = _(u'Enrollment status for {student}: inactive').format(student=user)
     else:
         email = user.email if user else unique_student_identifier
         allowed = CourseEnrollmentAllowed.may_enroll_and_unenrolled(course_id)
         if allowed and email in [cea.email for cea in allowed]:
-            enrollment_status = _('Enrollment status for {student}: pending').format(student=email)
+            enrollment_status = _(u'Enrollment status for {student}: pending').format(student=email)
         else:
-            enrollment_status = _('Enrollment status for {student}: never enrolled').format(student=email)
+            enrollment_status = _(u'Enrollment status for {student}: never enrolled').format(student=email)
 
     response_payload = {
         'course_id': course_id.to_deprecated_string(),
@@ -2267,16 +2267,16 @@ def override_problem_score(request, course_id):
     if student_identifier is not None:
         student = get_student_from_identifier(student_identifier)
     else:
-        return _create_error_response(request, "Invalid student ID {}.".format(student_identifier))
+        return _create_error_response(request, u"Invalid student ID {}.".format(student_identifier))
 
     try:
         usage_key = UsageKey.from_string(problem_to_reset).map_into_course(course_key)
     except InvalidKeyError:
-        return _create_error_response(request, "Unable to parse problem id {}.".format(problem_to_reset))
+        return _create_error_response(request, u"Unable to parse problem id {}.".format(problem_to_reset))
 
     # check the user's access to this specific problem
     if not has_access(request.user, "staff", modulestore().get_item(usage_key)):
-        _create_error_response(request, "User {} does not have permission to override scores for problem {}.".format(
+        _create_error_response(request, u"User {} does not have permission to override scores for problem {}.".format(
             request.user.id,
             problem_to_reset
         ))
@@ -2506,7 +2506,7 @@ def list_report_downloads(request, course_id):
 
     response_payload = {
         'downloads': [
-            dict(name=name, url=url, link=HTML('<a href="{}">{}</a>').format(HTML(url), Text(name)))
+            dict(name=name, url=url, link=HTML(u'<a href="{}">{}</a>').format(HTML(url), Text(name)))
             for name, url in report_store.links_for(course_id) if report_name is None or name == report_name
         ]
     }
@@ -2527,7 +2527,7 @@ def list_financial_report_downloads(_request, course_id):
 
     response_payload = {
         'downloads': [
-            dict(name=name, url=url, link=HTML('<a href="{}">{}</a>').format(HTML(url), Text(name)))
+            dict(name=name, url=url, link=HTML(u'<a href="{}">{}</a>').format(HTML(url), Text(name)))
             for name, url in report_store.links_for(course_id)
         ]
     }
@@ -2851,7 +2851,7 @@ def change_due_date(request, course_id):
     return JsonResponse(_(
         'Successfully changed due date for student {0} for {1} '
         'to {2}').format(student.profile.name, _display_unit(unit),
-                         due_date.strftime('%Y-%m-%d %H:%M')))
+                         due_date.strftime(u'%Y-%m-%d %H:%M')))
 
 
 @handle_dashboard_error
@@ -2874,7 +2874,7 @@ def reset_due_date(request, course_id):
             _("Successfully removed invalid due date extension (unit has no due date).")
         )
 
-    original_due_date_str = unit.due.strftime('%Y-%m-%d %H:%M')
+    original_due_date_str = unit.due.strftime(u'%Y-%m-%d %H:%M')
     return JsonResponse(_(
         'Successfully reset due date for student {0} for {1} '
         'to {2}').format(student.profile.name, _display_unit(unit),
@@ -3000,9 +3000,9 @@ def mark_student_can_skip_entrance_exam(request, course_id):
 
     __, created = EntranceExamConfiguration.objects.get_or_create(user=student, course_id=course_id)
     if created:
-        message = _('This student (%s) will skip the entrance exam.') % student_identifier
+        message = _(u'This student (%s) will skip the entrance exam.') % student_identifier
     else:
-        message = _('This student (%s) is already allowed to skip the entrance exam.') % student_identifier
+        message = _(u'This student (%s) is already allowed to skip the entrance exam.') % student_identifier
     response_payload = {
         'message': message,
     }
@@ -3123,7 +3123,7 @@ def add_certificate_exception(course_key, student, certificate_exception):
     """
     if len(CertificateWhitelist.get_certificate_white_list(course_key, student)) > 0:
         raise ValueError(
-            _("Student (username/email={user}) already in certificate exception list.").format(user=student.username)
+            _(u"Student (username/email={user}) already in certificate exception list.").format(user=student.username)
         )
 
     certificate_white_list, __ = CertificateWhitelist.objects.get_or_create(
@@ -3168,7 +3168,7 @@ def remove_certificate_exception(course_key, student):
         certificate_exception = CertificateWhitelist.objects.get(user=student, course_id=course_key)
     except ObjectDoesNotExist:
         raise ValueError(
-            _('Certificate exception (user={user}) does not exist in certificate white list. '
+            _(u'Certificate exception (user={user}) does not exist in certificate white list. '
               'Please refresh the page and try again.').format(user=student.username)
         )
 
@@ -3237,13 +3237,13 @@ def get_student(username_or_email, course_key):
     try:
         student = get_user_by_username_or_email(username_or_email)
     except ObjectDoesNotExist:
-        raise ValueError(_("{user} does not exist in the LMS. Please check your spelling and retry.").format(
+        raise ValueError(_(u"{user} does not exist in the LMS. Please check your spelling and retry.").format(
             user=username_or_email
         ))
 
     # Make Sure the given student is enrolled in the course
     if not CourseEnrollment.is_enrolled(student, course_key):
-        raise ValueError(_("{user} is not enrolled in this course. Please check your spelling and retry.")
+        raise ValueError(_(u"{user} is not enrolled in this course. Please check your spelling and retry.")
                          .format(user=username_or_email))
     return student
 
@@ -3321,7 +3321,7 @@ def generate_bulk_certificate_exceptions(request, course_id):
         """
         inner method to build dict of csv data as row errors.
         """
-        row_errors[key].append(_('user "{user}" in row# {row}').format(user=_user, row=row_count))
+        row_errors[key].append(_(u'user "{user}" in row# {row}').format(user=_user, row=row_count))
 
     if 'students_list' in request.FILES:
         try:
@@ -3371,7 +3371,7 @@ def generate_bulk_certificate_exceptions(request, course_id):
                         whitelist=True,
                         notes=student[notes_index]
                     )
-                    success.append(_('user "{username}" in row# {row}').format(username=user.username, row=row_num))
+                    success.append(_(u'user "{username}" in row# {row}').format(username=user.username, row=row_num))
 
     else:
         general_errors.append(_('File is not attached.'))
@@ -3438,7 +3438,7 @@ def invalidate_certificate(request, generated_certificate, certificate_invalidat
             generated_certificate.user,
     )) > 0:
         raise ValueError(
-            _("Certificate of {user} has already been invalidated. Please check your spelling and retry.").format(
+            _(u"Certificate of {user} has already been invalidated. Please check your spelling and retry.").format(
                 user=generated_certificate.user.username,
             )
         )
@@ -3446,7 +3446,7 @@ def invalidate_certificate(request, generated_certificate, certificate_invalidat
     # Verify that certificate user wants to invalidate is a valid one.
     if not generated_certificate.is_valid():
         raise ValueError(
-            _("Certificate for student {user} is already invalid, kindly verify that certificate was generated "
+            _(u"Certificate for student {user} is already invalid, kindly verify that certificate was generated "
               "for this student and then proceed.").format(user=generated_certificate.user.username)
         )
 

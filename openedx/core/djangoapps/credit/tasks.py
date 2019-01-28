@@ -36,10 +36,10 @@ def update_credit_course_requirements(course_id):
             requirements = _get_course_credit_requirements(course_key)
             set_credit_requirements(course_key, requirements)
     except (InvalidKeyError, ItemNotFoundError, InvalidCreditRequirements) as exc:
-        LOGGER.error('Error on adding the requirements for course %s - %s', course_id, unicode(exc))
+        LOGGER.error(u'Error on adding the requirements for course %s - %s', course_id, unicode(exc))
         raise update_credit_course_requirements.retry(args=[course_id], exc=exc)
     else:
-        LOGGER.info('Requirements added for course %s', course_id)
+        LOGGER.info(u'Requirements added for course %s', course_id)
 
 
 def _get_course_credit_requirements(course_key):
@@ -95,7 +95,7 @@ def _get_min_grade_requirement(course_key):
             }
         ]
     except AttributeError:
-        LOGGER.error("The course %s does not has minimum_grade_credit attribute", unicode(course.id))
+        LOGGER.error(u"The course %s does not has minimum_grade_credit attribute", unicode(course.id))
     else:
         return []
 

@@ -323,7 +323,7 @@ def get_component_templates(courselike, library=False):
                     try:
                         component_display_name = xblock_type_display_name(component)
                     except PluginMissingError:
-                        log.warning('Unable to load xblock type %s to read display_name', component, exc_info=True)
+                        log.warning(u'Unable to load xblock type %s to read display_name', component, exc_info=True)
                     else:
                         templates_for_category.append(
                             create_template_dict(
@@ -459,7 +459,7 @@ def component_handler(request, usage_key_string, handler, suffix=''):
         handler_descriptor.xmodule_runtime = StudioEditModuleRuntime(request.user)
         resp = handler_descriptor.handle(handler, req, suffix)
     except NoSuchHandlerError:
-        log.info("XBlock %s attempted to access missing handler %r", handler_descriptor, handler, exc_info=True)
+        log.info(u"XBlock %s attempted to access missing handler %r", handler_descriptor, handler, exc_info=True)
         raise Http404
 
     # unintentional update to handle any side effects of handle call

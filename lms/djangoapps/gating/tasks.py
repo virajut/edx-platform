@@ -45,7 +45,7 @@ def task_evaluate_subsection_completion_milestones(course_id, block_id, user_id)
                 )
                 gating_api.evaluate_prerequisite(course, subsection, user)
             except KeyError:
-                log.error("Gating: Given prerequisite subsection [%s] not found in course structure", block_id)
+                log.error(u"Gating: Given prerequisite subsection [%s] not found in course structure", block_id)
 
 
 def _get_subsection_of_block(usage_key, block_structure):

@@ -193,7 +193,7 @@ class Order(models.Model):
         Also removes any code redemption associated with the order_item
         """
         if item.order.status == 'cart':
-            log.info("order item %s removed for user %s", str(item.id), user)
+            log.info(u"order item %s removed for user %s", str(item.id), user)
             item.delete()
             # remove any redemption entry associated with the item
             CouponRedemption.remove_code_redemption_from_item(item, user)
@@ -364,7 +364,7 @@ class Order(models.Model):
         if not is_order_type_business:
             subject = _("Order Payment Confirmation")
         else:
-            subject = _('Confirmation and Registration Codes for the following courses: {course_name_list}').format(
+            subject = _(u'Confirmation and Registration Codes for the following courses: {course_name_list}').format(
                 course_name_list=joined_course_names
             )
 
@@ -421,7 +421,7 @@ class Order(models.Model):
                     email.attach(u'pdf_not_available.txt', file_buffer.getvalue(), 'text/plain')
                 email.send()
         except (smtplib.SMTPException, BotoServerError):  # sadly need to handle diff. mail backends individually
-            log.error('Failed sending confirmation e-mail for order %d', self.id)
+            log.error(u'Failed sending confirmation e-mail for order %d', self.id)
 
     def purchase(self, first='', last='', street1='', street2='', city='', state='', postalcode='',
                  country='', ccnum='', cardtype='', processor_reply_dump=''):
@@ -1344,7 +1344,7 @@ class Coupon(models.Model):
         """
         return the coupon expiration date in the readable format
         """
-        return (self.expiration_date - timedelta(days=1)).strftime("%B %d, %Y") if self.expiration_date else None
+        return (self.expiration_date - timedelta(days=1)).strftime(u"%B %d, %Y") if self.expiration_date else None
 
 
 class CouponRedemption(models.Model):
@@ -1537,7 +1537,7 @@ class PaidCourseRegistration(OrderItem):
         # throw errors if it doesn't.
         course = modulestore().get_course(course_id)
         if not course:
-            log.error("User {} tried to add non-existent course {} to cart id {}"
+            log.error(u"User {} tried to add non-existent course {} to cart id {}"
                       .format(order.user.email, course_id, order.id))
             raise CourseDoesNotExistException
 
@@ -1551,7 +1551,7 @@ class PaidCourseRegistration(OrderItem):
             raise ItemAlreadyInCartException
 
         if CourseEnrollment.is_enrolled(user=order.user, course_key=course_id):
-            log.warning("User {} trying to add course {} to cart id {}, already registered"
+            log.warning(u"User {} trying to add course {} to cart id {}, already registered"
                         .format(order.user.email, course_id, order.id))
             raise AlreadyEnrolledInCourseException
 
@@ -1581,7 +1581,7 @@ class PaidCourseRegistration(OrderItem):
         item.report_comments = item.csv_report_comments
         order.save()
         item.save()
-        log.info("User {} added course registration {} to cart: order {}"
+        log.info(u"User {} added course registration {} to cart: order {}"
                  .format(order.user.email, course_id, order.id))
 
         CourseEnrollment.send_signal_full(EnrollStatusChange.paid_start,
@@ -1605,7 +1605,7 @@ class PaidCourseRegistration(OrderItem):
         self.course_enrollment = CourseEnrollment.enroll(user=self.user, course_key=self.course_id, mode=self.mode)
         self.save()
 
-        log.info("Enrolled {0} in paid course {1}, paid ${2}"
+        log.info(u"Enrolled {0} in paid course {1}, paid ${2}"
                  .format(self.user.email, self.course_id, self.line_cost))
         self.course_enrollment.send_signal(EnrollStatusChange.paid_complete,
                                            cost=self.line_cost, currency=self.currency)
@@ -1724,17 +1724,17 @@ class CourseRegCodeItem(OrderItem):
         # throw errors if it doesn't.
         course = modulestore().get_course(course_id)
         if not course:
-            log.error("User {} tried to add non-existent course {} to cart id {}"
+            log.error(u"User {} tried to add non-existent course {} to cart id {}"
                       .format(order.user.email, course_id, order.id))
             raise CourseDoesNotExistException
 
         if cls.contained_in_order(order, course_id):
-            log.warning("User {} tried to add PaidCourseRegistration for course {}, already in cart id {}"
+            log.warning(u"User {} tried to add PaidCourseRegistration for course {}, already in cart id {}"
                         .format(order.user.email, course_id, order.id))
             raise ItemAlreadyInCartException
 
         if CourseEnrollment.is_enrolled(user=order.user, course_key=course_id):
-            log.warning("User {} trying to add course {} to cart id {}, already registered"
+            log.warning(u"User {} trying to add course {} to cart id {}, already registered"
                         .format(order.user.email, course_id, order.id))
             raise AlreadyEnrolledInCourseException
 
@@ -1764,7 +1764,7 @@ class CourseRegCodeItem(OrderItem):
         item.report_comments = item.csv_report_comments
         order.save()
         item.save()
-        log.info("User {} added course registration {} to cart: order {}"
+        log.info(u"User {} added course registration {} to cart: order {}"
                  .format(order.user.email, course_id, order.id))
         return item
 
@@ -1787,7 +1787,7 @@ class CourseRegCodeItem(OrderItem):
         for i in range(total_registration_codes):  # pylint: disable=unused-variable
             save_registration_code(self.user, self.course_id, self.mode, order=self.order)
 
-        log.info("Enrolled {0} in paid course {1}, paid ${2}"
+        log.info(u"Enrolled {0} in paid course {1}, paid ${2}"
                  .format(self.user.email, self.course_id, self.line_cost))
 
     @property
@@ -1899,9 +1899,9 @@ class CertificateItem(OrderItem):
         order_number = target_cert.order_id
         # send billing an email so they can handle refunding
         subject = _("[Refund] User-Requested Refund")
-        message = "User {user} ({user_email}) has requested a refund on Order #{order_number}.".format(user=course_enrollment.user,
-                                                                                                       user_email=course_enrollment.user.email,
-                                                                                                       order_number=order_number)
+        message = u"User {user} ({user_email}) has requested a refund on Order #{order_number}.".format(user=course_enrollment.user,
+                                                                                                        user_email=course_enrollment.user.email,
+                                                                                                        order_number=order_number)
         to_email = [settings.PAYMENT_SUPPORT_EMAIL]
         from_email = configuration_helpers.get_value('payment_support_email', settings.PAYMENT_SUPPORT_EMAIL)
         try:
@@ -1969,7 +1969,7 @@ class CertificateItem(OrderItem):
         # Translators: In this particular case, mode_name refers to a
         # particular mode (i.e. Honor Code Certificate, Verified Certificate, etc)
         # by which a user could enroll in the given course.
-        item.line_desc = _("{mode_name} for course {course}").format(
+        item.line_desc = _(u"{mode_name} for course {course}").format(
             mode_name=mode_info.name,
             course=course_name
         )

@@ -1127,7 +1127,7 @@ class CreditProviderIntegrationApiTests(CreditApiTestBase):
         # Simulate users who registered accounts before the country field was introduced.
         # We need to manipulate the database directly because the country Django field
         # coerces None values to empty strings.
-        query = "UPDATE auth_userprofile SET country = NULL WHERE id = %s"
+        query = u"UPDATE auth_userprofile SET country = NULL WHERE id = %s"
         connection.cursor().execute(query, [str(self.user.profile.id)])
 
         # Request should include an empty country field

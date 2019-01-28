@@ -36,7 +36,7 @@ def register_special_exams(course_key):
 
     course = modulestore().get_course(course_key)
     if course is None:
-        raise ItemNotFoundError("Course {} does not exist", unicode(course_key))
+        raise ItemNotFoundError(u"Course {} does not exist", unicode(course_key))
 
     if not course.enable_proctored_exams and not course.enable_timed_exams:
         # likewise if course does not have these features turned on
@@ -96,7 +96,7 @@ def register_special_exams(course_key):
             exam_metadata['content_id'] = unicode(timed_exam.location)
 
             exam_id = create_exam(**exam_metadata)
-            msg = 'Created new timed exam {exam_id}'.format(exam_id=exam_id)
+            msg = u'Created new timed exam {exam_id}'.format(exam_id=exam_id)
             log.info(msg)
 
         exam_review_policy_metadata = {
@@ -112,7 +112,7 @@ def register_special_exams(course_key):
             except ProctoredExamReviewPolicyNotFoundException:
                 if timed_exam.exam_review_rules:  # won't save an empty rule.
                     create_exam_review_policy(**exam_review_policy_metadata)
-                    msg = 'Created new exam review policy with exam_id {exam_id}'.format(exam_id=exam_id)
+                    msg = u'Created new exam review policy with exam_id {exam_id}'.format(exam_id=exam_id)
                     log.info(msg)
         else:
             try:

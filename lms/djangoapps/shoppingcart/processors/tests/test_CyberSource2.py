@@ -149,7 +149,7 @@ class CyberSource2Test(TestCase):
         # Expect that we processed the payment successfully
         self.assertTrue(
             result['success'],
-            msg="Payment was not successful: {error}".format(error=result.get('error_html'))
+            msg=u"Payment was not successful: {error}".format(error=result.get('error_html'))
         )
         self.assertEqual(result['error_html'], '')
 
@@ -232,7 +232,7 @@ class CyberSource2Test(TestCase):
         # Expect that we processed the payment successfully
         self.assertTrue(
             result['success'],
-            msg="Payment was not successful: {error}".format(error=result.get('error_html'))
+            msg=u"Payment was not successful: {error}".format(error=result.get('error_html'))
         )
         self.assertEqual(result['error_html'], '')
         self.assert_dump_recorded(result['order'])

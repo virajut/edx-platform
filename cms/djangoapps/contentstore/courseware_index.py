@@ -245,8 +245,8 @@ class SearchIndexerBase(object):
                 return item_content_groups
             except Exception as err:  # pylint: disable=broad-except
                 # broad exception so that index operation does not fail on one item of many
-                log.warning('Could not index item: %s - %r', item.location, err)
-                error_list.append(_('Could not index item: {}').format(item.location))
+                log.warning(u'Could not index item: %s - %r', item.location, err)
+                error_list.append(_(u'Could not index item: {}').format(item.location))
 
         try:
             with modulestore.branch_setting(ModuleStoreEnum.RevisionOption.published_only):

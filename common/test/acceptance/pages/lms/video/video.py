@@ -121,7 +121,7 @@ class VideoPage(PageObject):
             video_player_buttons.append('play')
 
         for button in video_player_buttons:
-            self.wait_for_element_visibility(VIDEO_BUTTONS[button], '{} button is visible'.format(button))
+            self.wait_for_element_visibility(VIDEO_BUTTONS[button], u'{} button is visible'.format(button))
 
         def _is_finished_loading():
             """
@@ -148,7 +148,7 @@ class VideoPage(PageObject):
 
         video_player_buttons = ['do_not_show_again', 'skip_bumper', 'volume']
         for button in video_player_buttons:
-            self.wait_for_element_visibility(VIDEO_BUTTONS[button], '{} button is visible'.format(button))
+            self.wait_for_element_visibility(VIDEO_BUTTONS[button], u'{} button is visible'.format(button))
 
     @property
     def is_poster_shown(self):
@@ -179,7 +179,7 @@ class VideoPage(PageObject):
         if video_display_name:
             video_display_names = self.q(css=CSS_CLASS_NAMES['video_display_name']).text
             if video_display_name not in video_display_names:
-                raise ValueError("Incorrect Video Display Name: '{0}'".format(video_display_name))
+                raise ValueError(u"Incorrect Video Display Name: '{0}'".format(video_display_name))
             return '.vert.vert-{}'.format(video_display_names.index(video_display_name))
         else:
             return '.vert.vert-0'
@@ -197,7 +197,7 @@ class VideoPage(PageObject):
 
         """
         if vertical:
-            return '{vertical} {video_element}'.format(
+            return u'{vertical} {video_element}'.format(
                 vertical=self.get_video_vertical_selector(self.current_video_display_name),
                 video_element=class_name)
         else:
@@ -245,7 +245,7 @@ class VideoPage(PageObject):
                 is_present = href_src.startswith('blob:') or href_src.startswith('mediasource:')
             return is_present, is_present
 
-        return Promise(_is_element_present, 'Video Rendering Failed in {0} mode.'.format(mode)).fulfill()
+        return Promise(_is_element_present, u'Video Rendering Failed in {0} mode.'.format(mode)).fulfill()
 
     @property
     def video_download_url(self):
@@ -485,7 +485,7 @@ class VideoPage(PageObject):
         hover = ActionChains(self.browser).move_to_element(element_to_hover_over)
         hover.perform()
 
-        speed_selector = self.get_element_selector('li[data-speed="{speed}"] .control'.format(speed=speed))
+        speed_selector = self.get_element_selector(u'li[data-speed="{speed}"] .control'.format(speed=speed))
         self.q(css=speed_selector).first.click()
         # Click triggers an ajax event
         self.wait_for_ajax()

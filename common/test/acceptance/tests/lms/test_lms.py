@@ -736,7 +736,7 @@ class PDFTextBooksTabTest(UniqueCourseTest):
 
         # Verify each PDF textbook tab by visiting, it will fail if correct tab is not loaded.
         for i in range(1, 3):
-            self.tab_nav.go_to_tab("PDF Book {}".format(i))
+            self.tab_nav.go_to_tab(u"PDF Book {}".format(i))
 
 
 @attr(shard=1)

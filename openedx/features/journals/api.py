@@ -70,7 +70,7 @@ class DiscoveryApiClient(object):
                 response = self.client.journals.get(orgs=','.join(orgs), status='active')
             else:
                 response = self.client.journals.get(status='active')
-            LOGGER.debug('response is type=%s', type(response))
+            LOGGER.debug(u'response is type=%s', type(response))
             return response.get('results')
         except (HttpClientError, HttpServerError) as err:
             LOGGER.exception(
@@ -106,7 +106,7 @@ class JournalsApiClient(object):
         try:
             self.user = self.get_journals_worker()
         except ObjectDoesNotExist:
-            error = 'Unable to retrieve {} service user'.format(JOURNAL_WORKER_USERNAME)
+            error = u'Unable to retrieve {} service user'.format(JOURNAL_WORKER_USERNAME)
             LOGGER.error(error)
             raise ValueError(error)
 

@@ -275,7 +275,7 @@ def _get_enabled_provider(provider_id):
     enabled_provider = provider.Registry.get(provider_id)
 
     if not enabled_provider:
-        raise ValueError('Provider %s not enabled' % provider_id)
+        raise ValueError(u'Provider %s not enabled' % provider_id)
 
     return enabled_provider
 
@@ -317,7 +317,7 @@ def get_complete_url(backend_name):
         ValueError: if no provider is enabled with the given backend_name.
     """
     if not any(provider.Registry.get_enabled_by_backend_name(backend_name)):
-        raise ValueError('Provider with backend %s not enabled' % backend_name)
+        raise ValueError(u'Provider with backend %s not enabled' % backend_name)
 
     return _get_url('social:complete', backend_name)
 
@@ -727,7 +727,7 @@ def user_details_force_sync(auth_entry, strategy, details, user=None, *args, **k
             current_value = getattr(model, field)
             if provider_value is not None and current_value != provider_value:
                 if field in integrity_conflict_fields and User.objects.filter(**{field: provider_value}).exists():
-                    logger.warning('User with ID [%s] tried to synchronize profile data through [%s] '
+                    logger.warning(u'User with ID [%s] tried to synchronize profile data through [%s] '
                                    'but there was a conflict with an existing [%s]: [%s].',
                                    user.id, current_provider.name, field, provider_value)
                     continue

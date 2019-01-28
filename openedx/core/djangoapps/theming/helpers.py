@@ -222,7 +222,7 @@ def get_current_theme():
         )
     except ValueError as error:
         # Log exception message and return None, so that open source theme is used instead
-        logger.exception('Theme not found in any of the themes dirs. [%s]', error)
+        logger.exception(u'Theme not found in any of the themes dirs. [%s]', error)
         return None
 
 

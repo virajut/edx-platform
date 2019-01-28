@@ -71,5 +71,5 @@ class Command(BaseCommand):
         for course in course_items:
             course_id = course.id
             if not are_permissions_roles_seeded(course_id):
-                self.stdout.write('Seeding forum roles for course {0}\n'.format(course_id))
+                self.stdout.write(u'Seeding forum roles for course {0}\n'.format(course_id))
                 seed_permissions_roles(course_id)

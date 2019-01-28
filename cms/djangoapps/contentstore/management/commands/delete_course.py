@@ -79,4 +79,4 @@ class Command(BaseCommand):
                     contentstore().delete_all_course_assets(course_key)
                     print('Deleted assets for course'.format(course_key))
 
-                print('Deleted course {}'.format(course_key))
+                print(u'Deleted course {}'.format(course_key))

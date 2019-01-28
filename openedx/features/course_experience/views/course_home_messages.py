@@ -113,11 +113,11 @@ def _register_course_home_messages(request, course, user_access, course_start_da
             Text(_(
                 '{sign_in_link} or {register_link} and then enroll in this course.'
             )).format(
-                sign_in_link=HTML('<a href="/login?next={current_url}">{sign_in_label}</a>').format(
+                sign_in_link=HTML(u'<a href="/login?next={current_url}">{sign_in_label}</a>').format(
                     sign_in_label=_('Sign in'),
                     current_url=urlquote_plus(request.path),
                 ),
-                register_link=HTML('<a href="/register?next={current_url}">{register_label}</a>').format(
+                register_link=HTML(u'<a href="/register?next={current_url}">{register_label}</a>').format(
                     register_label=_('register'),
                     current_url=urlquote_plus(request.path),
                 )
@@ -133,7 +133,7 @@ def _register_course_home_messages(request, course, user_access, course_start_da
                 open_enroll_link='',
                 close_enroll_link=''
             ),
-            title=Text(_('Welcome to {course_display_name}')).format(
+            title=Text(_(u'Welcome to {course_display_name}')).format(
                 course_display_name=course.display_name
             )
         )
@@ -160,7 +160,7 @@ def _register_course_goal_message(request, course):
             'data-choice="{goal_key}">'
         ).format(
             goal_key=GOAL_KEY_CHOICES.unsure,
-            aria_label_choice=Text(_("Set goal to: {choice}")).format(
+            aria_label_choice=Text(_(u"Set goal to: {choice}")).format(
                 choice=course_goal_options[GOAL_KEY_CHOICES.unsure],
             ),
         ),
@@ -183,7 +183,7 @@ def _register_course_goal_message(request, course):
                 'data-choice="{goal_key}">'
             ).format(
                 goal_key=goal_key,
-                aria_label_choice=Text(_("Set goal to: {goal_text}")).format(
+                aria_label_choice=Text(_(u"Set goal to: {goal_text}")).format(
                     goal_text=Text(_(goal_text))
                 )
             ),
@@ -197,7 +197,7 @@ def _register_course_goal_message(request, course):
             goal_choices_html=goal_choices_html,
             closing_tag=HTML('</div>')
         ),
-        title=Text(_('Welcome to {course_display_name}')).format(
+        title=Text(_(u'Welcome to {course_display_name}')).format(
             course_display_name=course.display_name
         )
     )

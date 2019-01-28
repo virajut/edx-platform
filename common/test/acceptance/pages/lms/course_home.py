@@ -189,7 +189,7 @@ class CourseOutlinePage(PageObject):
         try:
             section_title = self._section_titles()[section_index]
         except IndexError:
-            raise ValueError("Section index '{0}' is out of range.".format(section_index))
+            raise ValueError(u"Section index '{0}' is out of range.".format(section_index))
         try:
             subsection_title = self._subsection_titles(section_index)[subsection_index]
         except IndexError:
@@ -206,7 +206,7 @@ class CourseOutlinePage(PageObject):
         try:
             section_index = self._section_titles().index(section_title)
         except ValueError:
-            raise ValueError("Could not find section '{0}'".format(section_title))
+            raise ValueError(u"Could not find section '{0}'".format(section_title))
 
         return section_index
 
