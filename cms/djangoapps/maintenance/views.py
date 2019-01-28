@@ -196,7 +196,7 @@ class ForcePublishCourseView(MaintenanceBaseView):
         if current_versions['published-branch'] == current_versions['draft-branch']:
             self.context['msg'] = _('Course is already in published state.')
             log.warning(
-                'Course is already in published state. %s attempted to force publish the course %s.',
+                u'Course is already in published state. %s attempted to force publish the course %s.',
                 request.user,
                 course_id,
                 exc_info=True
@@ -205,7 +205,7 @@ class ForcePublishCourseView(MaintenanceBaseView):
 
         self.context['current_versions'] = current_versions
         log.info(
-            '%s dry ran force publish the course %s.',
+            u'%s dry ran force publish the course %s.',
             request.user,
             course_id,
             exc_info=True

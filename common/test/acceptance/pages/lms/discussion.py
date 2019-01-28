@@ -322,7 +322,7 @@ class DiscussionThreadPage(PageObject, DiscussionPageMixin):
             was successfully updated, False otherwise.
             """
             self._find_within(
-                ".response_{} .discussion-response .post-update".format(
+                u".response_{} .discussion-response .post-update".format(
                     response_id
                 )
             ).first.click()
@@ -475,7 +475,7 @@ class DiscussionTabSingleThreadPage(CoursePage):
         super(DiscussionTabSingleThreadPage, self).__init__(browser, course_id)
         self.thread_page = DiscussionThreadPage(
             browser,
-            "body.discussion .discussion-article[data-id='{thread_id}']".format(thread_id=thread_id)
+            u"body.discussion .discussion-article[data-idu='{thread_id}']".format(thread_id=thread_id)
         )
         self.url_path = "discussion/forum/{discussion_id}/threads/{thread_id}".format(
             discussion_id=discussion_id, thread_id=thread_id
@@ -526,7 +526,7 @@ class InlineDiscussionPage(PageObject, DiscussionPageMixin):
     def __init__(self, browser, discussion_id):
         super(InlineDiscussionPage, self).__init__(browser)
         self.root_selector = (
-            ".discussion-module[data-discussion-id='{discussion_id}'] ".format(
+            u".discussion-module[data-discussion-idu='{discussion_id}'] ".format(
                 discussion_id=discussion_id
             )
         )
@@ -561,8 +561,8 @@ class InlineDiscussionPage(PageObject, DiscussionPageMixin):
 
     def click_element(self, selector):
         self.wait_for_element_presence(
-            "{discussion} {selector}".format(discussion=self.root_selector, selector=selector),
-            "{selector} is visible".format(selector=selector)
+            u"{discussion} {selector}".format(discussion=self.root_selector, selector=selector),
+            u"{selector} is visible".format(selector=selector)
         )
         self._find_within(selector).click()
 
@@ -595,7 +595,7 @@ class InlineDiscussionThreadPage(DiscussionThreadPage):
     def __init__(self, browser, thread_id):
         super(InlineDiscussionThreadPage, self).__init__(
             browser,
-            ".discussion-module .discussion-article[data-id='{thread_id}']".format(thread_id=thread_id)
+            u".discussion-module .discussion-article[data-idu='{thread_id}']".format(thread_id=thread_id)
         )
 
     def is_thread_anonymous(self):

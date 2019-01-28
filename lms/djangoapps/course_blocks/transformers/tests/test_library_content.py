@@ -163,5 +163,5 @@ class ContentLibraryTransformerTestCase(CourseStructureTestCase):
                     selected_vertical,
                     selected_child,
                 ),
-                "Expected 'selected' equality failed in iteration {}.".format(i)
+                u"Expectedu 'selected' equality failed in iteration {}.".format(i)
             )

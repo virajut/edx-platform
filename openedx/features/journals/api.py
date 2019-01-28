@@ -74,7 +74,7 @@ class DiscoveryApiClient(object):
             return response.get('results')
         except (HttpClientError, HttpServerError) as err:
             LOGGER.exception(
-                'Failed to get journals from discovery-service [%s]',
+                u'Failed to get journals from discovery-service [%s]',
                 err.content
             )
             return []
@@ -87,7 +87,7 @@ class DiscoveryApiClient(object):
             response = self.client.journal_bundles(uuid).get()
         except (HttpClientError, HttpServerError) as err:
             LOGGER.exception(
-                'Failed to get journal bundles from discovery-service [%s]',
+                u'Failed to get journal bundles from discovery-service [%s]',
                 err.content
             )
             return []

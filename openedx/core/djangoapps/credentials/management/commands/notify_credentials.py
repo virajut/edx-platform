@@ -163,7 +163,7 @@ class Command(BaseCommand):
             options = self.get_args_from_database()
 
         log.info(
-            "notify_credentials starting, dry-run=%s, site=%s, delay=%d seconds",
+            u"notify_credentials starting, dry-run=%s, site=%s, delay=%d seconds",
             options['dry_run'],
             options['site'],
             options['delay']
@@ -218,7 +218,7 @@ class Command(BaseCommand):
                 continue
 
             log.info(
-                "Handling credential changes %d for certificate %s",
+                u"Handling credential changes %d for certificate %s",
                 i, certstr(cert),
             )
 
@@ -240,7 +240,7 @@ class Command(BaseCommand):
                 continue
 
             log.info(
-                "Handling grade changes %d for grade %s",
+                u"Handling grade changes %d for grade %s",
                 i, gradestr(grade),
             )
 

@@ -359,7 +359,7 @@ class TestEndpointHttpMethods(SharedModuleStoreTestCase, LoginEnrollmentTestCase
 
         self.assertEqual(
             response.status_code, 405,
-            "Endpoint {} returned status code {} instead of a 405. It should not allow GET.".format(
+            u"Endpoint {} returned status code {} instead of a 405. It should not allow GET.".format(
                 data, response.status_code
             )
         )
@@ -374,7 +374,7 @@ class TestEndpointHttpMethods(SharedModuleStoreTestCase, LoginEnrollmentTestCase
 
         self.assertNotEqual(
             response.status_code, 405,
-            "Endpoint {} returned status code 405 where it shouldn't, since it should allow GET.".format(
+            u"Endpoint {} returned status code 405 where it shouldun't, since it should allow GET.".format(
                 data
             )
         )
@@ -872,7 +872,7 @@ class TestInstructorAPIBulkAccountCreationAndEnrollment(SharedModuleStoreTestCas
         self.assertNotEquals(len(data['row_errors']), 0)
         self.assertEquals(
             data['row_errors'][0]['response'],
-            'Invalid email {email}.'.format(email=conflicting_email)
+            u'Invalid email {email}.'.format(email=conflicting_email)
         )
         self.assertFalse(User.objects.filter(email=conflicting_email).exists())
 
@@ -1458,7 +1458,7 @@ class TestInstructorAPIEnrollment(SharedModuleStoreTestCase, LoginEnrollmentTest
                     'in the Email field') in body
 
             assert ('Once you have registered and activated your account, '
-                    'you will see {display_name} listed on your dashboard.').format(
+                    u'you will see {display_name} listed on your dashboard.').format(
                 display_name=self.course.display_name
             ) in body
 
@@ -1551,7 +1551,7 @@ class TestInstructorAPIEnrollment(SharedModuleStoreTestCase, LoginEnrollmentTest
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(
             mail.outbox[0].subject,
-            'You have been unenrolled from {display_name}'.format(display_name=self.course.display_name,)
+            u'You have been unenrolled from {display_name}'.format(display_name=self.course.display_name,)
         )
 
         text_body = mail.outbox[0].body
@@ -1608,7 +1608,7 @@ class TestInstructorAPIEnrollment(SharedModuleStoreTestCase, LoginEnrollmentTest
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(
             mail.outbox[0].subject,
-            'You have been unenrolled from {display_name}'.format(display_name=self.course.display_name,)
+            u'You have been unenrolled from {display_name}'.format(display_name=self.course.display_name,)
         )
 
         text_body = mail.outbox[0].body
@@ -1638,7 +1638,7 @@ class TestInstructorAPIEnrollment(SharedModuleStoreTestCase, LoginEnrollmentTest
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(
             mail.outbox[0].subject,
-            'You have been invited to register for {display_name}'.format(display_name=self.course.display_name,)
+            u'You have been invited to register for {display_name}'.format(display_name=self.course.display_name,)
         )
 
         text_body = mail.outbox[0].body
@@ -1704,7 +1704,7 @@ class TestInstructorAPIEnrollment(SharedModuleStoreTestCase, LoginEnrollmentTest
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(
             mail.outbox[0].subject,
-            'You have been invited to register for {display_name}'.format(display_name=self.course.display_name,)
+            u'You have been invited to register for {display_name}'.format(display_name=self.course.display_name,)
         )
 
         text_body = mail.outbox[0].body
@@ -2113,7 +2113,7 @@ class TestInstructorAPIBulkBetaEnrollment(SharedModuleStoreTestCase, LoginEnroll
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(
             mail.outbox[0].subject,
-            'You have been invited to a beta test for {display_name}'.format(display_name=self.course.display_name,)
+            u'You have been invited to a beta test for {display_name}'.format(display_name=self.course.display_name,)
         )
 
         text_body = mail.outbox[0].body
@@ -2169,7 +2169,7 @@ class TestInstructorAPIBulkBetaEnrollment(SharedModuleStoreTestCase, LoginEnroll
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(
             mail.outbox[0].subject,
-            'You have been invited to a beta test for {display_name}'.format(display_name=self.course.display_name)
+            u'You have been invited to a beta test for {display_name}'.format(display_name=self.course.display_name)
         )
 
         text_body = mail.outbox[0].body

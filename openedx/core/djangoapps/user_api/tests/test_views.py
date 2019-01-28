@@ -829,7 +829,7 @@ class RegistrationViewValidationErrorTest(ThirdPartyAuthTestMixin, UserAPITestCa
             {
                 "email": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different email address."
                     ).format(
                         self.EMAIL
@@ -871,7 +871,7 @@ class RegistrationViewValidationErrorTest(ThirdPartyAuthTestMixin, UserAPITestCa
             {
                 "email": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different email address."
                     ).format(
                         self.EMAIL
@@ -913,7 +913,7 @@ class RegistrationViewValidationErrorTest(ThirdPartyAuthTestMixin, UserAPITestCa
             {
                 "username": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different username."
                     ).format(
                         self.USERNAME
@@ -950,7 +950,7 @@ class RegistrationViewValidationErrorTest(ThirdPartyAuthTestMixin, UserAPITestCa
             {
                 "email": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different email address."
                     ).format(
                         self.EMAIL
@@ -1023,7 +1023,7 @@ class RegistrationViewValidationErrorTest(ThirdPartyAuthTestMixin, UserAPITestCa
             {
                 "email": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different email address."
                     ).format(
                         self.EMAIL
@@ -2184,7 +2184,7 @@ class RegistrationViewTest(ThirdPartyAuthTestMixin, UserAPITestCase):
             {
                 "email": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different email address."
                     ).format(
                         self.EMAIL
@@ -2219,7 +2219,7 @@ class RegistrationViewTest(ThirdPartyAuthTestMixin, UserAPITestCase):
             {
                 "username": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different username."
                     ).format(
                         self.USERNAME
@@ -2254,7 +2254,7 @@ class RegistrationViewTest(ThirdPartyAuthTestMixin, UserAPITestCase):
             {
                 "username": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different username."
                     ).format(
                         self.USERNAME
@@ -2262,7 +2262,7 @@ class RegistrationViewTest(ThirdPartyAuthTestMixin, UserAPITestCase):
                 }],
                 "email": [{
                     "user_message": (
-                        "It looks like {} belongs to an existing account. "
+                        u"It looks like {} belongs to an existing account. "
                         "Try again with a different email address."
                     ).format(
                         self.EMAIL
@@ -2535,7 +2535,7 @@ class ThirdPartyRegistrationTestMixin(ThirdPartyOAuthTestMixin, CacheIsolationTe
         response = self.client.post(self.url, data)
         self._assert_access_token_error(
             response,
-            "An access_token is required when passing value ({}) for provider.".format(self.BACKEND)
+            u"An access_token is required when passing value ({}) for provider.".format(self.BACKEND)
         )
         self._verify_user_existence(user_exists=False, social_link_exists=False)
 

@@ -147,7 +147,7 @@ class TestPaverThemeAssetTasks(PaverTestCase):
             )
             if force:
                 expected_messages.append(
-                    'rm -rf {test_theme_dir}/lms/static/css/*.css'.format(test_theme_dir=str(TEST_THEME_DIR))
+                    u'rm -rf {test_theme_dir}/lms/static/css/*.css'.format(test_theme_dir=str(TEST_THEME_DIR))
                 )
             expected_messages.append(
                 u'libsass {test_theme_dir}/lms/static/sass'.format(test_theme_dir=str(TEST_THEME_DIR))

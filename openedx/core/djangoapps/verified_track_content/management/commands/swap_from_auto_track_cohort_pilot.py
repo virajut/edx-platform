@@ -94,7 +94,7 @@ class Command(BaseCommand):
 
         if not random_audit_course_user_group_partition_groups:
             raise CommandError(
-                "No Audit CourseUserGroupPartitionGroup found for course_user_group_ids='%s'"
+                u"No Audit CourseUserGroupPartitionGroup found for course_user_group_idsu='%s'"
                 % random_audit_course_user_group_ids
             )
 
@@ -127,7 +127,7 @@ class Command(BaseCommand):
             )
         except CourseUserGroupPartitionGroup.DoesNotExist:
             raise CommandError(
-                "No Verified CourseUserGroupPartitionGroup found for course_user_group_ids='%s'"
+                u"No Verified CourseUserGroupPartitionGroup found for course_user_group_idsu='%s'"
                 % random_audit_course_user_group_ids
             )
 

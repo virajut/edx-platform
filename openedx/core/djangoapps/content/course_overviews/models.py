@@ -250,7 +250,7 @@ class CourseOverview(TimeStampedModel):
                     pass
                 except Exception:
                     log.exception(
-                        "CourseOverview for course %s failed!",
+                        u"CourseOverview for course %s failed!",
                         course_id,
                     )
                     raise
@@ -258,7 +258,7 @@ class CourseOverview(TimeStampedModel):
                 return course_overview
             elif course is not None:
                 raise IOError(
-                    "Error while loading course {} from the module store: {}",
+                    u"Error while loading course {} from the module store: {}",
                     unicode(course_id),
                     course.error_msg if isinstance(course, ErrorDescriptor) else unicode(course)
                 )
@@ -551,7 +551,7 @@ class CourseOverview(TimeStampedModel):
                 action(course_key)
             except Exception as ex:  # pylint: disable=broad-except
                 log.exception(
-                    'An error occurred while generating course overview for %s: %s',
+                    u'An error occurred while generating course overview for %s: %s',
                     unicode(course_key),
                     text_type(ex),
                 )
@@ -818,7 +818,7 @@ class CourseOverviewImageSet(TimeStampedModel):
                 image_set.large_url = create_course_image_thumbnail(course, config.large)
             except Exception:  # pylint: disable=broad-except
                 log.exception(
-                    "Could not create thumbnail for course %s with image %s (small=%s), (large=%s)",
+                    u"Could not create thumbnail for course %s with image %s (small=%s), (large=%s)",
                     course.id,
                     course.course_image,
                     config.small,

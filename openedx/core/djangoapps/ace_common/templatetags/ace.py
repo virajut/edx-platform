@@ -56,14 +56,14 @@ def _get_variables_from_context(context, tag_name):
 
     if request is None:
         raise template.VariableDoesNotExist(
-            'The {0} template tag requires a "request" to be present in the template context. Consider using '
+            u'The {0} template tag requires a u"request" to be present in the template context. Consider using '
             '"emulate_http_request" if you are rendering the template in a celery task.'.format(tag_name)
         )
 
     message = context.get('message')
     if message is None:
         raise template.VariableDoesNotExist(
-            'The {0} template tag requires a "message" to be present in the template context.'.format(tag_name)
+            u'The {0} template tag requires a u"message" to be present in the template context.'.format(tag_name)
         )
 
     return request.site, request.user, message

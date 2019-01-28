@@ -79,7 +79,7 @@ def checkout_receipt(request):
         error_summary = _("An error occurred while creating your receipt.")
         error_text = None  # nothing particularly helpful to say if this happens.
         for_help_text = _(
-            "If your course does not appear on your dashboard, contact {payment_support_link}."
+            u"If your course does not appear on your dashboard, contact {payment_support_link}."
         ).format(payment_support_link=payment_support_link)
 
     commerce_configuration = CommerceConfiguration.current()

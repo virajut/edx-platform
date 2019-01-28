@@ -180,7 +180,7 @@ class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):
                 'email_opt_in': False,
             })
             login_msg = Text(_(u"You are not signed in. To view the discussion content, {sign_in_link} or "
-                               "{register_link}, and enroll in this course.")).format(
+                               u"{register_link}, and enroll in this course.")).format(
                 sign_in_link=HTML(u'<a href="{url}">{sign_in_label}</a>').format(
                     sign_in_label=_('sign in'),
                     url='{}?{}'.format(reverse('signin_user'), qs),
@@ -265,7 +265,7 @@ class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):
             definition_xml, _ = cls.load_definition_xml(node, runtime, block.scope_ids.def_id)
         except Exception as err:  # pylint: disable=broad-except
             log.info(
-                "Exception %s when trying to load definition xml for block %s - assuming XBlock export format",
+                u"Exception %s when trying to load definition xml for block %s - assuming XBlock export format",
                 err,
                 block
             )

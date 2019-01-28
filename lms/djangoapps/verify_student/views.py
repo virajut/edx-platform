@@ -951,7 +951,7 @@ class SubmitPhotosView(View):
         if "photo_id_image" not in params and not has_initial_verification:
             log.error(
                 (
-                    "User %s does not have an initial verification attempt "
+                    u"User %s does not have an initial verification attempt "
                     "and no photo ID image data was provided. "
                     "This most likely means that the JavaScript client is not "
                     "correctly constructing the request to submit photos."
@@ -993,7 +993,7 @@ class SubmitPhotosView(View):
             return HttpResponseBadRequest(_("No profile found for user"))
         except AccountValidationError:
             msg = _(
-                "Name must be at least {min_length} characters long."
+                u"Name must be at least {min_length} characters long."
             ).format(min_length=NAME_MIN_LENGTH)
             return HttpResponseBadRequest(msg)
 
@@ -1160,7 +1160,7 @@ def results_callback(request):
     if result == "PASS":
         log.debug(u"Approving verification for %s", receipt_id)
         attempt.approve()
-        status = "approved"
+        status = u"approved"
         expiry_date = datetime.date.today() + datetime.timedelta(
             days=settings.VERIFY_STUDENT["DAYS_GOOD_FOR"]
         )

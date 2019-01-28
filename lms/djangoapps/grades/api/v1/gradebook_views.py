@@ -760,7 +760,7 @@ class GradebookBulkUpdateView(GradeViewMixin, PaginatedAPIView):
     ):
 
         log.info(
-            'Grades: Bulk_Update, UpdatedByUser: %s, User: %s, Usage: %s, Grade: %s, GradeOverride: %s, Success: %s',
+            u'Grades: Bulk_Update, UpdatedByUser: %s, User: %s, Usage: %s, Grade: %s, GradeOverride: %s, Success: %s',
             request_user.id,
             user_id,
             usage_id,

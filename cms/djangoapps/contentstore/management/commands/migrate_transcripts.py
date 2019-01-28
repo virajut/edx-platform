@@ -111,8 +111,8 @@ class Command(BaseCommand):
 
                 log.info(
                     (u'[Transcript Migration] Courses(total): %s, '
-                     'Courses(migrated): %s, Courses(non-migrated): %s, '
-                     'Courses(migration-in-process): %s'),
+                     u'Courses(migrated): %s, Courses(non-migrated): %s, '
+                     u'Courses(migration-in-process): %s'),
                     len(all_courses),
                     len(migrated_courses),
                     len(non_migrated_courses),

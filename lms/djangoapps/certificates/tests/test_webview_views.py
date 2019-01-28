@@ -418,7 +418,7 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
             response.content
         )
         self.assertIn(
-            '<title>test_organization {} Certificate |'.format(self.course.number, ),
+            u'<title>test_organization {} Certificate |'.format(self.course.number, ),
             response.content
         )
         self.assertIn('logo_test1.png', response.content)
@@ -518,7 +518,7 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         )
         # Test an item from user info
         self.assertIn(
-            "{fullname}, you earned a certificate!".format(fullname=self.user.profile.name),
+            u"{fullname}, you earned a certificate!".format(fullname=self.user.profile.name),
             response.content
         )
         # Test an item from social info
@@ -532,7 +532,7 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         )
         # Test an item from certificate/org info
         self.assertIn(
-            "a course of study offered by {partner_short_name}, "
+            u"a course of study offered by {partner_short_name}, "
             "an online learning initiative of "
             "{partner_long_name}.".format(
                 partner_short_name=short_org_name,

@@ -323,7 +323,7 @@ class ContainerPage(PageObject, HelpMixin):
             text = self.q(css='#page-alert .alert.confirmation #alert-confirmation-title').text
             return text and message not in text[0] if verify_hidden else text and message in text[0]
 
-        self.wait_for(_verify_message, description='confirmation message {status}'.format(
+        self.wait_for(_verify_message, description=u'confirmation message {status}'.format(
             status='hidden' if verify_hidden else 'present'
         ))
 
@@ -402,7 +402,7 @@ class ContainerPage(PageObject, HelpMixin):
         Returns:
             list
         """
-        css = '#tab{tab_index} button[data-category={category_type}] span'.format(
+        css = u'#tab{tab_index} button[data-category={category_type}] span'.format(
             tab_index=tab_index,
             category_type=category_type
         )
@@ -435,7 +435,7 @@ class XBlockWrapper(PageObject):
         """
         Return `selector`, but limited to this particular `CourseOutlineChild` context
         """
-        return '{}[data-locator="{}"] {}'.format(
+        return u'{}[data-locator=u"{}"] {}'.format(
             self.BODY_SELECTOR,
             self.locator,
             selector
@@ -487,7 +487,7 @@ class XBlockWrapper(PageObject):
 
     def _validation_paragraph(self, css_class):
         """ Helper method to return the <p> element of a validation warning """
-        return self.q(css=self._bounded_selector('{} p.{}'.format(self.VALIDATION_SELECTOR, css_class)))
+        return self.q(css=self._bounded_selector(u'{} p.{}'.format(self.VALIDATION_SELECTOR, css_class)))
 
     @property
     def has_validation_warning(self):
@@ -619,7 +619,7 @@ class XBlockWrapper(PageObject):
         """
         If editing, set the value of a field.
         """
-        selector = '{} li.field label:contains("{}") + input'.format(self.editor_selector, field_display_name)
+        selector = u'{} li.field label:contains(u"{}") + input'.format(self.editor_selector, field_display_name)
         script = "$(arguments[0]).val(arguments[1]).change();"
         self.browser.execute_script(script, selector, field_value)
 
@@ -627,7 +627,7 @@ class XBlockWrapper(PageObject):
         """
         If editing, reset the value of a field to its default.
         """
-        scope = '{} li.field label:contains("{}")'.format(self.editor_selector, field_display_name)
+        scope = u'{} li.field label:contains(u"{}")'.format(self.editor_selector, field_display_name)
         script = "$(arguments[0]).siblings('.setting-clear').click();"
         self.browser.execute_script(script, scope)
 
@@ -646,7 +646,7 @@ class XBlockWrapper(PageObject):
         ).format(license_type=license_type)
         self.wait_for_element_presence(
             css_selector,
-            "{license_type} button is present".format(license_type=license_type)
+            u"{license_type} button is present".format(license_type=license_type)
         )
         self.q(css=css_selector).click()
 

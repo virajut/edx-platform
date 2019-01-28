@@ -323,7 +323,7 @@ class TestSysAdminMongoCourseImport(SysadminBaseTestCase):
                 )
             )
             self.assertIn(
-                'Page {} of 2'.format(expected),
+                u'Page {} of 2'.format(expected),
                 response.content
             )
 

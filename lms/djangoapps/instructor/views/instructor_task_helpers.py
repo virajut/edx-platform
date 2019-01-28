@@ -79,8 +79,8 @@ def extract_email_features(email_task):
             if 'succeeded' in task_output and task_output['succeeded'] > 0:
                 num_emails = task_output['succeeded']
                 number_sent = ungettext(
-                    "{num_emails} sent",
-                    "{num_emails} sent",
+                    u"{num_emails} sent",
+                    u"{num_emails} sent",
                     num_emails
                 ).format(num_emails=num_emails)
 
@@ -88,8 +88,8 @@ def extract_email_features(email_task):
                 num_emails = task_output['failed']
                 number_sent += ", "
                 number_sent += ungettext(
-                    "{num_emails} failed",
-                    "{num_emails} failed",
+                    u"{num_emails} failed",
+                    u"{num_emails} failed",
                     num_emails
                 ).format(num_emails=num_emails)
 

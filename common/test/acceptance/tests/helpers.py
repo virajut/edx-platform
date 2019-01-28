@@ -560,7 +560,7 @@ class EventsTestMixin(TestCase):
             # This is a bit of a hack, Promise calls str(description), so I set the description to an object with a
             # custom __str__ and have it do some intelligent stuff to generate a helpful error message.
             CollectedEventsDescription(
-                'Waiting for {number_of_matches} events to match the filter:\n{event_filter}'.format(
+                u'Waiting for {number_of_matches} events to match the filter:\n{event_filter}'.format(
                     number_of_matches=number_of_matches,
                     event_filter=self.event_filter_to_descriptive_string(event_filter),
                 ),
@@ -855,7 +855,7 @@ class YouTubeStubConfig(object):
 
         if not response.ok:
             raise YouTubeConfigError(
-                'YouTube Server Configuration Failed. URL {0}, Configuration Data: {1}, Status was {2}'.format(
+                u'YouTube Server Configuration Failed. URL {0}, Configuration Data: {1}, Status was {2}'.format(
                     youtube_stub_config_url, config, response.status_code))
 
     @classmethod
@@ -873,7 +873,7 @@ class YouTubeStubConfig(object):
 
         if not response.ok:
             raise YouTubeConfigError(
-                'YouTube Server Configuration Failed. URL: {0} Status was {1}'.format(
+                u'YouTube Server Configuration Failed. URL: {0} Status was {1}'.format(
                     youtube_stub_config_url, response.status_code))
 
     @classmethod

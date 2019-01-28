@@ -37,7 +37,7 @@ class PagesPage(CoursePage):
             description="Static tab is added"
         )
         self.wait_for_element_visibility(
-            '.tab-list :nth-child({}) .xblock-student_view'.format(total_tabs),
+            u'.tab-list :nth-child({}) .xblock-student_view'.format(total_tabs),
             'Static tab is visible'
         )
         # self.wait_for_ajax()

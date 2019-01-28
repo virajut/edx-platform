@@ -132,7 +132,7 @@ def i18n_validate_transifex_config():
         msg = colorize(
             'red',
             "Cannot connect to Transifex, config file is missing"
-            " or empty: {config} \nSee "
+            u" or empty: {config} \nSee "
             "http://help.transifex.com/features/client/#transifexrc \n".format(
                 config=config,
             )

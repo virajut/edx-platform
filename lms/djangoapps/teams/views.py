@@ -448,7 +448,7 @@ class TeamsListView(ExpandableFieldViewMixin, GenericAPIView):
                 queryset = queryset.order_by('-last_activity_at', 'team_size')
             else:
                 return Response({
-                    'developer_message': "unsupported order_by value {ordering}".format(ordering=order_by_input),
+                    u'developer_message': "unsupported order_by value {ordering}".format(ordering=order_by_input),
                     # Translators: 'ordering' is a string describing a way
                     # of ordering a list. For example, {ordering} may be
                     # 'name', indicating that the user wants to sort the
@@ -777,7 +777,7 @@ class TopicListView(GenericAPIView):
         ordering = request.query_params.get('order_by', 'name')
         if ordering not in ['name', 'team_count']:
             return Response({
-                'developer_message': "unsupported order_by value {ordering}".format(ordering=ordering),
+                u'developer_message': "unsupported order_by value {ordering}".format(ordering=ordering),
                 # Translators: 'ordering' is a string describing a way
                 # of ordering a list. For example, {ordering} may be
                 # 'name', indicating that the user wants to sort the

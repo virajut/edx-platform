@@ -143,7 +143,7 @@ def run_bokchoy(options, passthrough_options):
     test_suite = BokChoyTestSuite('bok-choy', passthrough_options=passthrough_options, **options)
     msg = colorize(
         'green',
-        'Running tests using {default_store} modulestore.'.format(
+        u'Running tests using {default_store} modulestore.'.format(
             default_store=test_suite.default_store,
         )
     )

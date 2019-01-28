@@ -623,7 +623,7 @@ class BrowseTeamsWithinTopicTest(TeamsTabBase):
         self.assertEqual(search_results_page.header_name, 'Team Search')
         self.assertEqual(
             search_results_page.header_description,
-            'Showing results for "{search_query}"'.format(search_query=search_query)
+            u'Showing results for u"{search_query}"'.format(search_query=search_query)
         )
 
     def verify_on_page(self, teams_page, page_num, total_teams, pagination_header_text, footer_visible):

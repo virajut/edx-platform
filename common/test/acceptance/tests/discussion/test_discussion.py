@@ -123,7 +123,7 @@ class DiscussionResponsePaginationTestMixin(BaseDiscussionMixin):
             (
                 None if response_total == 0 else
                 "Showing all responses" if response_total == displayed_responses else
-                "Showing first {} responses".format(displayed_responses)
+                u"Showing first {} responses".format(displayed_responses)
             )
         )
         self.assertEqual(
@@ -648,7 +648,7 @@ class DiscussionResponseEditTest(BaseDiscussionTestCase):
         page.submit_response_edit(response_id, description)
 
         expected_response_html = (
-            '<p><a href="{}">{}</a></p>'.format(url, description)
+            u'<p><a href=u"{}">{}</a></p>'.format(url, description)
         )
         actual_response_html = page.q(
             css=u".response_{} .response-body".format(response_id)

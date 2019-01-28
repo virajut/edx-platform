@@ -381,12 +381,12 @@ def get_component_templates(courselike, library=False):
                     # prevents any authors from trying to instantiate the
                     # non-existent component type by not showing it in the menu
                     log.warning(
-                        "Advanced component %s does not exist. It will not be added to the Studio new component menu.",
+                        u"Advanced component %s does not exist. It will not be added to the Studio new component menu.",
                         category
                     )
     else:
         log.error(
-            "Improper format for course advanced keys! %s",
+            u"Improper format for course advanced keys! %s",
             course_advanced_keys
         )
     if len(advanced_component_templates['templates']) > 0:

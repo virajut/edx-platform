@@ -546,7 +546,7 @@ class TestCourseOutline(CourseTestCase):
             expected_blocks.append(
                 [
                     reverse_usage_url('container_handler', self.vertical.location),
-                    '{} Problem'.format(block_type)
+                    u'{} Problem'.format(block_type)
                 ]
             )
 

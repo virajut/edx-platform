@@ -150,7 +150,7 @@ def recalculate_course_and_subsection_grades_for_user(self, **kwargs):  # pylint
     course_key = CourseKey.from_string(course_key_str)
     if are_grades_frozen(course_key):
         log.info(
-            "Attempted recalculate_course_and_subsection_grades_for_user for course '%s', but grades are frozen.",
+            u"Attempted recalculate_course_and_subsection_grades_for_user for courseu '%s', but grades are frozen.",
             course_key,
         )
         return

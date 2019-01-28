@@ -1063,7 +1063,7 @@ class AddUsersToCohortTestCase(CohortViewsTestCase):
         """
         unknown = "unknown_user"
         response_dict = self.request_add_users_to_cohort(
-            " {} {}\t{}, \r\n{}".format(
+            u" {} {}\t{}, \r\n{}".format(
                 unknown,
                 self.cohort1_users[0].username,
                 self.cohort2_users[0].username,

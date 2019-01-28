@@ -146,12 +146,12 @@ class SafeCookieData(object):
             safe_cookie_data = SafeCookieData(*raw_cookie_components)
         except TypeError:
             raise SafeCookieError(
-                "SafeCookieData BWC parse error: {0!r}.".format(safe_cookie_string)
+                u"SafeCookieData BWC parse error: {0!r}.".format(safe_cookie_string)
             )
         else:
             if safe_cookie_data.version != cls.CURRENT_VERSION:
                 raise SafeCookieError(
-                    "SafeCookieData version {0!r} is not supported. Current version is {1}.".format(
+                    u"SafeCookieData version {0!r} is not supported. Current version is {1}.".format(
                         safe_cookie_data.version,
                         cls.CURRENT_VERSION,
                     ))
@@ -185,7 +185,7 @@ class SafeCookieData(object):
             log.error("SafeCookieData '%r' is not bound to user '%s'.", unicode(self), user_id)
         except signing.BadSignature as sig_error:
             log.error(
-                "SafeCookieData signature error for cookie data {0!r}: {1}".format(  # pylint: disable=logging-format-interpolation
+                u"SafeCookieData signature error for cookie data {0!r}: {1}".format(  # pylint: disable=logging-format-interpolation
                     unicode(self),
                     text_type(sig_error),
                 )

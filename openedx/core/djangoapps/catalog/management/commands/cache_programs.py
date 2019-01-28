@@ -40,7 +40,7 @@ class Command(BaseCommand):
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             logger.exception(
-                'Failed to create API client. Service user {username} does not exist.'.format(username=username)
+                u'Failed to create API client. Service user {username} does not exist.'.format(username=username)
             )
             raise
 

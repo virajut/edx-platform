@@ -101,7 +101,7 @@ class EdxNotesTagsGroup(NoteChild, EdxNotesGroupMixin):
         top_script = "return " + title_selector + ".getBoundingClientRect().top;"
         EmptyPromise(
             lambda: 8 < self.browser.execute_script(top_script) < 12,
-            "Expected tag title '{}' to scroll to top, but was at location {}".format(
+            u"Expected tag titleu '{}' to scroll to top, but was at location {}".format(
                 self.title, self.browser.execute_script(top_script)
             )
         ).fulfill()
@@ -652,7 +652,7 @@ class EdxNoteHighlight(NoteChild):
         label_exists = False
         EmptyPromise(
             lambda: len(self.q(css=self._bounded_selector("li.annotator-item > label.sr"))) > sr_index,
-            "Expected more than '{}' sr labels".format(sr_index)
+            u"Expected more thanu '{}' sr labels".format(sr_index)
         ).fulfill()
         annotator_field_label = self.q(css=self._bounded_selector("li.annotator-item > label.sr"))[sr_index]
         for_attrib_correct = annotator_field_label.get_attribute("for") == "annotator-field-" + str(field_index)

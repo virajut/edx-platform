@@ -1242,7 +1242,7 @@ class TestMoveItem(ItemTest):
         insert_at = 0
         self.assert_move_item(self.html_usage_key, self.vert2_usage_key, insert_at)
         mock_logger.info.assert_called_with(
-            'MOVE: %s moved from %s to %s at %d index',
+            u'MOVE: %s moved from %s to %s at %d index',
             unicode(self.html_usage_key),
             unicode(self.vert_usage_key),
             unicode(self.vert2_usage_key),

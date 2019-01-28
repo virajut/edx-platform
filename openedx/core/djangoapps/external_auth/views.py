@@ -176,7 +176,7 @@ def _external_login_or_signup(request,
                         failure_msg = _(
                             "You have already created an account using "
                             "an external login like WebAuth or Shibboleth. "
-                            "Please contact {tech_support_email} for support."
+                            u"Please contact {tech_support_email} for support."
                         ).format(
                             tech_support_email=get_value('email_from_address', settings.TECH_SUPPORT_EMAIL),
                         )

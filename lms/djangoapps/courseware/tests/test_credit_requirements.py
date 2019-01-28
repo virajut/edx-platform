@@ -88,7 +88,7 @@ class ProgressPageCreditRequirementsTest(SharedModuleStoreTestCase):
         self.assertContains(response, "Upcoming")
         self.assertContains(
             response,
-            "{}, you have not yet met the requirements for credit".format(self.USER_FULL_NAME)
+            u"{}, you have not yet met the requirements for credit".format(self.USER_FULL_NAME)
         )
 
     def test_credit_requirements_eligible(self):
@@ -115,7 +115,7 @@ class ProgressPageCreditRequirementsTest(SharedModuleStoreTestCase):
         self.assertContains(response, self.VERIFICATION_REQ_DISPLAY)
         self.assertContains(
             response,
-            "{}, you have met the requirements for credit in this course.".format(self.USER_FULL_NAME)
+            u"{}, you have met the requirements for credit in this course.".format(self.USER_FULL_NAME)
         )
         self.assertContains(response, u"Completed by {date}")
 
@@ -141,7 +141,7 @@ class ProgressPageCreditRequirementsTest(SharedModuleStoreTestCase):
         self.assertContains(response, self.VERIFICATION_REQ_DISPLAY)
         self.assertContains(
             response,
-            "{}, you are no longer eligible for credit in this course.".format(self.USER_FULL_NAME)
+            u"{}, you are no longer eligible for credit in this course.".format(self.USER_FULL_NAME)
         )
         self.assertContains(response, "Verification Failed")
 

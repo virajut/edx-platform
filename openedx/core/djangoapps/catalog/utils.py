@@ -58,8 +58,8 @@ def check_catalog_integration_and_get_user(error_message_field):
             user = catalog_integration.get_service_user()
         except ObjectDoesNotExist:
             logger.error(
-                'Catalog service user with username [{username}] does not exist. '
-                '{field} will not be retrieved.'.format(
+                u'Catalog service user with username [{username}] does not exist. '
+                u'{field} will not be retrieved.'.format(
                     username=catalog_integration.service_username,
                     field=error_message_field,
                 )
@@ -68,7 +68,7 @@ def check_catalog_integration_and_get_user(error_message_field):
         return user, catalog_integration
     else:
         logger.error(
-            'Unable to retrieve details about {field} because Catalog Integration is not enabled'.format(
+            u'Unable to retrieve details about {field} because Catalog Integration is not enabled'.format(
                 field=error_message_field,
             )
         )
@@ -116,7 +116,7 @@ def get_programs(site, uuid=None):
     missing_uuids = set(uuids) - set(program['uuid'] for program in programs)
     if missing_uuids:
         logger.info(
-            'Failed to get details for {count} programs. Retrying.'.format(count=len(missing_uuids))
+            u'Failed to get details for {count} programs. Retrying.'.format(count=len(missing_uuids))
         )
 
         retried_programs = cache.get_many([PROGRAM_CACHE_KEY_TPL.format(uuid=uuid) for uuid in missing_uuids])
@@ -197,7 +197,7 @@ def get_pathways(site, pathway_id=None):
     missing_ids = set(pathway_ids) - set(pathway['id'] for pathway in pathways)
     if missing_ids:
         logger.info(
-            'Failed to get details for {count} pathways. Retrying.'.format(count=len(missing_ids))
+            u'Failed to get details for {count} pathways. Retrying.'.format(count=len(missing_ids))
         )
 
         retried_pathways = cache.get_many(

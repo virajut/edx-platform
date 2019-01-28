@@ -30,7 +30,7 @@ from .models import CourseAssetCacheTtlConfig, CdnUserAgentsConfig
 # TODO: Soon as we have a reasonable way to serialize/deserialize AssetKeys, we need
 # to change this file so instead of using course_id_partial, we're just using asset keys
 
-HTTP_DATE_FORMAT = "%a, %d %b %Y %H:%M:%S GMT"
+HTTP_DATE_FORMAT = u"%a, %d %b %Y %H:%M:%S GMT"
 
 
 class StaticContentServer(object):
@@ -207,7 +207,7 @@ class StaticContentServer(object):
                 newrelic.agent.add_custom_parameter('contentserver.cacheable', True)
 
             response['Expires'] = StaticContentServer.get_expiration_value(datetime.datetime.utcnow(), cache_ttl)
-            response[u'Cache-Control'] = "public, max-age={ttl}, s-maxage={ttl}".format(ttl=cache_ttl)
+            response[u'Cache-Control'] = u"public, max-age={ttl}, s-maxage={ttl}".format(ttl=cache_ttl)
         elif is_locked:
             if newrelic:
                 newrelic.agent.add_custom_parameter('contentserver.cacheable', False)

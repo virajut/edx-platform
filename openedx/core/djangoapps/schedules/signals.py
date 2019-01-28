@@ -39,7 +39,7 @@ def create_schedule(sender, **kwargs):  # pylint: disable=unused-argument
         if schedule_details:
             log.debug(
                 'Schedules: created a new schedule starting at ' +
-                '%s with an upgrade deadline of %s and experience type: %s',
+                u'%s with an upgrade deadline of %s and experience type: %s',
                 schedule_details['content_availability_date'],
                 schedule_details['upgrade_deadline'],
                 ScheduleExperience.EXPERIENCES[schedule_details['experience_type']]

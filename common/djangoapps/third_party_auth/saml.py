@@ -155,7 +155,7 @@ class SAMLAuthBackend(SAMLAuth):  # pylint: disable=abstract-method
             for expected in idp.conf['requiredEntitlements']:
                 if expected not in entitlements:
                     log.warning(
-                        "SAML user from IdP %s rejected due to missing eduPersonEntitlement %s", idp.name, expected)
+                        u"SAML user from IdP %s rejected due to missing eduPersonEntitlement %s", idp.name, expected)
                     raise AuthForbidden(self)
 
     def _create_saml_auth(self, idp):
@@ -364,7 +364,7 @@ class SapSuccessFactorsIdentityProvider(EdXSAMLIdentityProvider):
             missing = [var for var in self.required_variables if var not in self.conf]
             log.warning(
                 "To retrieve rich user data for an SAP SuccessFactors identity provider, the following keys in "
-                "'other_settings' are required, but were missing: %s",
+                u"'other_settings' are required, but were missing: %s",
                 missing
             )
             return missing
@@ -381,14 +381,14 @@ class SapSuccessFactorsIdentityProvider(EdXSAMLIdentityProvider):
         token_data = transaction_data.get('token_data')
         token_data = token_data if token_data else 'Not available'
         log_msg_template = (
-            'SAPSuccessFactors exception received for {operation_name} request.  ' +
-            'URL: {url}  ' +
-            'Company ID: {company_id}.  ' +
-            'User ID: {user_id}.  ' +
-            'Error message: {err_msg}.  ' +
-            'System message: {sys_msg}.  ' +
-            'Headers: {headers}.  ' +
-            'Token Data: {token_data}.'
+            u'SAPSuccessFactors exception received for {operation_name} request.  ' +
+            u'URL: {url}  ' +
+            u'Company ID: {company_id}.  ' +
+            u'User ID: {user_id}.  ' +
+            u'Error message: {err_msg}.  ' +
+            u'System message: {sys_msg}.  ' +
+            u'Headers: {headers}.  ' +
+            u'Token Data: {token_data}.'
         )
         log_msg = log_msg_template.format(
             operation_name=transaction_data['operation_name'],
@@ -537,7 +537,7 @@ def get_saml_idp_class(idp_identifier_string):
     }
     if idp_identifier_string not in choices:
         log.error(
-            '%s is not a valid EdXSAMLIdentityProvider subclass; using EdXSAMLIdentityProvider base class.',
+            u'%s is not a valid EdXSAMLIdentityProvider subclass; using EdXSAMLIdentityProvider base class.',
             idp_identifier_string
         )
     return choices.get(idp_identifier_string, EdXSAMLIdentityProvider)

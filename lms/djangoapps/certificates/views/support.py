@@ -198,7 +198,7 @@ def regenerate_certificate_for_user(request):
         # certificates API.  This may be overkill, but we're logging everything so we can
         # track down unexpected errors.
         log.exception(
-            "Could not regenerate certificates for user %s in course %s",
+            u"Could not regenerate certificates for user %s in course %s",
             params["user"].id,
             params["course_key"]
         )
@@ -208,7 +208,7 @@ def regenerate_certificate_for_user(request):
     _deactivate_invalidation(certificate)
 
     log.info(
-        "Started regenerating certificates for user %s in course %s from the support page.",
+        u"Started regenerating certificates for user %s in course %s from the support page.",
         params["user"].id, params["course_key"]
     )
     return HttpResponse(200)

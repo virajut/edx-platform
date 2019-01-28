@@ -490,8 +490,8 @@ class ProblemPage(PageObject):
         Check if the given answer/choice is highlighted for choice group.
         """
         choice_status_xpath = (u'//fieldset/div[contains(@class, "field")][{{0}}]'
-                               '/label[contains(@class, "choicegroup_{choice}")]'
-                               '/span[contains(@class, "status {choice}")]'.format(choice=choice))
+                               u'/label[contains(@class, u"choicegroup_{choice}")]'
+                               u'/span[contains(@class, u"status {choice}")]'.format(choice=choice))
         any_status_xpath = u'//fieldset/div[contains(@class, "field")][{0}]/label/span'
         for choice in choices_list:
             if not self.q(xpath=choice_status_xpath.format(choice)).is_present():

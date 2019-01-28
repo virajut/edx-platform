@@ -46,7 +46,7 @@ class ConfigModelFixture(object):
 
         if not response.ok:
             raise ConfigModelFixtureError(
-                "Could not configure url '{}'.  response: {} - {}".format(
+                u"Could not configure urlu '{}'.  response: {} - {}".format(
                     self._api_base,
                     response,
                     response.content,

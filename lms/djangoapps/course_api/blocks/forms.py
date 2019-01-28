@@ -144,7 +144,7 @@ class BlockListGetForm(Form):
         """
         if not permissions.can_access_self_blocks(requesting_user, course_key):
             raise PermissionDenied(
-                "Course blocks for '{requesting_username}' cannot be accessed."
+                u"Course blocks foru '{requesting_username}' cannot be accessed."
                 .format(requesting_username=requesting_user.username)
             )
         return requesting_user
@@ -167,5 +167,5 @@ class BlockListGetForm(Form):
             return User.objects.get(username=requested_username)
         except User.DoesNotExist:
             raise Http404(
-                "Requested user '{requested_username}' does not exist.".format(requested_username=requested_username)
+                u"Requested useru '{requested_username}' does not exist.".format(requested_username=requested_username)
             )

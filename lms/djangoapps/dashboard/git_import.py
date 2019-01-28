@@ -44,7 +44,7 @@ class GitImportErrorNoDir(GitImportError):
     def __init__(self, repo_dir):
         super(GitImportErrorNoDir, self).__init__(
             _(
-                "Path {0} doesn't exist, please create it, "
+                u"Path {0} doesun't exist, please create it, "
                 "or configure a different path with "
                 "GIT_REPO_DIR"
             ).format(repo_dir)

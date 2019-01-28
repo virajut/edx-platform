@@ -170,7 +170,7 @@ class CohortTarget(Target):
             cohort = get_cohort_by_name(name=cohort_name, course_key=course_id)
         except CourseUserGroup.DoesNotExist:
             raise ValueError(
-                "Cohort {cohort} does not exist in course {course_id}".format(
+                u"Cohort {cohort} does not exist in course {course_id}".format(
                     cohort=cohort_name,
                     course_id=course_id
                 )
@@ -216,7 +216,7 @@ class CourseModeTarget(Target):
             validate_course_mode(unicode(course_id), mode_slug, include_expired=True)
         except CourseModeNotFoundError:
             raise ValueError(
-                "Track {track} does not exist in course {course_id}".format(
+                u"Track {track} does not exist in course {course_id}".format(
                     track=mode_slug,
                     course_id=course_id
                 )

@@ -77,7 +77,7 @@ class Command(BaseCommand):
     def _check_users_in_states_to_delete(self, states_to_delete):
         if UserRetirementStatus.objects.filter(current_state__state_name__in=states_to_delete).exists():
             raise CommandError('Users exist in a state that is marked for deletion! States to delete'
-                               'are: {}'.format(states_to_delete))
+                               u'are: {}'.format(states_to_delete))
 
     def _delete_old_states_and_create_new(self, new_states, dry_run=False):
         """

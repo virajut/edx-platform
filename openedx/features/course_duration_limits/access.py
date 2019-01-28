@@ -44,7 +44,7 @@ class AuditExpiredError(AccessError):
             )
         except CourseOverview.DoesNotExist:
             additional_context_user_message = _("Access to the course you were looking"
-                                                " for expired on {expiration_date}").format(
+                                                u" for expired on {expiration_date}").format(
                 expiration_date=expiration_date
             )
         super(AuditExpiredError, self).__init__(error_code, developer_message, user_message,
@@ -127,7 +127,7 @@ def generate_course_expired_message(user, course):
 
     if is_masquerading_as_specific_student(user, course.id) and timezone.now() > expiration_date:
         upgrade_message = _('This learner does not have access to this course. '
-                            'Their access expired on {expiration_date}.')
+                            u'Their access expired on {expiration_date}.')
         return HTML(upgrade_message).format(
             expiration_date=strftime_localized(expiration_date, u'%b. %-d, %Y')
         )
@@ -143,11 +143,11 @@ def generate_course_expired_message(user, course):
             upgrade_deadline = course_upgrade_deadline
 
         expiration_message = _(u'{strong_open}Audit Access Expires {expiration_date}{strong_close}'
-                               '{line_break}You lose all access to this course, including your progress, on '
+                               u'{line_break}You lose all access to this course, including your progress, on '
                                '{expiration_date}.')
         upgrade_deadline_message = _(u'{line_break}Upgrade by {upgrade_deadline} to get unlimited access to the course '
-                                     'as long as it exists on the site. {a_open}Upgrade now{sronly_span_open} to '
-                                     'retain access past {expiration_date}{span_close}{a_close}')
+                                     u'as long as it exists on the site. {a_open}Upgrade now{sronly_span_open} to '
+                                     u'retain access past {expiration_date}{span_close}{a_close}')
         full_message = expiration_message
         if upgrade_deadline and now < upgrade_deadline:
             full_message += upgrade_deadline_message

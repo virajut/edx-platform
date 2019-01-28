@@ -45,7 +45,7 @@ def send_task_complete_email(self, task_name, task_state_text, dest_addr, detail
         LOGGER.info(u"Task complete email has been sent to User %s", dest_addr)
     except NoAuthHandlerFound:
         LOGGER.info(
-            'Retrying sending email to user %s, attempt # %s of %s',
+            u'Retrying sending email to user %s, attempt # %s of %s',
             dest_addr,
             retries,
             TASK_COMPLETE_EMAIL_MAX_RETRIES

@@ -84,7 +84,7 @@ class ImportExportMixin(object):
             if fail_on == desc:
                 EmptyPromise(
                     lambda: self.q(css='.{}.is-complete.has-error'.format(css_class)).present,
-                    "{} checkpoint marked as failed".format(desc),
+                    u"{} checkpoint marked as failed".format(desc),
                     timeout=30
                 )
                 # The rest should never run.

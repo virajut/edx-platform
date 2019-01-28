@@ -111,7 +111,7 @@ def _register_course_home_messages(request, course, user_access, course_start_da
         CourseHomeMessages.register_info_message(
             request,
             Text(_(
-                '{sign_in_link} or {register_link} and then enroll in this course.'
+                u'{sign_in_link} or {register_link} and then enroll in this course.'
             )).format(
                 sign_in_link=HTML(u'<a href="/login?next={current_url}">{sign_in_label}</a>').format(
                     sign_in_label=_('Sign in'),
@@ -128,7 +128,7 @@ def _register_course_home_messages(request, course, user_access, course_start_da
         CourseHomeMessages.register_info_message(
             request,
             Text(_(
-                '{open_enroll_link}Enroll now{close_enroll_link} to access the full course.'
+                u'{open_enroll_link}Enroll now{close_enroll_link} to access the full course.'
             )).format(
                 open_enroll_link='',
                 close_enroll_link=''
@@ -146,7 +146,7 @@ def _register_course_goal_message(request, course):
     course_goal_options = get_course_goal_options()
     goal_choices_html = Text(_(
         'To start, set a course goal by selecting the option below that best describes '
-        'your learning plan. {goal_options_container}'
+        u'your learning plan. {goal_options_container}'
     )).format(
         goal_options_container=HTML('<div class="row goal-options-container">')
     )

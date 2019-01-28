@@ -83,7 +83,7 @@ def _delete_asset(course_key, asset_key_string):
                 except InvalidKeyError:
                     # Unable to parse the asset key, log and return
                     LOGGER.info(
-                        "In course %r, unable to parse asset key %r, not attempting to delete signatory.",
+                        u"In course %r, unable to parse asset key %r, not attempting to delete signatory.",
                         course_key,
                         asset_key_string,
                     )
@@ -91,7 +91,7 @@ def _delete_asset(course_key, asset_key_string):
             else:
                 # Unable to parse the asset key, log and return
                 LOGGER.info(
-                    "In course %r, unable to parse asset key %r, not attempting to delete signatory.",
+                    u"In course %r, unable to parse asset key %r, not attempting to delete signatory.",
                     course_key,
                     asset_key_string,
                 )
@@ -149,7 +149,7 @@ class CertificateManager(object):
         # Ensure the schema version meets our expectations
         if certificate_data.get("version") != CERTIFICATE_SCHEMA_VERSION:
             raise TypeError(
-                "Unsupported certificate schema version: {0}.  Expected version: {1}.".format(
+                u"Unsupported certificate schema version: {0}.  Expected version: {1}.".format(
                     certificate_data.get("version"),
                     CERTIFICATE_SCHEMA_VERSION
                 )

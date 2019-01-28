@@ -181,7 +181,7 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
                 '<div class="date-summary date-summary-todays-date">',
                 '<span class="hd hd-6 heading localized-datetime"',
                 'data-datetime="2015-01-02 00:00:00+00:00"',
-                'data-string="Today is {date}"',
+                u'data-string=u"Today is {date}"',
                 'data-timezone="None"'
             ]
             url = reverse(url_name, args=(course.id,))
@@ -209,7 +209,7 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
                 '<div class="date-summary date-summary-todays-date">',
                 '<span class="hd hd-6 heading localized-datetime"',
                 'data-datetime="2015-01-02 00:00:00+00:00"',
-                'data-string="Today is {date}"',
+                u'data-string=u"Today is {date}"',
                 'data-timezone="America/Los_Angeles"'
             ]
             for html in html_elements:
@@ -235,7 +235,7 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
             url = reverse(url_name, args=(course.id,))
             response = self.client.get(url, follow=True)
             html_elements = [
-                'data-string="in 1 day - {date}"',
+                u'data-string=u"in 1 day - {date}"',
                 'data-datetime="2015-01-03 00:00:00+00:00"'
             ]
             for html in html_elements:
@@ -255,7 +255,7 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
             url = reverse(url_name, args=(course.id,))
             response = self.client.get(url, follow=True)
             html_elements = [
-                'data-string="in 1 day - {date}"',
+                u'data-string=u"in 1 day - {date}"',
                 'data-datetime="2015-01-03 00:00:00+00:00"',
                 'data-timezone="America/Los_Angeles"'
             ]

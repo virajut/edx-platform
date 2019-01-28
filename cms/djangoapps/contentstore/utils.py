@@ -386,7 +386,7 @@ def get_user_partition_info(xblock, schemes=None, course=None):
 
     if course is None:
         log.warning(
-            "Could not find course %s to retrieve user partition information",
+            u"Could not find course %s to retrieve user partition information",
             xblock.location.course_key
         )
         return []

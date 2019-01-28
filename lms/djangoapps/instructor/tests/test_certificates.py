@@ -685,7 +685,7 @@ class CertificateExceptionViewInstructorApiTest(SharedModuleStoreTestCase):
         # Assert Error Message
         self.assertEqual(
             res_json['message'],
-            "{user} is not enrolled in this course. Please check your spelling and retry.".format(
+            u"{user} is not enrolled in this course. Please check your spelling and retry.".format(
                 user=self.certificate_exception['user_name']
             )
         )

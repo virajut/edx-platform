@@ -182,7 +182,7 @@ def refund_entitlement(course_entitlement):
         # Catch any possible exceptions from the Ecommerce service to ensure we fail gracefully
         log.exception(
             u"Unexpected exception while attempting to initiate refund for user [%s], "
-            "course entitlement [%s] message: [%s]",
+            u"course entitlement [%s] message: [%s]",
             enrollee.id,
             course_entitlement.uuid,
             str(exc)
@@ -342,7 +342,7 @@ def _send_refund_notification(user, refund_ids):
 def _generate_refund_notification_body(student, refund_ids):
     """ Returns a refund notification message body. """
     msg = _(
-        'A refund request has been initiated for {username} ({email}). '
+        u'A refund request has been initiated for {username} ({email}). '
         'To process this request, please visit the link(s) below.'
     ).format(username=student.username, email=student.email)
 

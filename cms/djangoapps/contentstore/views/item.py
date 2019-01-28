@@ -369,7 +369,7 @@ def xblock_view_handler(request, usage_key_string, view_name):
             except ValueError:
                 return HttpResponse(
                     content="Couldn't parse paging parameters: enable_paging: "
-                            "{0}, page_number: {1}, page_size: {2}".format(
+                            u"{0}, page_number: {1}, page_size: {2}".format(
                                 request.GET.get('enable_paging', 'false'),
                                 request.GET.get('page_number', 0),
                                 request.GET.get('page_size', 0)
@@ -811,7 +811,7 @@ def _move_item(source_usage_key, target_parent_usage_key, user, target_index=Non
         )
 
         log.info(
-            'MOVE: %s moved from %s to %s at %d index',
+            u'MOVE: %s moved from %s to %s at %d index',
             unicode(source_usage_key),
             unicode(source_parent.location),
             unicode(target_parent_usage_key),
@@ -852,7 +852,7 @@ def _duplicate_item(parent_usage_key, duplicate_source_usage_key, user, display_
             duplicate_metadata['display_name'] = display_name
         else:
             if source_item.display_name is None:
-                duplicate_metadata[u'display_name'] = _("Duplicate of {0}").format(source_item.category)
+                duplicate_metadata[u'display_name'] = _(u"Duplicate of {0}").format(source_item.category)
             else:
                 duplicate_metadata['display_name'] = _("Duplicate of '{0}'").format(source_item.display_name)
 

@@ -39,7 +39,7 @@ def store_outcome_parameters(request_params, user, lti_consumer):
             log.warn(
                 "Outcome Service: lis_outcome_service_url parameter missing "
                 "from scored assignment; we will be unable to return a score. "
-                "Request parameters: %s",
+                u"Request parameters: %s",
                 request_params
             )
             return
@@ -141,7 +141,7 @@ def send_score_update(assignment, score):
     if not (response and check_replace_result_response(response)):
         log.error(
             "Outcome Service: Failed to update score on LTI consumer. "
-            "User: %s, course: %s, usage: %s, score: %s, status: %s, body: %s",
+            u"User: %s, course: %s, usage: %s, score: %s, status: %s, body: %s",
             assignment.user,
             assignment.course_key,
             assignment.usage_key,
@@ -190,7 +190,7 @@ def check_replace_result_response(response):
     # Pylint doesn't recognize members in the LXML module
     if response.status_code != 200:
         log.error(
-            "Outcome service response: Unexpected status code %s",
+            u"Outcome service response: Unexpected status code %s",
             response.status_code
         )
         return False
@@ -207,14 +207,14 @@ def check_replace_result_response(response):
         namespaces={'ns': 'http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0'})
     if len(major_codes) != 1:
         log.error(
-            "Outcome service response: Expected exactly one imsx_codeMajor field in response. Received %s",
+            u"Outcome service response: Expected exactly one imsx_codeMajor field in response. Received %s",
             major_codes
         )
         return False
 
     if major_codes[0].text != 'success':
         log.error(
-            "Outcome service response: Unexpected major code: %s.",
+            u"Outcome service response: Unexpected major code: %s.",
             major_codes[0].text
         )
         return False

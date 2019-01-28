@@ -49,7 +49,7 @@ def load_bok_choy_data(options):
     print('Loading data from json fixtures in db_fixtures directory')
     sh(
         "DEFAULT_STORE={default_store}"
-        " ./manage.py lms --settings {settings} loaddata --traceback"
+        u" ./manage.py lms --settings {settings} loaddata --traceback"
         " common/test/db_fixtures/*.json".format(
             default_store=options.default_store,
             settings=Env.SETTINGS
@@ -73,12 +73,12 @@ def load_courses(options):
     `test_root/courses/`.
     """
     if 'imports_dir' in options:
-        msg = colorize(u'green', "Importing courses from {}...".format(options.imports_dir))
+        msg = colorize(u'green', u"Importing courses from {}...".format(options.imports_dir))
         print(msg)
 
         sh(
             "DEFAULT_STORE={default_store}"
-            " ./manage.py cms --settings={settings} import {import_dir}".format(
+            u" ./manage.py cms --settings={settings} import {import_dir}".format(
                 default_store=options.default_store,
                 import_dir=options.imports_dir,
                 settings=Env.SETTINGS
@@ -100,7 +100,7 @@ def update_fixtures():
     print(msg)
 
     sh(
-        " ./manage.py lms --settings={settings} update_fixtures".format(
+        u" ./manage.py lms --settings={settings} update_fixtures".format(
             settings=Env.SETTINGS
         )
     )
@@ -132,7 +132,7 @@ def get_test_course(options):
     print(msg)
 
     sh(
-        'wget {tar_gz_file} -O {zipped_course}'.format(
+        u'wget {tar_gz_file} -O {zipped_course}'.format(
             tar_gz_file=DEMO_COURSE_TAR_GZ,
             zipped_course=zipped_course,
         )
@@ -142,7 +142,7 @@ def get_test_course(options):
     print(msg)
 
     sh(
-        'tar zxf {zipped_course} -C {courses_dir}'.format(
+        u'tar zxf {zipped_course} -C {courses_dir}'.format(
             zipped_course=zipped_course,
             courses_dir=options.imports_dir,
         )
@@ -300,7 +300,7 @@ class BokChoyTestSuite(TestSuite):
         if self.num_processes != 1:
             # Construct "multiprocess" pytest command
             command += [
-                "-n {}".format(self.num_processes),
+                u"-n {}".format(self.num_processes),
                 "--color=no",
             ]
         if self.verbosity < 1:

@@ -48,8 +48,8 @@ def start_servers(options):
         else:
             cmd += "python -m "
         cmd += (
-            "manage {service} --settings {settings} runserver "
-            "{address} --traceback --noreload".format(
+            u"manage {service} --settings {settings} runserver "
+            u"{address} --traceback --noreload".format(
                 service=service,
                 settings=Env.SETTINGS,
                 address=address,
@@ -59,7 +59,7 @@ def start_servers(options):
 
     for service, info in Env.BOK_CHOY_STUBS.iteritems():
         cmd = (
-            "python -m stubs.start {service} {port} "
+            u"python -m stubs.start {service} {port} "
             "{config}".format(
                 service=service,
                 port=info['port'],
@@ -74,7 +74,7 @@ def wait_for_server(server, port):
     Wait for a server to respond with status 200
     """
     print(
-        "Checking server {server} on port {port}".format(
+        u"Checking server {server} on port {port}".format(
             server=server,
             port=port,
         )
@@ -114,7 +114,7 @@ def wait_for_test_servers():
         if not ready:
             msg = colorize(
                 "red",
-                "Could not contact {} test server".format(service)
+                u"Could not contact {} test server".format(service)
             )
             print(msg)
             sys.exit(1)
@@ -158,7 +158,7 @@ def clear_mongo():
     Clears mongo database.
     """
     sh(
-        "mongo --host {} {} --eval 'db.dropDatabase()' > /dev/null".format(
+        u"mongo --host {} {} --evalu 'db.dropDatabase()' > /dev/null".format(
             Env.MONGO_HOST,
             Env.BOK_CHOY_MONGO_DATABASE,
         )

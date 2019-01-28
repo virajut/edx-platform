@@ -349,7 +349,7 @@ class UserRetirementStatus(TimeStampedModel):
 
         if retirement is None:
             raise UserRetirementStatus.DoesNotExist(u'{} does not have an exact match in UserRetirementStatus. '
-                                                    '{} similar rows found.'.format(username, len(retirements)))
+                                                    u'{} similar rows found.'.format(username, len(retirements)))
 
         state = retirement.current_state
 

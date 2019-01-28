@@ -68,7 +68,7 @@ class Command(BaseCommand):
             raise CommandError(u'Error creating CatalogIntegration: {}'.format(err))
 
         self.stdout.write(self.style.SUCCESS(
-            'Successfully created CatalogIntegration enabled={} url={} service_username={}').format(
+            u'Successfully created CatalogIntegration enabled={} url={} service_username={}').format(
                 catalog_integration.enabled,
                 catalog_integration.internal_api_url,
                 catalog_integration.service_username

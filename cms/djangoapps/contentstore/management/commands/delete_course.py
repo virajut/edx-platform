@@ -77,6 +77,6 @@ class Command(BaseCommand):
 
                 if options['remove_assets']:
                     contentstore().delete_all_course_assets(course_key)
-                    print('Deleted assets for course'.format(course_key))
+                    print(u'Deleted assets for course'.format(course_key))
 
                 print(u'Deleted course {}'.format(course_key))

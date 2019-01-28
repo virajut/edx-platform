@@ -864,7 +864,7 @@ class TestStudioTranscriptTranslationGetDispatch(TestVideo):
         self.assertEqual(response.headers["Content-Type"], "application/x-subrip; charset=utf-8")
         self.assertEqual(
             response.headers["Content-Disposition"],
-            'attachment; filename="uk_{}"'.format(filename)
+            u'attachment; filename="uk_{}"'.format(filename)
         )
         self.assertEqual(response.headers["Content-Language"], "uk")
 

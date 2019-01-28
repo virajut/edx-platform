@@ -431,7 +431,7 @@ def _transcripts_logic(transcripts_presence, videos):
             else:
                 command = 'not_found'
     log.debug(
-        "Resulted command: %s, current transcripts: %s, youtube mode: %s",
+        u"Resulted command: %s, current transcripts: %s, youtube mode: %s",
         command,
         transcripts_presence['current_item_subs'],
         transcripts_presence['is_youtube_mode']

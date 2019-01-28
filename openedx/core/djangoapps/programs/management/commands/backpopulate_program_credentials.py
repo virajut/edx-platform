@@ -47,7 +47,7 @@ class Command(BaseCommand):
             logger.info(u'Enqueuing program certification tasks for %d candidates.', len(self.usernames))
         else:
             logger.info(
-                'Found %d candidates. To enqueue program certification tasks, pass the -c or --commit flags.',
+                u'Found %d candidates. To enqueue program certification tasks, pass the -c or --commit flags.',
                 len(self.usernames)
             )
             return
@@ -64,8 +64,8 @@ class Command(BaseCommand):
                 logger.debug(u'Successfully enqueued task for user [%s]', username)
 
         logger.info(
-            'Done. Successfully enqueued tasks for %d candidates. '
-            'Failed to enqueue tasks for %d candidates.',
+            u'Done. Successfully enqueued tasks for %d candidates. '
+            u'Failed to enqueue tasks for %d candidates.',
             succeeded,
             failed
         )

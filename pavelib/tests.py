@@ -347,8 +347,8 @@ def diff_coverage(options):
 
         # Generate the diff coverage reports (HTML and console)
         sh(
-            "diff-cover {xml_report_str} --compare-branch={compare_branch} "
-            "--html-report {diff_html_path}".format(
+            u"diff-cover {xml_report_str} --compare-branch={compare_branch} "
+            u"--html-report {diff_html_path}".format(
                 xml_report_str=xml_report_str,
                 compare_branch=compare_branch,
                 diff_html_path=diff_html_path,

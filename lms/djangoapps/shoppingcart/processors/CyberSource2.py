@@ -417,7 +417,7 @@ def _record_purchase(params, order):
 
     if settings.FEATURES.get("LOG_POSTPAY_CALLBACKS"):
         log.info(
-            "Order %d purchased with params: %s", order.id, json.dumps(params)
+            u"Order %d purchased with params: %s", order.id, json.dumps(params)
         )
 
     # Mark the order as purchased and store the billing information
@@ -448,7 +448,7 @@ def _record_payment_info(params, order):
     """
     if settings.FEATURES.get("LOG_POSTPAY_CALLBACKS"):
         log.info(
-            "Order %d processed (but not completed) with params: %s", order.id, json.dumps(params)
+            u"Order %d processed (but not completed) with params: %s", order.id, json.dumps(params)
         )
 
     order.processor_reply_dump = json.dumps(params)
@@ -470,10 +470,10 @@ def _get_processor_decline_html(params):
     return _format_error_html(
         Text(_(
             "Sorry! Our payment processor did not accept your payment.  "
-            "The decision they returned was {decision}, "
-            "and the reason was {reason}.  "
+            u"The decision they returned was {decision}, "
+            u"and the reason was {reason}.  "
             "You were not charged. Please try a different form of payment.  "
-            "Contact us with payment-related questions at {email}."
+            u"Contact us with payment-related questions at {email}."
         )).format(
             decision=HTML('<span class="decision">{decision}</span>').format(decision=params['decision']),
             reason=HTML(u'<span class="reason">{reason_code}:{reason_msg}</span>').format(
@@ -665,7 +665,7 @@ REASONCODE_MAP.update(
             """)),
         '233': _('General decline by the processor.  Possible action: retry with another form of payment.'),
         '234': _(
-            "There is a problem with the information in your CyberSource account.  Please let us know at {0}"
+            u"There is a problem with the information in your CyberSource account.  Please let us know at {0}"
         ).format(settings.PAYMENT_SUPPORT_EMAIL),
         '235': _('The requested capture amount exceeds the originally authorized amount.'),
         '236': _('Processor Failure.  Possible action: retry the payment'),

@@ -112,7 +112,7 @@ def check_firefox_version():
         if firefox_ver < MINIMUM_FIREFOX_VERSION:
             raise Exception(
                 'Required firefox version not found.\n'
-                'Expected: {expected_version}; Actual: {actual_version}.\n\n'
+                u'Expected: {expected_version}; Actual: {actual_version}.\n\n'
                 'Make sure that the edx.devstack.firefox container is up-to-date and running\n'
                 '\t{expected_version}'.format(
                     actual_version=firefox_ver,
@@ -136,9 +136,9 @@ def check_firefox_version():
     if firefox_ver < MINIMUM_FIREFOX_VERSION:
         raise Exception(
             'Required firefox version not found.\n'
-            'Expected: {expected_version}; Actual: {actual_version}.\n\n'
+            u'Expected: {expected_version}; Actual: {actual_version}.\n\n'
             'As the vagrant user in devstack, run the following:\n\n'
-            '\t$ sudo wget -O /tmp/firefox_42.deb {debian_path}\n'
+            u'\t$ sudo wget -O /tmp/firefox_42.deb {debian_path}\n'
             '\t$ sudo apt-get remove firefox\n\n'
             '\t$ sudo gdebi -nq /tmp/firefox_42.deb\n\n'
             'Confirm the new version:\n'

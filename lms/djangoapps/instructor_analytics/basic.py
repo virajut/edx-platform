@@ -341,11 +341,11 @@ def get_proctored_exam_results(course_key, features):
 
         for status in comment_statuses:
             comment_list = exam_attempt.get(
-                '{status} Comments'.format(status=status),
+                u'{status} Comments'.format(status=status),
                 []
             )
             proctored_exam.update({
-                '{status} Count'.format(status=status): len(comment_list),
+                u'{status} Count'.format(status=status): len(comment_list),
                 '{status} Comments'.format(status=status): '; '.join(comment_list),
             })
 

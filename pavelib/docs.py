@@ -41,7 +41,7 @@ def doc_path(options, allow_default=True):
     if doc_type == 'default' and not allow_default:
         print(
             "You must specify a documentation type using '--type'.  "
-            "Valid options are: {options}".format(
+            u"Valid options are: {options}".format(
                 options=valid_doc_types()
             )
         )
@@ -49,8 +49,8 @@ def doc_path(options, allow_default=True):
 
     if path is None:
         print(
-            "Invalid documentation type '{doc_type}'.  "
-            "Valid options are: {options}".format(
+            u"Invalid documentation typeu '{doc_type}'.  "
+            u"Valid options are: {options}".format(
                 doc_type=doc_type, options=valid_doc_types()
             )
         )

@@ -109,7 +109,7 @@ def fetch_saml_metadata():
 
             log.exception(text_type(error))
             failure_messages.append(
-                "{error_type}: {error_message}\nMetadata Source: {url}\nEntity IDs: \n{entity_ids}.".format(
+                u"{error_type}: {error_message}\nMetadata Source: {url}\nEntity IDs: \n{entity_ids}.".format(
                     error_type=type(error).__name__,
                     error_message=text_type(error),
                     url=url,
@@ -121,7 +121,7 @@ def fetch_saml_metadata():
         except etree.XMLSyntaxError as error:
             log.exception(text_type(error))
             failure_messages.append(
-                "XMLSyntaxError: {error_message}\nMetadata Source: {url}\nEntity IDs: \n{entity_ids}.".format(
+                u"XMLSyntaxError: {error_message}\nMetadata Source: {url}\nEntity IDs: \n{entity_ids}.".format(
                     error_message=str(error.error_log),
                     url=url,
                     entity_ids="\n".join(

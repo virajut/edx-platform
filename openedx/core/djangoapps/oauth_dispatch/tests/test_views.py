@@ -464,7 +464,7 @@ class TestAuthorizationView(_DispatchingViewTestCase):
         # is the application name specified?
         self.assertContains(
             response,
-            "Authorize {name}".format(name=self.dot_app.name)
+            u"Authorize {name}".format(name=self.dot_app.name)
         )
 
         # are the cancel and allow buttons on the page?

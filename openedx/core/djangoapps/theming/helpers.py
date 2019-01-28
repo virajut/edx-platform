@@ -256,7 +256,7 @@ def get_theme_base_dir(theme_dir_name, suppress_error=False):
         return None
 
     raise ValueError(
-        "Theme '{theme}' not found in any of the following themes dirs, \nTheme dirs: \n{dir}".format(
+        u"Themeu '{theme}' not found in any of the following themes dirs, \nTheme dirs: \n{dir}".format(
             theme=theme_dir_name,
             dir=get_theme_base_dirs(),
         ))

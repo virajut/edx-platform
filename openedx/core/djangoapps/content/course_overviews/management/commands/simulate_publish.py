@@ -162,7 +162,7 @@ class Command(BaseCommand):
             return self.print_show_receivers()
 
         log.info(
-            "simulate_publish starting, dry-run=%s, delay=%d seconds",
+            u"simulate_publish starting, dry-run=%s, delay=%d seconds",
             options['dry_run'],
             options['delay']
         )
@@ -173,7 +173,7 @@ class Command(BaseCommand):
             else:
                 log.fatal(
                     "simulate_publish should be run as a CMS (Studio) " +
-                    "command, not %s (override with --force-lms).",
+                    u"command, not %s (override with --force-lms).",
                     os.environ.get('SERVICE_VARIANT')
                 )
                 sys.exit(1)
@@ -193,7 +193,7 @@ class Command(BaseCommand):
         # actual work of emitting signals.
         for i, course_key in enumerate(course_keys, start=1):
             log.info(
-                "Emitting course_published signal (%d of %d) for course %s",
+                u"Emitting course_published signal (%d of %d) for course %s",
                 i, len(course_keys), course_key
             )
             if options['delay']:
@@ -214,7 +214,7 @@ class Command(BaseCommand):
         unknown_receiver_names = set(receiver_names) - all_receiver_names
         if unknown_receiver_names:
             log.fatal(
-                "The following receivers were specified but not recognized: %s",
+                u"The following receivers were specified but not recognized: %s",
                 ", ".join(sorted(unknown_receiver_names))
             )
             log.fatal("Known receivers: %s", ", ".join(sorted(all_receiver_names)))

@@ -65,7 +65,7 @@ def register_special_exams(course_key):
     # add/update any exam entries in edx-proctoring
     for timed_exam in timed_exams:
         msg = (
-            'Found {location} as a timed-exam in course structure. Inspecting...'.format(
+            u'Found {location} as a timed-exam in course structure. Inspecting...'.format(
                 location=unicode(timed_exam.location)
             )
         )

@@ -48,7 +48,7 @@ EXPECTED_PRINT_SETTINGS_COMMAND = [
 ]
 EXPECTED_WEBPACK_COMMAND = (
     u"NODE_ENV={node_env} STATIC_ROOT_LMS={static_root_lms} STATIC_ROOT_CMS={static_root_cms} "
-    "$(npm bin)/webpack --config={webpack_config_path}"
+    u"$(npm bin)/webpack --config={webpack_config_path}"
 )
 
 
@@ -192,8 +192,8 @@ class TestPaverServerTasks(PaverTestCase):
         self.assertEquals(
             self.task_messages,
             [
-                "echo 'import {system}.envs.{settings}' "
-                "| python manage.py {system} --settings={settings} shell --plain --pythonpath=.".format(
+                u"echou 'import {system}.envs.{settings}' "
+                u"| python manage.py {system} --settings={settings} shell --plain --pythonpath=.".format(
                     system=system, settings=settings
                 ),
             ]

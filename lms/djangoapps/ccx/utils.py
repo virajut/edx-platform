@@ -61,7 +61,7 @@ def get_ccx_from_ccx_locator(course_id):
         ccx = CustomCourseForEdX.objects.filter(id=ccx_id)
     if not ccx:
         log.warning(
-            "CCX does not exist for course with id %s",
+            u"CCX does not exist for course with id %s",
             course_id
         )
         return None
@@ -355,7 +355,7 @@ def add_master_course_staff_to_ccx(master_course, ccx_key, display_name, send_em
                     allow_access(course_ccx, staff, 'staff')
                 except CourseEnrollmentException:
                     log.warning(
-                        "Unable to enroll staff %s to course with id %s",
+                        u"Unable to enroll staff %s to course with id %s",
                         staff.email,
                         ccx_key
                     )
@@ -380,7 +380,7 @@ def add_master_course_staff_to_ccx(master_course, ccx_key, display_name, send_em
                     allow_access(course_ccx, instructor, 'instructor')
                 except CourseEnrollmentException:
                     log.warning(
-                        "Unable to enroll instructor %s to course with id %s",
+                        u"Unable to enroll instructor %s to course with id %s",
                         instructor.email,
                         ccx_key
                     )

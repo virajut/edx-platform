@@ -43,7 +43,7 @@ class Command(BaseCommand):
         if retirement_status.current_state.state_name != 'PENDING':
             raise CommandError(
                 "Retirement requests can only be cancelled for users in the PENDING state."
-                " Current request state for '{}': {}".format(
+                u" Current request state foru '{}': {}".format(
                     email_address,
                     retirement_status.current_state.state_name
                 )

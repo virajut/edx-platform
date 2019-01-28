@@ -302,7 +302,7 @@ def queue_subtasks_for_query(
 
     # Update the InstructorTask  with information about the subtasks we've defined.
     TASK_LOG.info(
-        "Task %s: updating InstructorTask %s with subtask info for %s subtasks to process %s items.",
+        u"Task %s: updating InstructorTask %s with subtask info for %s subtasks to process %s items.",
         task_id,
         entry.id,
         total_num_subtasks,
@@ -325,7 +325,7 @@ def queue_subtasks_for_query(
 
     # Now create the subtasks, and start them running.
     TASK_LOG.info(
-        "Task %s: creating %s subtasks to process %s items.",
+        u"Task %s: creating %s subtasks to process %s items.",
         task_id,
         total_num_subtasks,
         total_num_items,

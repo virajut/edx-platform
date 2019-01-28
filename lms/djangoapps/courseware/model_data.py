@@ -976,7 +976,7 @@ class ScoresClient(object):
         """
         if not self._has_fetched:
             raise ValueError(
-                "Tried to fetch location {} from ScoresClient before fetch_scores() has run."
+                u"Tried to fetch location {} from ScoresClient before fetch_scores() has run."
                 .format(location)
             )
         return self._locations_to_scores.get(location.replace(version=None, branch=None))
@@ -1008,8 +1008,8 @@ def set_score(user_id, usage_key, score, max_score):
     except IntegrityError:
         # log information for duplicate entry and get the record as above command failed.
         log.exception(
-            'set_score: IntegrityError for student %s - course_id %s - usage_key %s having '
-            'score %d and max_score %d',
+            u'set_score: IntegrityError for student %s - course_id %s - usage_key %s having '
+            u'score %d and max_score %d',
             str(user_id), usage_key.course_key, usage_key, score, max_score
         )
         student_module = StudentModule.objects.get(**kwargs)

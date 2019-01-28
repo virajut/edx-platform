@@ -126,7 +126,7 @@ def _is_first_comment(comment_id, thread_id):
         return first_comment.get('id') == comment_id
     else:
         log.info(
-            "EDUCATOR-3385: No child exists for thread_id %s | course_id %s | username %s ",
+            u"EDUCATOR-3385: No child exists for thread_id %s | course_id %s | username %s ",
             thread.get('id'),
             thread['course_id'],
             thread['username']

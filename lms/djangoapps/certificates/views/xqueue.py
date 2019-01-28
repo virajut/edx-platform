@@ -81,8 +81,8 @@ def update_certificate(request):
         except GeneratedCertificate.DoesNotExist:
             log.critical(
                 'Unable to lookup certificate\n'
-                'xqueue_body: %s\n'
-                'xqueue_header: %s',
+                u'xqueue_body: %s\n'
+                u'xqueue_header: %s',
                 xqueue_body,
                 xqueue_header
             )
@@ -117,7 +117,7 @@ def update_certificate(request):
                 cert.status = status.deleted
             else:
                 log.critical(
-                    'Invalid state for cert update: %s', cert.status
+                    u'Invalid state for cert update: %s', cert.status
                 )
                 return HttpResponse(
                     json.dumps({

@@ -201,7 +201,7 @@ def _get_error_if_invalid_parameters(requested_filter):
         error_message = {
             'error_code': 'invalid_asset_type_filter',
             'developer_message': 'The asset_type parameter to the request is invalid. '
-                                 'The {} filters are not described in the settings.FILES_AND_UPLOAD_TYPE_FILTERS '
+                                 u'The {} filters are not described in the settings.FILES_AND_UPLOAD_TYPE_FILTERS '
                                  'dictionary.'.format(invalid_filters)
         }
         return JsonResponse({'error': error_message}, status=400)
@@ -456,8 +456,8 @@ def _check_file_size_is_too_large(file_metadata):
 
 def _get_file_too_large_error_message(filename):
     return _(
-        'File {filename} exceeds maximum size of '
-        '{maximum_size_in_megabytes} MB.'
+        u'File {filename} exceeds maximum size of '
+        u'{maximum_size_in_megabytes} MB.'
     ).format(
         filename=filename,
         maximum_size_in_megabytes=settings.MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB,

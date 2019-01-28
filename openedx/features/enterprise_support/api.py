@@ -152,7 +152,7 @@ class EnterpriseApiClient(object):
         except (HttpClientError, HttpServerError):
             message = (
                 "An error occured while posting EnterpriseCourseEnrollment for user {username} and "
-                "course run {course_id} (consent_granted value: {consent_granted})"
+                u"course run {course_id} (consent_granted value: {consent_granted})"
             ).format(
                 username=username,
                 course_id=course_id,
@@ -249,7 +249,7 @@ class EnterpriseApiClient(object):
             response = endpoint().get(**querystring)
         except (HttpClientError, HttpServerError):
             LOGGER.exception(
-                'Failed to get enterprise-learner for user [%s] with client user [%s]',
+                u'Failed to get enterprise-learner for user [%s] with client user [%s]',
                 user.username,
                 self.user.username
             )
@@ -575,7 +575,7 @@ def get_consent_notification_data(enterprise_customer):
         message_template = consent_page.declined_notification_message
     except DataSharingConsentTextOverrides.DoesNotExist:
         LOGGER.info(
-            "DataSharingConsentPage object doesn't exit for {enterprise_customer_name}".format(
+            u"DataSharingConsentPage object doesun't exit for {enterprise_customer_name}".format(
                 enterprise_customer_name=enterprise_customer['name']
             )
         )
@@ -622,12 +622,12 @@ def get_dashboard_consent_notification(request, user, course_enrollments):
         title_template, message_template = get_consent_notification_data(enterprise_customer)
         if not title_template:
             title_template = _(
-                'Enrollment in {course_title} was not complete.'
+                u'Enrollment in {course_title} was not complete.'
             )
         if not message_template:
             message_template = _(
                 'If you have concerns about sharing your data, please contact your administrator '
-                'at {enterprise_customer_name}.'
+                u'at {enterprise_customer_name}.'
             )
 
         title = title_template.format(

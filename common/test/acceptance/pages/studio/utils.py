@@ -96,7 +96,7 @@ def add_component(page, item_type, specific_type, is_advanced_problem=False):
             # Wait for the advanced tab to be active
             css = '.problem-type-tabs li.ui-tabs-active a'
             page.wait_for(
-                lambda: len(page.q(css=css).filter(text='Advanced').execute()) > 0,
+                lambda: len(page.q(css=css).filter(text=u'Advanced').execute()) > 0,
                 'Waiting for the Advanced problem tab to be active'
             )
 
@@ -173,7 +173,7 @@ def get_input_value(page, css_selector):
     """
     page.wait_for_element_presence(
         css_selector,
-        'Elements matching "{}" selector are present'.format(css_selector)
+        u'Elements matching u"{}" selector are present'.format(css_selector)
     )
     return page.q(css=css_selector).attrs('value')[0]
 
@@ -237,7 +237,7 @@ def verify_ordering(test_class, page, expected_orderings):
                 expected_length = len(expected_ordering.get(parent))
                 test_class.assertEqual(
                     expected_length, len(children),
-                    "Number of children incorrect for group {0}. Expected {1} but got {2}.".format(parent, expected_length, len(children)))
+                    u"Number of children incorrect for group {0}. Expected {1} but got {2}.".format(parent, expected_length, len(children)))
                 for idx, expected in enumerate(expected_ordering.get(parent)):
                     test_class.assertEqual(expected, children[idx].name)
                     blocks_checked.add(expected)

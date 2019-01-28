@@ -55,7 +55,7 @@ class TestPaverPytestCmd(unittest.TestCase):
                         django_env_var_cmd = "export DJANGO_SETTINGS_MODULE='openedx.tests.settings'"
 
                 xdist_string = u'--tx {}*ssh="ubuntu@{} -o StrictHostKeyChecking=no"' \
-                               '//python="source /edx/app/edxapp/edxapp_env; {}; python"' \
+                               u'//python=u"source /edx/app/edxapp/edxapp_env; {}; python"' \
                                '//chdir="/edx/app/edxapp/edx-platform"' \
                                .format(processes, ip, django_env_var_cmd)
                 expected_statement.append(xdist_string)

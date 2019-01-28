@@ -387,7 +387,7 @@ class VideoPage(PageObject):
 
             # Verify that captions state is toggled/changed
             EmptyPromise(lambda: self.is_captions_visible() == captions_new_state,
-                         "Transcripts are {state}".format(state=state)).fulfill()
+                         u"Transcripts are {state}".format(state=state)).fulfill()
 
     @wait_for_js
     def _closed_captions_visibility(self, closed_captions_new_state):
@@ -404,7 +404,7 @@ class VideoPage(PageObject):
 
         # Make sure that the captions are visible
         EmptyPromise(lambda: self.is_closed_captions_visible() == closed_captions_new_state,
-                     "Closed captions are {state}".format(state=state)).fulfill()
+                     u"Closed captions are {state}".format(state=state)).fulfill()
 
     @property
     def captions_text(self):
@@ -824,7 +824,7 @@ class VideoPage(PageObject):
         """
         self._wait_for(
             lambda: self.state == state,
-            'State is {state}'.format(state=state)
+            u'State is {state}'.format(state=state)
         )
 
     def seek(self, seek_value):
@@ -887,7 +887,7 @@ class VideoPage(PageObject):
         """
         self._wait_for(
             lambda: self.position == position,
-            'Position is {position}'.format(position=position)
+            u'Position is {position}'.format(position=position)
         )
 
     @property

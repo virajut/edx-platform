@@ -649,7 +649,7 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
                 self.save()
         except Exception:       # pylint: disable=broad-except
             log.exception(
-                'Software Secure submission failed for user %s, setting status to must_retry',
+                u'Software Secure submission failed for user %s, setting status to must_retry',
                 self.user.username
             )
             self.status = "must_retry"
@@ -836,7 +836,7 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
         headers, body = self.create_request()
 
         header_txt = "\n".join(
-            "{}: {}".format(h, v) for h, v in sorted(headers.items())
+            u"{}: {}".format(h, v) for h, v in sorted(headers.items())
         )
         body_txt = json.dumps(body, indent=2, sort_keys=True, ensure_ascii=False).encode('utf-8')
 
@@ -877,8 +877,8 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
         if copy_id_photo_from is not None:
             log.info(
                 (
-                    "Software Secure attempt with receipt ID %s used the same photo ID "
-                    "data as the receipt with ID %s"
+                    u"Software Secure attempt with receipt ID %s used the same photo ID "
+                    u"data as the receipt with ID %s"
                 ),
                 self.receipt_id, copy_id_photo_from.receipt_id
             )

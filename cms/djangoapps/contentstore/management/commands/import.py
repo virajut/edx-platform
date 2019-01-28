@@ -48,9 +48,9 @@ class Command(BaseCommand):
 
         output = (
             "Importing...\n"
-            "    data_dir={data}, source_dirs={courses}\n"
-            "    Importing static content? {import_static}\n"
-            "    Importing python lib? {import_python_lib}"
+            u"    data_dir={data}, source_dirs={courses}\n"
+            u"    Importing static content? {import_static}\n"
+            u"    Importing python lib? {import_python_lib}"
         ).format(
             data=data_dir,
             courses=source_dirs,

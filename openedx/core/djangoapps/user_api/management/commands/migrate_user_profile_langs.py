@@ -67,8 +67,8 @@ class Command(BaseCommand):
         max_id = UserPreference.objects.all().aggregate(Max('id'))['id__max']
 
         print(u'Updating user language preferences from {} to {}. '
-              'Start id is {}, current max id is {}. '
-              'Chunk size is of {}'.format(old_lang_code, new_lang_code, start, max_id, chunk_size))
+              u'Start id is {}, current max id is {}. '
+              u'Chunk size is of {}'.format(old_lang_code, new_lang_code, start, max_id, chunk_size))
 
         updated_count = 0
 

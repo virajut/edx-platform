@@ -218,7 +218,7 @@ class StudioLibraryContainerCapaFilterTest(LibraryContentTestBase, TestWithSearc
     def _get_problem_choice_group_text(self, name, items):
         """ Generates Choice Group CAPA problem XML """
         items_text = "\n".join([
-            "<choice correct='{correct}'>{item}</choice>".format(correct=correct, item=item)
+            u"<choice correctu='{correct}'>{item}</choice>".format(correct=correct, item=item)
             for item, correct in items
         ])
 

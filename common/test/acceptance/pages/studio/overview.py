@@ -306,7 +306,7 @@ class CourseOutlineContainer(CourseOutlineItem):
 
         EmptyPromise(
             lambda: subsection_expanded() != currently_expanded,
-            "Check that the container {} has been toggled".format(self.locator)
+            u"Check that the container {} has been toggled".format(self.locator)
         ).fulfill()
 
         enable_animations(self)
@@ -1014,7 +1014,7 @@ class CourseOutlineModal(object):
         self.page.wait_for_element_invisibility("#ui-datepicker-div", "datepicker should be closed")
         EmptyPromise(
             lambda: getattr(self, property_name) == u'{m}/{d}/{y}'.format(m=month, d=day, y=year),
-            "{} is updated in modal.".format(property_name)
+            u"{} is updated in modal.".format(property_name)
         ).fulfill()
 
     def set_time(self, input_selector, time):

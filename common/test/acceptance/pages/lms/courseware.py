@@ -110,8 +110,8 @@ class CoursewarePage(CoursePage, CompletionOnViewMixin):
         for index, tab in enumerate(self.q(css='#sequence-list > li')):
             ActionChains(self.browser).move_to_element(tab).perform()
             self.wait_for_element_visibility(
-                '#tab_{index} > .sequence-tooltip'.format(index=index),
-                'Tab {index} should appear'.format(index=index)
+                u'#tab_{index} > .sequence-tooltip'.format(index=index),
+                u'Tab {index} should appear'.format(index=index)
             )
 
     @property
@@ -516,7 +516,7 @@ class CourseNavPage(PageObject):
 
         # Convert list indices (start at zero) to CSS indices (start at 1)
         subsection_css = (
-            ".course-navigation .chapter-content-container:nth-of-type({0}) "
+            u".course-navigation .chapter-content-container:nth-of-type({0}) "
             ".menu-item:nth-of-type({1})"
         ).format(sec_index + 1, subsec_index + 1)
 
@@ -567,7 +567,7 @@ class CourseNavPage(PageObject):
         # Retrieve the subsection title for the section
         # Add one to the list index to get the CSS index, which starts at one
         subsection_css = (
-            ".course-navigation .chapter-content-container:nth-of-type({0}) "
+            u".course-navigation .chapter-content-container:nth-of-type({0}) "
             ".menu-item a p:nth-of-type(1)"
         ).format(section_index)
 

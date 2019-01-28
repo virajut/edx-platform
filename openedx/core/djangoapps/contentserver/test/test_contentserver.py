@@ -217,7 +217,7 @@ class ContentStoreToyCourseTest(SharedModuleStoreTestCase):
         self.assertEqual(resp.status_code, 206)  # HTTP_206_PARTIAL_CONTENT
         self.assertEqual(
             resp['Content-Range'],
-            'bytes {first}-{last}/{length}'.format(
+            u'bytes {first}-{last}/{length}'.format(
                 first=0, last=self.length_unlocked - 1,
                 length=self.length_unlocked
             )

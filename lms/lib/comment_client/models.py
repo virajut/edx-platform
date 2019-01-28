@@ -103,7 +103,7 @@ class Model(object):
                 self.__setattr__(k, v)
             else:
                 log.warning(
-                    "Unexpected field {field_name} in model {model_name}".format(
+                    u"Unexpected field {field_name} in model {model_name}".format(
                         field_name=k,
                         model_name=self.__class__.__name__
                     )
@@ -172,7 +172,7 @@ class Model(object):
         if cls.base_url is None:
             raise CommentClientRequestError("Must provide base_url when using default url function")
         if action not in cls.DEFAULT_ACTIONS:
-            raise ValueError("Invalid action {0}. The supported action must be in {1}".format(action, str(cls.DEFAULT_ACTIONS)))
+            raise ValueError(u"Invalid action {0}. The supported action must be in {1}".format(action, str(cls.DEFAULT_ACTIONS)))
         elif action in cls.DEFAULT_ACTIONS_WITH_ID:
             try:
                 return cls.url_with_id(params)

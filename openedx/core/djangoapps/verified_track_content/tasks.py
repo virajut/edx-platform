@@ -48,7 +48,7 @@ def sync_cohort_with_mode(self, course_id, user_id, verified_cohort_name, defaul
         else:
             LOGGER.info(
                 "NO_ACTION_NECESSARY: No action necessary for user '%s' in course '%s' and enrollment mode '%s'. "
-                "The user is already in cohort '%s'.",
+                u"The user is already in cohortu '%s'.",
                 user.id, course_id, enrollment.mode, current_cohort.name
             )
     except Exception as exc:

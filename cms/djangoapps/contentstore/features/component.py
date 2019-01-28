@@ -31,7 +31,7 @@ def see_a_single_step_component(step):
         assert_in(component, ['Discussion', 'Video'])
         component_css = '.xmodule_{}Module'.format(component)
         assert_true(world.is_css_present(component_css),
-                    "{} couldn't be found".format(component))
+                    u"{} couldun't be found".format(component))
 
 
 @step(u'I add this type of( Advanced)? (HTML|Problem) component:$')

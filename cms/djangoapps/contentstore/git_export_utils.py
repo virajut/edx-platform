@@ -34,7 +34,7 @@ class GitExportError(Exception):
         # Force the lazy i18n values to turn into actual unicode objects
         super(GitExportError, self).__init__(unicode(message))
 
-    NO_EXPORT_DIR = _(u"GIT_REPO_EXPORT_DIR not set or path {0} doesn't exist, "
+    NO_EXPORT_DIR = _(u"GIT_REPO_EXPORT_DIR not set or path {0} doesun't exist, "
                       "please create it, or configure a different path with "
                       "GIT_REPO_EXPORT_DIR").format(GIT_REPO_EXPORT_DIR)
     URL_BAD = _('Non writable git url provided. Expecting something like:'

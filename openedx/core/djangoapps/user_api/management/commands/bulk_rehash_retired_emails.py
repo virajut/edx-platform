@@ -56,8 +56,8 @@ class Command(BaseCommand):
             # Sanity check:
             if retirement.user.email != old_retired_email:
                 print(
-                    'WARNING: Skipping UserRetirementStatus ID {} / User ID {} because the user does not appear to '
-                    'have a retired email address: {}.'.format(
+                    u'WARNING: Skipping UserRetirementStatus ID {} / User ID {} because the user does not appear to '
+                    u'have a retired email address: {}.'.format(
                         retirement.id,
                         retirement.user.id,
                         retirement.user.email,
@@ -67,7 +67,7 @@ class Command(BaseCommand):
             # match:
             elif old_retired_email == new_retired_email:
                 print(
-                    'Skipping UserRetirementStatus ID {} / User ID {} because the email hash would not change.'.format(
+                    u'Skipping UserRetirementStatus ID {} / User ID {} because the email hash would not change.'.format(
                         retirement.id,
                         retirement.user.id,
                     )

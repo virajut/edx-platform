@@ -70,8 +70,8 @@ def move_to_verified_cohort(sender, instance, **kwargs):  # pylint: disable=unus
                 sync_cohort_with_mode.apply_async(kwargs=args, countdown=300)
             else:
                 log.error(
-                    "Automatic verified cohorting enabled for course '%s', "
-                    "but verified cohort named '%s' does not exist.",
+                    u"Automatic verified cohorting enabled for courseu '%s', "
+                    u"but verified cohort namedu '%s' does not exist.",
                     course_key,
                     verified_cohort_name,
                 )

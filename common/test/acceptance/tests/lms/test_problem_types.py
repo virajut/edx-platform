@@ -986,7 +986,7 @@ class MultipleChoiceProblemTypeTestMultipleAttempt(MultipleChoiceProblemTypeBase
         for attempts_used in range(3):
             self.assertEqual(
                 self.problem_page.submission_feedback,
-                "You have used {} of 3 attempts".format(str(attempts_used)),
+                u"You have used {} of 3 attempts".format(str(attempts_used)),
                 "All 3 attempts are not available"
             )
             if attempts_used == 2:

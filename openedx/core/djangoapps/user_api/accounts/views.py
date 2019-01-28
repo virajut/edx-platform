@@ -590,9 +590,9 @@ class AccountRetirementPartnerReportView(ViewSet):
         # to disambiguate them in Python, which will respect case in the comparison.
         if len(usernames) != len(retirement_statuses_clean):
             return Response(
-                '{} original_usernames given, {} found!\n'
-                'Given usernames:\n{}\n'
-                'Found UserRetirementReportingStatuses:\n{}'.format(
+                u'{} original_usernames given, {} found!\n'
+                u'Given usernames:\n{}\n'
+                u'Found UserRetirementReportingStatuses:\n{}'.format(
                     len(usernames),
                     len(retirement_statuses_clean),
                     usernames,

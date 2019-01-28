@@ -34,7 +34,7 @@ class Command(BaseCommand):
                 offset=command_settings.offset, limit=command_settings.batch_size
             )
             log.info(
-                '[Video Thumbnails] Videos(updated): %s, Videos(update-in-process): %s',
+                u'[Video Thumbnails] Videos(updated): %s, Videos(update-in-process): %s',
                 command_settings.offset, len(course_videos),
             )
         else:

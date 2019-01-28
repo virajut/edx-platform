@@ -1908,7 +1908,7 @@ class CertificateItem(OrderItem):
             send_mail(subject, message, from_email, to_email, fail_silently=False)
         except Exception as exception:  # pylint: disable=broad-except
             err_str = ('Failed sending email to billing to request a refund for verified certificate'
-                       ' (User {user}, Course {course}, CourseEnrollmentID {ce_id}, Order #{order})\n{exception}')
+                       u' (User {user}, Course {course}, CourseEnrollmentID {ce_id}, Order #{order})\n{exception}')
             log.error(err_str.format(
                 user=course_enrollment.user,
                 course=course_enrollment.course_id,
@@ -2004,7 +2004,7 @@ class CertificateItem(OrderItem):
             verification_url = "http://{domain}{path}".format(domain=domain, path=path)
 
             verification_reminder = _(
-                "If you haven't verified your identity yet, please start the verification process ({verification_url})."
+                u"If you haveun't verified your identity yet, please start the verification process ({verification_url})."
             ).format(verification_url=verification_url)
 
         if is_professional_mode_verified:
@@ -2013,7 +2013,7 @@ class CertificateItem(OrderItem):
 
         refund_reminder = _(
             "{refund_reminder_msg}"
-            "To receive your refund, contact {billing_email}. "
+            u"To receive your refund, contact {billing_email}. "
             "Please include your order number in your email. "
             "Please do NOT include your credit card information."
         ).format(

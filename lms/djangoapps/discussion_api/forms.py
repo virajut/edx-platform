@@ -78,7 +78,7 @@ class ThreadListGetForm(_PaginationForm):
         )
         if exclusive_params_count > 1:
             raise ValidationError(
-                "The following query parameters are mutually exclusive: {}".format(
+                u"The following query parameters are mutually exclusive: {}".format(
                     ", ".join(self.EXCLUSIVE_PARAMS)
                 )
             )

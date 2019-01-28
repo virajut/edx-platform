@@ -55,7 +55,7 @@ def create_zendesk_ticket(requester_name, requester_email, subject, body, custom
     url = urljoin(settings.ZENDESK_URL, '/api/v2/tickets.json')
     headers = {
         'content-type': 'application/json',
-        'Authorization': "Bearer {}".format(settings.ZENDESK_OAUTH_ACCESS_TOKEN),
+        u'Authorization': u"Bearer {}".format(settings.ZENDESK_OAUTH_ACCESS_TOKEN),
     }
 
     try:
@@ -67,7 +67,7 @@ def create_zendesk_ticket(requester_name, requester_email, subject, body, custom
         else:
             log.error(
                 _std_error_message(
-                    'Unexpected response: {} - {}'.format(response.status_code, response.content),
+                    u'Unexpected response: {} - {}'.format(response.status_code, response.content),
                     payload
                 )
             )

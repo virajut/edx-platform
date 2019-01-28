@@ -80,7 +80,7 @@ def image_is_jpeg_or_png(value):
     content_type = value.content_type
     if content_type not in IMAGE_TYPES.keys():
         raise serializers.ValidationError(
-            'Only JPEG and PNG image types are supported. {} is not valid'.format(content_type))
+            u'Only JPEG and PNG image types are supported. {} is not valid'.format(content_type))
 
 
 class CourseRunImageField(serializers.ImageField):

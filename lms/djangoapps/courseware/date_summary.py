@@ -367,12 +367,12 @@ class CertificateAvailableDate(DateSummary):
             CourseHomeMessages.register_info_message(
                 request,
                 Text(_(
-                    'If you have earned a certificate, you will be able to access it {time_remaining_string}'
-                    ' from now. You will also be able to view your certificates on your {learner_profile_link}.'
+                    u'If you have earned a certificate, you will be able to access it {time_remaining_string}'
+                    u' from now. You will also be able to view your certificates on your {learner_profile_link}.'
                 )).format(
                     time_remaining_string=self.time_remaining_string,
                     learner_profile_link=HTML(
-                        '<a href="{learner_profile_url}">{learner_profile_name}</a>'
+                        u'<a href=u"{learner_profile_url}">{learner_profile_name}</a>'
                     ).format(
                         learner_profile_url=reverse('learner_profile', kwargs={'username': request.user.username}),
                         learner_profile_name=_('Learner Profile'),
@@ -515,18 +515,18 @@ class VerifiedUpgradeDeadlineDate(DateSummary):
         days_left_to_upgrade = (self.date - self.current_time).days
         if self.date > self.current_time and days_left_to_upgrade <= settings.COURSE_MESSAGE_ALERT_DURATION_IN_DAYS:
             upgrade_message = _(
-                "Don't forget, you have {time_remaining_string} left to upgrade to a Verified Certificate."
+                u"Doun't forget, you have {time_remaining_string} left to upgrade to a Verified Certificate."
             ).format(time_remaining_string=self.time_remaining_string)
             if self._dynamic_deadline() is not None:
                 upgrade_message = _(
-                    "Don't forget to upgrade to a verified certificate by {localized_date}."
+                    u"Doun't forget to upgrade to a verified certificate by {localized_date}."
                 ).format(localized_date=date_format(self.date))
             CourseHomeMessages.register_info_message(
                 request,
                 Text(_(
                     'In order to qualify for a certificate, you must meet all course grading '
                     'requirements, upgrade before the course deadline, and successfully verify '
-                    'your identity on {platform_name} if you have not done so already.{button_panel}'
+                    u'your identity on {platform_name} if you have not done so already.{button_panel}'
                 )).format(
                     platform_name=settings.PLATFORM_NAME,
                     button_panel=HTML(

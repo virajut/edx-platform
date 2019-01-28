@@ -85,7 +85,7 @@ def _reserve_task(course_id, task_type, task_key, task_input, requester):
         most_recent_id = "None found"
     finally:
         log.warning(
-            "No duplicate tasks found: task_type %s, task_key %s, and most recent task_id = %s",
+            u"No duplicate tasks found: task_type %s, task_key %s, and most recent task_id = %s",
             task_type,
             task_key,
             most_recent_id
@@ -118,7 +118,7 @@ def generate_already_running_error_message(task_type):
     if report_types.get(task_type):
 
         message = _(
-            "The {report_type} report is being created. "
+            u"The {report_type} report is being created. "
             "To view the status of the report, see Pending Tasks below. "
             "You will be able to download the report when it is complete."
         ).format(report_type=report_types.get(task_type))

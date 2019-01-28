@@ -67,7 +67,7 @@ class PaidCourseEnrollmentReportProvider(BaseAbstractEnrollmentReportProvider):
                 manual_enrollment = ManualEnrollmentAudit.get_manual_enrollment(course_enrollment)
                 if manual_enrollment is not None:
                     enrollment_source = _(
-                        'manually enrolled by username: {username}'
+                        u'manually enrolled by username: {username}'
                     ).format(username=manual_enrollment.enrolled_by.username)
 
                     manual_enrollment_reason = manual_enrollment.reason

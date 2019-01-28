@@ -2035,7 +2035,7 @@ class CourseDiscussionsHandlerTestCase(DividedDiscussionsTestCase):
             handler=views.course_discussions_settings_handler
         )
         self.assertEqual(
-            "Incorrect field type for `{}`. Type must be `{}`".format('always_divide_inline_discussions', bool.__name__),
+            u"Incorrect field type for `{}`. Type must be `{}`".formatu('always_divide_inline_discussions', bool.__name__),
             response.get("error")
         )
 

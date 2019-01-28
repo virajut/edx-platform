@@ -1033,7 +1033,7 @@ def handle_xblock_callback(request, course_id, usage_id, handler, suffix=None):
                 user_auth_tuple = authenticator.authenticate(request)
             except APIException:
                 log.exception(
-                    "XBlock handler %r failed to authenticate with %s", handler, authenticator.__class__.__name__
+                    u"XBlock handler %r failed to authenticate with %s", handler, authenticator.__class__.__name__
                 )
             else:
                 if user_auth_tuple is not None:
@@ -1080,7 +1080,7 @@ def get_module_by_usage_id(request, course_id, usage_id, disable_staff_debug_inf
         descriptor_orig_usage_key, descriptor_orig_version = modulestore().get_block_original_usage(usage_key)
     except ItemNotFoundError:
         log.warn(
-            "Invalid location for course id %s: %s",
+            u"Invalid location for course id %s: %s",
             usage_key.course_key,
             usage_key
         )

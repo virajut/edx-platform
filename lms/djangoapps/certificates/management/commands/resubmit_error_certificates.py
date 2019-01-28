@@ -62,7 +62,7 @@ class Command(BaseCommand):
                 only_course_keys.append(CourseKey.from_string(course_key_str))
             except InvalidKeyError:
                 raise CommandError(
-                    '"{course_key_str}" is not a valid course key.'.format(
+                    'u"{course_key_str}" is not a valid course key.'.format(
                         course_key_str=course_key_str
                     )
                 )

@@ -474,7 +474,7 @@ def _has_group_access(descriptor, user, course_key):
                     partitions.append(partition)
             else:
                 log.debug(
-                    "Skipping partition with ID %s in course %s because it is no longer active",
+                    u"Skipping partition with ID %s in course %s because it is no longer active",
                     partition.id, course_key
                 )
         except NoSuchUserPartitionError:

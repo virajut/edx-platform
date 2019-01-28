@@ -177,8 +177,8 @@ class LoginEnrollmentTestCase(TestCase):
         response = make_request(url, **kwargs)
         self.assertEqual(
             response.status_code, status_code,
-            "{method} request to {url} returned status code {actual}, "
-            "expected status code {expected}".format(
+            u"{method} request to {url} returned status code {actual}, "
+            u"expected status code {expected}".format(
                 method=method, url=url,
                 actual=response.status_code, expected=status_code
             )
