@@ -155,7 +155,7 @@ def refund_entitlement(course_entitlement):
 
     if not is_commerce_service_configured():
         log.error(
-            'Ecommerce service is not configured, cannot refund for user [%s], course entitlement [%s].',
+            u'Ecommerce service is not configured, cannot refund for user [%s], course entitlement [%s].',
             enrollee.id,
             entitlement_uuid
         )
@@ -165,7 +165,7 @@ def refund_entitlement(course_entitlement):
     api_client = ecommerce_api_client(service_user)
 
     log.info(
-        'Attempting to create a refund for user [%s], course entitlement [%s]...',
+        u'Attempting to create a refund for user [%s], course entitlement [%s]...',
         enrollee.id,
         entitlement_uuid
     )
@@ -181,7 +181,7 @@ def refund_entitlement(course_entitlement):
     except Exception as exc:  # pylint: disable=broad-except
         # Catch any possible exceptions from the Ecommerce service to ensure we fail gracefully
         log.exception(
-            "Unexpected exception while attempting to initiate refund for user [%s], "
+            u"Unexpected exception while attempting to initiate refund for user [%s], "
             "course entitlement [%s] message: [%s]",
             enrollee.id,
             course_entitlement.uuid,
@@ -191,7 +191,7 @@ def refund_entitlement(course_entitlement):
 
     if refund_ids:
         log.info(
-            'Refund successfully opened for user [%s], course entitlement [%s]: %r',
+            u'Refund successfully opened for user [%s], course entitlement [%s]: %r',
             enrollee.id,
             entitlement_uuid,
             refund_ids,
@@ -301,7 +301,7 @@ def _process_refund(refund_ids, api_client, mode, user, always_notify=False):
             # 'verified' is the only enrollment mode that should presently
             # result in opening a refund request.
             log.info(
-                'Skipping refund support notification for non-verified mode for user [%s], mode: [%s]',
+                u'Skipping refund support notification for non-verified mode for user [%s], mode: [%s]',
                 user.id,
                 mode,
             )

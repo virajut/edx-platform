@@ -25,6 +25,7 @@ from edxnotes.exceptions import EdxNotesParseError, EdxNotesServiceUnavailable
 from edxnotes.plugins import EdxNotesTab
 from lms.lib.utils import get_parent_unit
 from openedx.core.djangoapps.oauth_dispatch.jwt import create_jwt_for_user
+from openedx.core.djangolib.markup import Text
 from student.models import anonymous_id_for_user
 from util.date_utils import get_default_time_display
 from xmodule.modulestore.django import modulestore
@@ -246,7 +247,7 @@ def get_module_context(course, item):
     """
     item_dict = {
         'location': unicode(item.location),
-        'display_name': item.display_name_with_default_escaped,
+        'display_name': Text(item.display_name_with_default),
     }
     if item.category == 'chapter' and item.get_parent():
         # course is a locator w/o branch and version
@@ -425,7 +426,7 @@ def get_course_position(course_module):
     urlargs['chapter'] = chapter.url_name
     if course_module.position is not None:
         return {
-            'display_name': chapter.display_name_with_default_escaped,
+            'display_name': Text(chapter.display_name_with_default),
             'url': reverse('courseware_chapter', kwargs=urlargs),
         }
 
@@ -437,7 +438,7 @@ def get_course_position(course_module):
 
     urlargs['section'] = section.url_name
     return {
-        'display_name': section.display_name_with_default_escaped,
+        'display_name': Text(section.display_name_with_default),
         'url': reverse('courseware_section', kwargs=urlargs)
     }
 

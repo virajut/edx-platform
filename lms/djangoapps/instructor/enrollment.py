@@ -44,6 +44,7 @@ from student.models import (
     anonymous_id_for_user,
     is_email_retired,
 )
+from openedx.core.djangolib.markup import Text
 from submissions import api as sub_api  # installed from the edx-submissions repository
 from submissions.models import score_set
 from track.event_transaction_utils import (
@@ -375,7 +376,7 @@ def get_email_params(course, auto_enroll, secure=True, course_key=None, display_
 
     protocol = 'https' if secure else 'http'
     course_key = course_key or text_type(course.id)
-    display_name = display_name or course.display_name_with_default_escaped
+    display_name = display_name or Text(course.display_name_with_default)
 
     stripped_site_name = configuration_helpers.get_value(
         'SITE_NAME',
@@ -449,7 +450,7 @@ def send_mail_to_student(student, param_dict, language=None):
     if 'display_name' in param_dict:
         param_dict['course_name'] = param_dict['display_name']
     elif 'course' in param_dict:
-        param_dict['course_name'] = param_dict['course'].display_name_with_default
+        param_dict['course_name'] = Text(param_dict['course'].display_name_with_default)
 
     param_dict['site_name'] = configuration_helpers.get_value(
         'SITE_NAME',

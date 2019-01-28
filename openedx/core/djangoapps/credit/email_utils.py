@@ -24,6 +24,7 @@ from eventtracking import tracker
 from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
 from openedx.core.djangoapps.credit.models import CreditConfig, CreditProvider
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.markup import HTML
 from xmodule.modulestore.django import modulestore
 
 log = logging.getLogger(__name__)
@@ -150,7 +151,7 @@ def with_inline_css(html_without_css):
         import pynliner
 
         # insert style tag in the html and run pyliner.
-        html_with_inline_css = pynliner.fromString('<style>' + css_content + '</style>' + html_without_css)
+        html_with_inline_css = pynliner.fromString(HTML('<style>{}</style>{}').format(css_content, html_without_css))
         return html_with_inline_css
 
     return html_without_css
@@ -167,7 +168,7 @@ def attach_image(img_dict, filename):
     if img_path:
         with open(img_path, 'rb') as img:
             msg_image = MIMEImage(img.read(), name=os.path.basename(img_path))
-            msg_image.add_header('Content-ID', '<{}>'.format(img_dict['cid']))
+            msg_image.add_header('Content-ID', HTML('<{}>').format(img_dict['cid']))
             msg_image.add_header("Content-Disposition", "inline", filename=filename)
         return msg_image
 

@@ -39,6 +39,7 @@ from six import text_type
 
 from edxmako.shortcuts import render_to_string
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.markup import HTML, Text
 from shoppingcart.models import Order
 from shoppingcart.processors.exceptions import *
 from shoppingcart.processors.helpers import get_processor_config
@@ -467,15 +468,15 @@ def _get_processor_decline_html(params):
     """
     payment_support_email = configuration_helpers.get_value('payment_support_email', settings.PAYMENT_SUPPORT_EMAIL)
     return _format_error_html(
-        _(
+        Text(_(
             "Sorry! Our payment processor did not accept your payment.  "
             "The decision they returned was {decision}, "
             "and the reason was {reason}.  "
             "You were not charged. Please try a different form of payment.  "
             "Contact us with payment-related questions at {email}."
-        ).format(
-            decision='<span class="decision">{decision}</span>'.format(decision=params['decision']),
-            reason=u'<span class="reason">{reason_code}:{reason_msg}</span>'.format(
+        )).format(
+            decision=HTML('<span class="decision">{decision}</span>').format(decision=params['decision']),
+            reason=HTML(u'<span class="reason">{reason_code}:{reason_msg}</span>').format(
                 reason_code=params['reason_code'],
                 reason_msg=REASONCODE_MAP.get(params['reason_code'])
             ),
@@ -498,37 +499,37 @@ def _get_processor_exception_html(exception):
     payment_support_email = configuration_helpers.get_value('payment_support_email', settings.PAYMENT_SUPPORT_EMAIL)
     if isinstance(exception, CCProcessorDataException):
         return _format_error_html(
-            _(
+            Text(_(
                 u"Sorry! Our payment processor sent us back a payment confirmation that had inconsistent data! "
                 u"We apologize that we cannot verify whether the charge went through and take further action on your order. "
                 u"The specific error message is: {msg} "
                 u"Your credit card may possibly have been charged.  Contact us with payment-specific questions at {email}."
-            ).format(
-                msg=u'<span class="exception_msg">{msg}</span>'.format(msg=text_type(exception)),
+            )).format(
+                msg=HTML(u'<span class="exception_msg">{msg}</span>').format(msg=text_type(exception)),
                 email=payment_support_email
             )
         )
     elif isinstance(exception, CCProcessorWrongAmountException):
         return _format_error_html(
-            _(
+            Text(_(
                 u"Sorry! Due to an error your purchase was charged for a different amount than the order total! "
                 u"The specific error message is: {msg}. "
                 u"Your credit card has probably been charged. Contact us with payment-specific questions at {email}."
-            ).format(
-                msg=u'<span class="exception_msg">{msg}</span>'.format(msg=text_type(exception)),
+            )).format(
+                msg=HTML(u'<span class="exception_msg">{msg}</span>').format(msg=text_type(exception)),
                 email=payment_support_email
             )
         )
     elif isinstance(exception, CCProcessorSignatureException):
         return _format_error_html(
-            _(
+            Text(_(
                 u"Sorry! Our payment processor sent us back a corrupted message regarding your charge, so we are "
                 u"unable to validate that the message actually came from the payment processor. "
                 u"The specific error message is: {msg}. "
                 u"We apologize that we cannot verify whether the charge went through and take further action on your order. "
                 u"Your credit card may possibly have been charged. Contact us with payment-specific questions at {email}."
-            ).format(
-                msg=u'<span class="exception_msg">{msg}</span>'.format(msg=text_type(exception)),
+            )).format(
+                msg=HTML(u'<span class="exception_msg">{msg}</span>').format(msg=text_type(exception)),
                 email=payment_support_email
             )
         )
@@ -562,7 +563,7 @@ def _get_processor_exception_html(exception):
 
 def _format_error_html(msg):
     """ Format an HTML error message """
-    return u'<p class="error_msg">{msg}</p>'.format(msg=msg)
+    return HTML(u'<p class="error_msg">{msg}</p>').format(msg=msg)
 
 
 CARDTYPE_MAP = defaultdict(lambda: "UNKNOWN")

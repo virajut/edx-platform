@@ -17,6 +17,7 @@ from requests import exceptions
 from six import text_type
 
 from third_party_auth.models import SAMLConfiguration, SAMLProviderConfig, SAMLProviderData
+from openedx.core.djangolib.markup import HTML
 
 log = logging.getLogger(__name__)
 
@@ -144,7 +145,7 @@ def _parse_metadata_xml(xml, entity_id):
         entity_desc = xml
     else:
         if xml.tag != etree.QName(SAML_XML_NS, 'EntitiesDescriptor'):
-            raise MetadataParseError(u"Expected root element to be <EntitiesDescriptor>, not {}".format(xml.tag))
+            raise MetadataParseError(HTML(u"Expected root element to be <EntitiesDescriptor>, not {}").format(xml.tag))
         entity_desc = xml.find(
             ".//{}[@entityID='{}']".format(etree.QName(SAML_XML_NS, 'EntityDescriptor'), entity_id)
         )

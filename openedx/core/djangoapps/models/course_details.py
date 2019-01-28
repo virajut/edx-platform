@@ -8,6 +8,7 @@ from django.conf import settings
 
 from xmodule.fields import Date
 from xmodule.modulestore.exceptions import ItemNotFoundError
+from openedx.core.djangolib.markup import HTML
 from openedx.core.lib.courses import course_image_url
 from xmodule.modulestore.django import modulestore
 
@@ -332,8 +333,7 @@ class CourseDetails(object):
         result = None
         if video_key:
             result = (
-                '<iframe title="YouTube Video" width="560" height="315" src="//www.youtube.com/embed/' +
-                video_key +
-                '?rel=0" frameborder="0" allowfullscreen=""></iframe>'
+                HTML(u'<iframe title="YouTube Video" width="560" height="315" src="//www.youtube.com/embed/{}?rel=0" '
+                     'frameborder="0" allowfullscreen=""></iframe>').format(video_key)
             )
         return result

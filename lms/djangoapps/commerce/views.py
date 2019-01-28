@@ -15,6 +15,7 @@ from edxmako.shortcuts import render_to_response
 from lms.djangoapps.verify_student.services import IDVerificationService
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.theming.helpers import is_request_in_themed_site
+from openedx.core.djangolib.markup import HTML
 from shoppingcart.processors.CyberSource2 import is_user_payment_error
 from student.models import CourseEnrollment
 from util.json_request import JsonResponse
@@ -54,7 +55,7 @@ def checkout_receipt(request):
     page_title = _('Receipt')
     is_payment_complete = True
     payment_support_email = configuration_helpers.get_value('payment_support_email', settings.PAYMENT_SUPPORT_EMAIL)
-    payment_support_link = u'<a href=\"mailto:{email}\">{email}</a>'.format(email=payment_support_email)
+    payment_support_link = HTML(u'<a href=\"mailto:{email}\">{email}</a>').format(email=payment_support_email)
 
     is_cybersource = all(k in request.POST for k in ('signed_field_names', 'decision', 'reason_code'))
     if is_cybersource and request.POST['decision'] != 'ACCEPT':

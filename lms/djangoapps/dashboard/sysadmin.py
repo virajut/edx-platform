@@ -39,6 +39,7 @@ from dashboard.models import CourseImportLog
 from edxmako.shortcuts import render_to_response
 from openedx.core.djangoapps.external_auth.models import ExternalAuthMap
 from openedx.core.djangoapps.user_api.accounts.utils import generate_password
+from openedx.core.djangolib.markup import HTML
 from student.models import CourseEnrollment, Registration, UserProfile
 from student.roles import CourseInstructorRole, CourseStaffRole
 from xmodule.modulestore.django import modulestore
@@ -261,14 +262,14 @@ class Users(SysadminDashboardView):
         self.datatable['data'] = [[_('Total number of users'),
                                    User.objects.all().count()]]
 
-        self.msg += u'<h2>{0}</h2>'.format(
+        self.msg += HTML(u'<h2>{0}</h2>').format(
             _('Courses loaded in the modulestore')
         )
-        self.msg += u'<ol>'
+        self.msg += HTML(u'<ol>')
         for course in self.get_courses():
-            self.msg += u'<li>{0} ({1})</li>'.format(
+            self.msg += HTML(u'<li>{0} ({1})</li>').format(
                 escape(text_type(course.id)), text_type(course.location))
-        self.msg += u'</ol>'
+        self.msg += HTML(u'</ol>')
 
     def get(self, request):
 
@@ -303,7 +304,7 @@ class Users(SysadminDashboardView):
             return self.return_csv('users_{0}.csv'.format(
                 request.META['SERVER_NAME']), header, data)
         elif action == 'repair_eamap':
-            self.msg = u'<h4>{0}</h4><pre>{1}</pre>{2}'.format(
+            self.msg = HTML(u'<h4>{0}</h4><pre>{1}</pre>{2}').format(
                 _('Repair Results'),
                 self.fix_external_auth_map_passwords(),
                 self.msg)
@@ -312,12 +313,12 @@ class Users(SysadminDashboardView):
             uname = request.POST.get('student_uname', '').strip()
             name = request.POST.get('student_fullname', '').strip()
             password = request.POST.get('student_password', '').strip()
-            self.msg = u'<h4>{0}</h4><p>{1}</p><hr />{2}'.format(
+            self.msg = HTML(u'<h4>{0}</h4><p>{1}</p><hr />{2}').format(
                 _('Create User Results'),
                 self.create_user(uname, name, password), self.msg)
         elif action == 'del_user':
             uname = request.POST.get('student_uname', '').strip()
-            self.msg = u'<h4>{0}</h4><p>{1}</p><hr />{2}'.format(
+            self.msg = HTML(u'<h4>{0}</h4><p>{1}</p><hr />{2}').format(
                 _('Delete User Results'), self.delete_user(uname), self.msg)
 
         context = {
@@ -418,8 +419,8 @@ class Courses(SysadminDashboardView):
             msg_header = _('Added Course')
             color = 'blue'
 
-        msg = u"<h4 style='color:{0}'>{1}</h4>".format(color, msg_header)
-        msg += u"<pre>{0}</pre>".format(escape(ret))
+        msg = HTML(u"<h4 style='color:{0}'>{1}</h4>").format(color, msg_header)
+        msg += HTML(u"<pre>{0}</pre>").format(escape(ret))
         return msg
 
     def make_datatable(self):
@@ -485,7 +486,7 @@ class Courses(SysadminDashboardView):
                     course_found = True
                 except Exception as err:   # pylint: disable=broad-except
                     self.msg += _(
-                        'Error - cannot get course with ID {0}<br/><pre>{1}</pre>'
+                        HTML('Error - cannot get course with ID {0}<br/><pre>{1}</pre>')
                     ).format(
                         course_key,
                         escape(str(err))
@@ -496,7 +497,7 @@ class Courses(SysadminDashboardView):
                 self.def_ms.delete_course(course.id, request.user.id)
                 # don't delete user permission groups, though
                 self.msg += \
-                    u"<font color='red'>{0} {1} = {2} ({3})</font>".format(
+                    HTML(u"<font color='red'>{0} {1} = {2} ({3})</font>").format(
                         _('Deleted'), text_type(course.location), text_type(course.id), course.display_name)
 
         context = {

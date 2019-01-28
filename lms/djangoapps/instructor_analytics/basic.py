@@ -13,6 +13,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.urls import reverse
 from django.db.models import Count, Q
 from edx_proctoring.api import get_exam_violation_report
+from markupsafe import escape
 from opaque_keys.edx.keys import UsageKey
 from six import text_type
 
@@ -22,6 +23,7 @@ from courseware.models import StudentModule
 from lms.djangoapps.grades.context import grading_context_for_course
 from lms.djangoapps.verify_student.services import IDVerificationService
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.markup import HTML
 from shoppingcart.models import (
     CouponRedemption,
     CourseRegCodeItem,
@@ -548,5 +550,5 @@ def dump_grading_context(course):
                 % (sdesc.display_name, frmat, aname, notes)
     msg += "all graded blocks:\n"
     msg += "length=%d\n" % gcontext['count_all_graded_blocks']
-    msg = '<pre>%s</pre>' % msg.replace('<', '&lt;')
+    msg = HTML('<pre>%s</pre>')
     return msg

@@ -21,6 +21,7 @@ from lms.djangoapps import django_comment_client
 from openedx.core.djangoapps.catalog.models import CatalogIntegration
 from openedx.core.djangoapps.lang_pref.api import get_closest_released_language
 from openedx.core.djangoapps.models.course_details import CourseDetails
+from openedx.core.djangolib.markup import Text
 from static_replace.models import AssetBaseUrlConfig
 from xmodule import course_metadata_utils, block_metadata_utils
 from xmodule.course_module import CourseDescriptor, DEFAULT_START_DATE
@@ -409,7 +410,7 @@ class CourseOverview(TimeStampedModel):
         migrate and test switching to display_name_with_default, which is no
         longer escaped.
         """
-        return block_metadata_utils.display_name_with_default_escaped(self)
+        return Text(block_metadata_utils.display_name_with_default(self))
 
     @property
     def dashboard_start_display(self):

@@ -846,7 +846,7 @@ class EdxNotesHelpersTest(ModuleStoreTestCase):
 
         mock_chapter = MagicMock()
         mock_chapter.url_name = 'chapter_url_name'
-        mock_chapter.display_name_with_default_escaped = 'Test Chapter Display Name'
+        mock_chapter.display_name_with_default = 'Test Chapter Display Name'
 
         mock_course_module.get_display_items.return_value = [mock_chapter]
 
