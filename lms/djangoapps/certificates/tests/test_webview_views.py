@@ -980,7 +980,7 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
             day=expected_date.day,
             year=expected_date.year
         )
-        self.assertIn(date, response.content)
+        self.assertIn(date, response.content.decode(response.charset))
 
     @override_settings(FEATURES=FEATURES_WITH_CERTS_ENABLED)
     def test_render_html_view_invalid_certificate_configuration(self):

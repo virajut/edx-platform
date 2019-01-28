@@ -887,7 +887,10 @@ class CourseHomeFragmentViewTests(ModuleStoreTestCase):
         url = EcommerceService().get_checkout_page_url(self.verified_mode.sku)
         self.assertIn('<a class="btn-brand btn-upgrade"', response.content)
         self.assertIn(url, response.content)
-        self.assertIn(u'Upgrade (${price})'.format(price=self.verified_mode.min_price), response.content)
+        self.assertIn(
+            u'Upgrade (${price})'.format(price=self.verified_mode.min_price),
+            response.content.decode(response.charset)
+        )
 
     def test_no_upgrade_message_if_logged_out(self):
         self.client.logout()

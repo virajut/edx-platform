@@ -1271,9 +1271,12 @@ class ShoppingCartViewsTests(SharedModuleStoreTestCase, XssTestMixin):
         self.assertIn(self.cart.company_contact_name, resp.content)
         self.assertIn(self.cart.company_contact_email, resp.content)
         self.assertIn(self.cart.recipient_email, resp.content)
-        self.assertIn(u"Invoice #{order_id}".format(order_id=self.cart.id), resp.content)
-        self.assertIn(u'You have successfully purchased <b>{total_registration_codes} course registration codes'
-                      .format(total_registration_codes=context['total_registration_codes']), resp.content)
+        self.assertIn(u"Invoice #{order_id}".format(order_id=self.cart.id), resp.content.decode(resp.charset))
+        codes_string = u'You have successfully purchased <b>{total_registration_codes} course registration codes'
+        self.assertIn(codes_string.format(
+            total_registration_codes=context['total_registration_codes']),
+            resp.content.decode(resp.charset)
+        )
 
         # now redeem one of registration code from the previous order
         redeem_url = reverse('register_code_redemption', args=[context['reg_code_info_list'][0]['code']])
@@ -1638,7 +1641,9 @@ class ShoppingcartViewsClosedEnrollment(ModuleStoreTestCase):
         # coupon redemption entry should also be deleted when the item is expired.
         resp = self.client.get(reverse('shoppingcart.views.show_cart', args=[]))
         self.assertEqual(resp.status_code, 200)
-        self.assertIn("{course_name} has been removed because the enrollment period has closed.".format(course_name=self.testing_course.display_name), resp.content)
+        self.assertIn("{course_name} has been removed because the enrollment period has closed.".format(
+            course_name=self.testing_course.display_name), resp.content.decode(resp.charset)
+        )
 
         # now the redemption entry should be deleted from the table.
         coupon_redemption = CouponRedemption.objects.filter(coupon__course_id=expired_course_item.course_id,
@@ -1678,7 +1683,12 @@ class ShoppingcartViewsClosedEnrollment(ModuleStoreTestCase):
 
         resp = self.client.get(reverse('shoppingcart.views.show_cart', args=[]))
         self.assertEqual(resp.status_code, 200)
-        self.assertIn(u"{course_name} has been removed because the enrollment period has closed.".format(course_name=self.testing_course.display_name), resp.content)
+        self.assertIn(
+            u"{course_name} has been removed because the enrollment period has closed.".format(
+                course_name=self.testing_course.display_name
+            ),
+            resp.content.decode(resp.charset)
+        )
         self.assertIn('40.00', resp.content)
 
     def test_is_enrollment_closed_when_order_type_is_business(self):

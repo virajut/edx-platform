@@ -142,8 +142,8 @@ def _update_certificate_context(context, course, user_certificate, platform_name
 
     # Translators: This text describes the purpose (and therefore, value) of a course certificate
     context['certificate_info_description'] = _(u"{platform_name} acknowledges achievements through "
-                                                 "certificates, which are awarded for course activities "
-                                                 "that {platform_name} students complete.").format(
+                                                "certificates, which are awarded for course activities "
+                                                "that {platform_name} students complete.").format(
         platform_name=platform_name,
         tos_url=context.get('company_tos_url'),
         verified_cert_url=context.get('company_verified_certificate_url'))

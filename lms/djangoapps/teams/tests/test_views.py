@@ -410,7 +410,7 @@ class TeamAPITestCase(APITestCase, SharedModuleStoreTestCase):
             msg=u"Expected status {expected} but got {actual}: {content}".format(
                 expected=expected_status,
                 actual=response.status_code,
-                content=response.content,
+                content=response.content.decode(response.charset),
             )
         )
 

@@ -125,7 +125,10 @@ class SplitTestBase(SharedModuleStoreTestCase):
         content = resp.content
 
         # Assert we see the proper icon in the top display
-        self.assertIn(u'<button class="{} inactive nav-item tab"'.format(self.ICON_CLASSES[user_tag]), content)
+        self.assertIn(
+            u'<button class="{} inactive nav-item tab"'.format(self.ICON_CLASSES[user_tag]),
+            content.decode(resp.charset)
+        )
         # And proper tooltips
         for tooltip in self.TOOLTIPS[user_tag]:
             self.assertIn(tooltip, content)
